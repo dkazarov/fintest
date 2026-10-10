@@ -669,7 +669,7 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     <section class="hero">
       <div class="hero-label">Можна витратити сьогодні</div>
       <div class="hero-amount" id="availableToday">0 грн</div>
-      <div class="hero-meta"><span id="dailyPlanText">Денний бюджет: 0 грн</span><span id="nextIncomeText">До надходження: —</span></div>
+      <div class="hero-meta"><span id="dailyPlanText">Денний бюджет: 0 грн</span><span id="nextIncomeText">До наступного надходження: —</span></div>
       <div class="progress" id="progress" role="progressbar" aria-label="Використано денного бюджету" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
     </section>
     <div class="spent-today" id="spentTodayText">Сьогодні витрачено 0 грн</div>
@@ -998,7 +998,7 @@ function renderHome(){
  $('todayLabel').textContent=new Intl.DateTimeFormat('uk-UA',{weekday:'long',day:'numeric',month:'long'}).format(new Date());
  const includedAccounts=state.accounts.filter(a=>a.includeInBudget!==false).length;$('headerBalance').textContent=`${includedAccounts} рах. у бюджеті`;
  $('availableToday').innerHTML=heroMoney(d.available);$('dailyPlanText').textContent=`Денний бюджет: ${money(d.dailyPlan)}`;
- $('nextIncomeText').textContent=`До надходження: ${d.days} ${d.days===1?'день':d.days<5?'дні':'днів'}`;
+ $('nextIncomeText').textContent=`До наступного надходження: ${d.days} ${d.days===1?'день':d.days<5?'дні':'днів'}`;
  updateSpentTodayBadge(d.spentToday,d.dailyPlan); updateProgressColor(d.spentToday,d.dailyPlan);
  const pct=d.dailyPlan>0?Math.min(100,d.spentToday/d.dailyPlan*100):0;$('progressFill').style.width=`${pct}%`;$('progress').setAttribute('aria-valuenow',String(Math.round(pct)));
  $('currentBalance').textContent=money(d.balance);$('currentBalance').classList.toggle('negative-balance',Number(d.balance)<0);const expensesTotal=sumTransactions('expense',{from:month,to:today});$('totalExpenses').textContent=money(expensesTotal);adaptMoneyFont($('currentBalance'),d.balance);adaptMoneyFont($('totalExpenses'),expensesTotal);
@@ -1205,5 +1205,60 @@ if(!state.transactions.length&&!state.hasConfiguredBudget&&state.accounts.length
 }scheduleMidnight();
 })();
 </script>
+
+<style>
+/* v24 transaction layout refinements */
+.transaction-actions{gap:.28rem!important;column-gap:.28rem!important}
+/* Amount sits at the top; edit/delete actions sit at the bottom of the transaction card. */
+.transaction{align-items:stretch!important}
+.transaction-main{align-self:stretch!important;display:flex;flex-direction:column;justify-content:flex-start}
+.transaction-amount{align-self:flex-start!important;font-size:calc(clamp(1.08rem,3.6vw,1.22rem) * 1.02)!important}
+.transaction-actions{align-self:stretch!important;display:flex;flex-direction:column;justify-content:space-between;align-items:center}
+.transaction-icon svg{width:calc(1.326rem * 1.05)!important;height:calc(1.326rem * 1.05)!important}
+@media(max-width:520px){
+  .transaction-amount{font-size:calc(1.04rem * 1.02)!important}
+  .transaction-icon svg{width:calc(1.203rem * 1.05)!important;height:calc(1.203rem * 1.05)!important}
+}
+@media(max-width:360px){
+  .transaction-amount{font-size:calc(.96rem * 1.02)!important}
+  .transaction-icon svg{width:calc(1.18rem * 1.05)!important;height:calc(1.18rem * 1.05)!important}
+}
+</style>
+
+
+<style>
+/* v25: keep edit/delete icons in one row at the bottom of the transaction card */
+.transaction{align-items:stretch!important}
+.transaction-main{align-self:stretch!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;min-height:3.5rem}
+.transaction-amount{align-self:flex-start!important}
+.transaction-actions{align-self:stretch!important;display:flex!important;flex-direction:row!important;justify-content:flex-end!important;align-items:flex-end!important;gap:.22rem!important;column-gap:.22rem!important;margin-top:auto!important}
+.transaction-actions button,.transaction-actions .icon-button,.transaction-edit,.transaction-delete{flex:0 0 auto}
+.transaction-icon svg{width:calc(1.326rem * 1.10)!important;height:calc(1.326rem * 1.10)!important}
+@media(max-width:520px){
+  .transaction-main{min-height:3.25rem}
+  .transaction-actions{gap:.18rem!important;column-gap:.18rem!important}
+  .transaction-icon svg{width:calc(1.203rem * 1.10)!important;height:calc(1.203rem * 1.10)!important}
+}
+@media(max-width:360px){
+  .transaction-main{min-height:3rem}
+  .transaction-icon svg{width:calc(1.18rem * 1.10)!important;height:calc(1.18rem * 1.10)!important}
+}
+</style>
+
 </body>
 </html>
+
+<style>
+/* v23 refinements */
+#currentBalance{font-size:clamp(1.12rem,4.1vw,1.58rem)!important;letter-spacing:-.04em!important;line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap}
+.expense-month-panel #totalExpenses{font-size:clamp(1.12rem,4.1vw,1.58rem)!important;letter-spacing:-.04em!important;line-height:1.15;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:clip; font-variant-numeric:tabular-nums}
+@media(max-width:360px){#currentBalance,.expense-month-panel #totalExpenses{font-size:clamp(.96rem,4.1vw,1.12rem)!important}}
+/* Give the spent-today chip a little more breathing room vertically. */
+.spent-today{margin-top:.35rem!important;margin-bottom:.8rem!important}
+/* Slightly stronger transaction title and amount without making rows oversized. */
+.transaction-title{font-size:clamp(1.05rem,3.3vw,1.16rem)!important;line-height:1.3!important}
+.transaction-amount{font-size:clamp(1.08rem,3.6vw,1.22rem)!important;line-height:1.22!important}
+.transaction-icon svg{width:1.326rem!important;height:1.326rem!important}
+@media(max-width:520px){.transaction-title{font-size:1.02rem!important}.transaction-amount{font-size:1.04rem!important}.transaction-icon svg{width:1.203rem!important;height:1.203rem!important}}
+@media(max-width:360px){.transaction-title,.transaction-amount{font-size:.96rem!important}.transaction-icon svg{width:1.18rem!important;height:1.18rem!important}}
+</style>
