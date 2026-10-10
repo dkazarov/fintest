@@ -458,6 +458,33 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 .stats>.panel:first-child>.muted{align-self:flex-start;text-align:left}
 .stats>.panel:first-child>.stat-value{align-self:center;text-align:center}
 
+
+/* v11 refinements */
+.expense-month-panel:before{display:none!important;content:none!important}
+.brand-lockup{gap:0!important}
+.brand-tagline{font-size:.9rem!important;line-height:1.2;margin-top:.18rem!important}
+.brand{margin-bottom:0}
+.hero-amount .currency,.hero-amount .currency-label,.hero-amount .currency-unit{font-size:.16em!important;font-weight:650!important;opacity:.5!important;letter-spacing:0!important;vertical-align:baseline;white-space:nowrap}
+.transaction-card,.transaction-item,.transaction-row{padding:1rem!important}
+.transaction-title{font-size:clamp(1.12rem,3.4vw,1.22rem)!important;font-weight:850!important;line-height:1.3}
+.transaction-amount{font-size:clamp(1.35rem,4.4vw,1.55rem)!important;font-weight:900!important;letter-spacing:-.035em}
+.transaction-meta,.transaction-badges,.transaction-tags{display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:.35rem;min-width:0;max-width:100%;overflow:visible}
+.transaction-meta .badge,.transaction-badges .badge,.transaction-tags .badge{flex:0 1 auto;min-width:0;max-width:100%;width:auto;white-space:normal;overflow-wrap:anywhere;text-overflow:clip}
+.transaction-icon,.category-icon,.transaction-category-icon{width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;display:grid;place-items:center;flex:0 0 28px}
+.transaction-icon svg,.category-icon svg,.transaction-category-icon svg{width:19px!important;height:19px!important;stroke-width:2.2}
+.transaction-actions button,.transaction-actions .icon-button,.transaction-edit,.transaction-delete{width:2.35rem;min-width:2.35rem;height:2.35rem;min-height:2.35rem}
+.transaction-actions svg,.transaction-edit svg,.transaction-delete svg{width:1.2rem;height:1.2rem;stroke-width:2.2}
+.transaction-icon{margin-right:.65rem!important}
+.transaction-row,.transaction-item,.transaction-card{column-gap:.85rem}
+.transaction-main,.transaction-content{min-width:0;flex:1}
+@media(max-width:520px){
+ .brand-tagline{font-size:.82rem!important}
+ .transaction-card,.transaction-item,.transaction-row{padding:.9rem!important}
+ .transaction-title{font-size:1.12rem!important}
+ .transaction-amount{font-size:1.38rem!important}
+ .transaction-actions button,.transaction-actions .icon-button,.transaction-edit,.transaction-delete{width:2.2rem;min-width:2.2rem;height:2.2rem;min-height:2.2rem}
+}
+
 </style>
 </head>
 <body>
