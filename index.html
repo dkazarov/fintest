@@ -256,6 +256,64 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
  .date-pill{font-size:.64rem;padding:.32rem .38rem}
 }
 
+
+/* v7 refinements */
+.brand-lockup{gap:clamp(.65rem,2.5vw,1rem)}
+.brand-mark{width:clamp(3.25rem,12vw,4.1rem);height:clamp(3.25rem,12vw,4.1rem);border-radius:1.15rem;filter:drop-shadow(0 5px 12px #20e0b225)}
+.brand{font-size:clamp(2rem,7.2vw,2.65rem);font-weight:950;letter-spacing:-.075em}
+.brand-tagline{font-size:clamp(.66rem,2.35vw,.86rem);margin-top:.38rem}
+.hero{position:relative;isolation:isolate;overflow:hidden;padding:clamp(1.2rem,4vw,1.8rem);background:linear-gradient(135deg,#f2edff 0%,#e7e0ff 35%,#e2fbf2 100%);border:1px solid #d1c3fa;box-shadow:0 18px 44px #5b419b1a,inset 0 1px 0 #ffffff}
+.hero:before{content:"";position:absolute;z-index:-1;width:15rem;height:15rem;right:-5rem;top:-7rem;border-radius:50%;background:radial-gradient(circle,#bca7ff66 0%,#bca7ff00 72%);pointer-events:none}
+.hero:after{content:"";position:absolute;z-index:-1;width:13rem;height:13rem;left:-6rem;bottom:-8rem;border-radius:50%;background:radial-gradient(circle,#8be9cf55 0%,#8be9cf00 72%);pointer-events:none}
+.hero-label{font-size:clamp(.98rem,3vw,1.12rem);font-weight:800;color:#5b438a}
+.hero-amount{display:flex;align-items:baseline;gap:.35rem;flex-wrap:wrap;font-size:clamp(2.7rem,10vw,4.25rem);line-height:1.05;letter-spacing:-.06em;color:#2e1c50;text-shadow:0 2px 0 #fff7}
+.hero-amount .currency,.hero-amount .currency-label{font-size:.32em;font-weight:750;letter-spacing:0;color:#82749f;text-shadow:none}
+.hero .progress-track{background:#d5cbed}
+.hero .progress-fill{background:linear-gradient(90deg,#8b68e8,#20b486)}
+.hero .muted{color:#75678e}
+:root[data-theme="dark"] .hero{background:linear-gradient(135deg,#211438 0%,#171529 48%,#092e29 120%);border-color:#453267;box-shadow:0 20px 48px #0008,inset 0 1px 0 #ffffff0c}
+:root[data-theme="dark"] .hero:before{background:radial-gradient(circle,#8e65e744 0%,#8e65e700 72%)}
+:root[data-theme="dark"] .hero:after{background:radial-gradient(circle,#16c99a2b 0%,#16c99a00 72%)}
+:root[data-theme="dark"] .hero-label{color:#d6c7ff}
+:root[data-theme="dark"] .hero-amount{color:#fffaff;text-shadow:0 2px 16px #a88aff25}
+:root[data-theme="dark"] .hero-amount .currency,:root[data-theme="dark"] .hero-amount .currency-label{color:#a69bbf}
+:root[data-theme="dark"] .hero .progress-track{background:#29233e}
+:root[data-theme="dark"] .hero .muted{color:#aaa0c6}
+.expense-month-head{align-items:center}
+.expense-month-head .muted{display:flex;align-items:center;min-height:1.45rem;font-size:.88rem;font-weight:800}
+.hint-tooltip{align-self:center;width:1.25rem;height:1.25rem;margin-left:.2rem}
+.hint-tooltip svg{width:.9rem;height:.9rem}
+.hint-tooltip:after{right:0;top:calc(100% + .6rem);width:min(18rem,calc(100vw - 3rem));overflow-wrap:anywhere;white-space:normal}
+.hint-tooltip:before{right:.2rem;top:calc(100% + .3rem)}
+/* On desktop, anchor the tooltip above the trigger so it cannot be clipped by card edges. */
+@media(min-width:700px){
+ .expense-month-panel,.expense-month-head{overflow:visible}
+ .hint-tooltip:after{top:auto;bottom:calc(100% + .65rem);right:-.25rem;width:18rem;max-width:calc(100vw - 3rem);transform:translateY(4px)}
+ .hint-tooltip:before{top:auto;bottom:calc(100% + .35rem);right:.15rem;border:5px solid transparent;border-top-color:#2e2545;border-bottom-color:transparent}
+ .hint-tooltip:hover:after,.hint-tooltip:focus-visible:after{transform:translateY(0)}
+ :root[data-theme="dark"] .hint-tooltip:before{border-top-color:#382a57;border-bottom-color:transparent}
+}
+.transaction-title{font-size:clamp(1.02rem,3.1vw,1.12rem);font-weight:800;line-height:1.3}
+.transaction-amount{font-size:clamp(1.22rem,4vw,1.42rem);font-weight:900;letter-spacing:-.025em}
+.transaction-meta,.transaction-badges,.transaction-tags{display:flex;align-items:center;flex-wrap:nowrap;gap:.35rem;min-width:0;max-width:100%;overflow:hidden}
+.transaction-meta .badge,.transaction-badges .badge,.transaction-tags .badge{flex:0 1 auto;min-width:0;max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.72rem}
+.transaction-title,.transaction-main{min-width:0}
+.account-card,.account-item,.account-row{font-size:1.02rem}
+.account-card .account-name,.account-item .account-name,.account-row .account-name{font-size:1.08rem;font-weight:800}
+.account-card .muted,.account-item .muted,.account-row .muted{font-size:.88rem}
+.account-card .stat-value,.account-item .stat-value,.account-row .stat-value{font-size:1.35rem;font-weight:850}
+@media(max-width:520px){
+ .brand-mark{width:3rem;height:3rem}
+ .brand{font-size:1.95rem}
+ .brand-tagline{font-size:.63rem}
+ .hero{padding:1.1rem}
+ .hero-amount{font-size:clamp(2.5rem,9.5vw,3.5rem)}
+ .transaction-meta,.transaction-badges,.transaction-tags{gap:.25rem}
+ .transaction-meta .badge,.transaction-badges .badge,.transaction-tags .badge{font-size:.66rem;padding:.2rem .42rem}
+}
+
+
+:root[data-theme="dark"] .brand-mark rect{fill:#092b27;stroke:#0e5b4c}
 </style>
 </head>
 <body>
@@ -263,11 +321,10 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
   <header class="topbar">
     <div class="brand-lockup">
       <svg class="brand-mark" viewBox="0 0 48 48" role="img" aria-label="Finday">
-        <rect x="1" y="1" width="46" height="46" rx="15" fill="#0c2825"/>
-        <circle cx="24" cy="24" r="15.5" fill="none" stroke="#20e0b2" stroke-width="2.8"/>
-        <circle cx="24" cy="24" r="9.5" fill="none" stroke="#20e0b2" stroke-width="2.8" opacity=".82"/>
-        <circle cx="24" cy="24" r="3.4" fill="#20e0b2"/>
-        <path d="M24 5.8v5.5M42.2 24h-5.5M24 42.2v-5.5M5.8 24h5.5" stroke="#a3ffe8" stroke-width="1.8" stroke-linecap="round"/>
+        <rect x="1" y="1" width="46" height="46" rx="15" fill="#092b27" stroke="#0e5b4c" stroke-width="1.2"/>
+        <circle cx="24" cy="24" r="12.6" fill="none" stroke="#f7fffc" stroke-width="2.5"/>
+        <circle cx="24" cy="24" r="7.7" fill="none" stroke="#f7fffc" stroke-width="2.5"/>
+        <circle cx="24" cy="24" r="2.8" fill="none" stroke="#f7fffc" stroke-width="2.4"/>
       </svg>
       <div class="brand-content">
         <div class="brand"><span class="brand-fin">Fin</span><span class="brand-day">daY</span></div>
@@ -288,7 +345,7 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     <section class="stats">
       <div class="panel"><div class="muted">Баланс у бюджеті</div><div class="stat-value" id="currentBalance">0 грн</div></div>
       <div class="panel expense-month-panel">
-        <div class="expense-month-head"><div class="muted">Витрати цього місяця</div><span class="hint-tooltip" tabindex="0" aria-label="Пояснення розрахунку витрат" data-tooltip="Від 1-го числа поточного місяця до сьогодні. Враховуються всі рахунки, навіть виключені з бюджету."><i data-lucide="info"></i></span></div>
+        <div class="expense-month-head"><div class="muted">Усі витрати</div><span class="hint-tooltip" tabindex="0" aria-label="Пояснення розрахунку витрат" data-tooltip="Від 1-го числа поточного місяця до сьогодні. Враховуються всі рахунки, навіть виключені з бюджету."><i data-lucide="info"></i></span></div>
         <div class="stat-value" id="totalExpenses">0 грн</div>
       </div>
     </section>
