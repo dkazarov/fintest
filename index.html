@@ -54,6 +54,7 @@
     }
     @media(max-width:360px){.transaction{grid-template-columns:2.1rem minmax(0,1fr) minmax(5.6rem,auto);gap:.4rem;padding:.7rem .55rem}.transaction-icon{width:2.05rem;height:2.05rem}.transaction-title{font-size:.86rem}.transaction-amount{font-size:.76rem}}
 
+    .danger-zone{margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border)}.danger-zone-title{font-size:.9rem;font-weight:750;color:#c24141;margin-bottom:.25rem}.danger-zone-copy{font-size:.8rem;color:var(--muted);margin:0 0 .75rem}.button.danger{background:#fff0f0;color:#b42323;border-color:#f2caca}.button.danger:hover{background:#ffe2e2}.confirm-icon{display:grid;place-items:center;width:3rem;height:3rem;border-radius:1rem;background:#fff0f0;color:#c24141;margin-bottom:1rem}.confirm-copy{color:var(--muted);margin:.5rem 0 0}.confirm-actions{display:flex;justify-content:flex-end;gap:.6rem;flex-wrap:wrap;margin-top:1.25rem}.button.danger-solid{background:#c93636;color:white;border-color:#c93636}.button.danger-solid:hover{background:#ad2929}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
@@ -91,6 +92,11 @@
         <div class="notice" id="settingsError" role="alert"></div>
         <p class="note">Введена сума стане поточним балансом. Історія операцій при цьому збережеться.</p>
         <div class="dialog-actions"><button class="button" type="button" id="cancelSettingsBtn">Скасувати</button><button class="button primary" type="submit">Зберегти налаштування</button></div>
+        <div class="danger-zone">
+          <div class="danger-zone-title">Небезпечна дія</div>
+          <p class="danger-zone-copy">Видали історію операцій, налаштування та власні категорії, щоб почати з нуля.</p>
+          <button class="button danger" type="button" id="openClearDataBtn"><i data-lucide="trash-2" aria-hidden="true"></i> Видалити всі дані</button>
+        </div>
       </form>
     </section>
   </div>
@@ -119,6 +125,14 @@
       <div class="field reminder-date"><label for="reminderNextDate">Дата наступного надходження</label><input id="reminderNextDate" type="date"></div>
       <div class="notice" id="reminderError" role="alert"></div>
       <div class="dialog-actions"><button class="button" type="button" id="remindLaterBtn">Нагадайте пізніше</button><button class="button primary" type="button" id="saveNextDateBtn">Оновити бюджет</button></div>
+    </section>
+  </div>
+  <div class="modal-backdrop" id="clearDataModal" aria-hidden="true">
+    <section class="modal" role="alertdialog" aria-modal="true" aria-labelledby="clearDataTitle" aria-describedby="clearDataDescription">
+      <div class="confirm-icon" aria-hidden="true"><i data-lucide="alert-triangle"></i></div>
+      <h2 id="clearDataTitle">Видалити всі дані?</h2>
+      <p class="confirm-copy" id="clearDataDescription">Усі операції, початковий баланс, дата надходження та власні категорії будуть видалені. Додаток повернеться до початкового стану. Цю дію неможливо скасувати.</p>
+      <div class="confirm-actions"><button class="button" type="button" id="cancelClearDataBtn">Скасувати</button><button class="button danger-solid" type="button" id="confirmClearDataBtn"><i data-lucide="trash-2" aria-hidden="true"></i> Так, видалити все</button></div>
     </section>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -216,6 +230,30 @@
     function closeSettings(){settingsModal.classList.remove('open');settingsModal.setAttribute('aria-hidden','true');document.body.style.overflow='';$('openSettingsBtn').focus({preventScroll:true});}
     $('openSettingsBtn').addEventListener('click',openSettings);$('closeSettingsBtn').addEventListener('click',closeSettings);$('cancelSettingsBtn').addEventListener('click',closeSettings);
     settingsModal.addEventListener('click',e=>{if(e.target===settingsModal)closeSettings();});
+    const clearDataModal=$('clearDataModal');
+    function openClearDataConfirmation(){
+      clearDataModal.classList.add('open');clearDataModal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+      if(window.lucide)window.lucide.createIcons();
+      setTimeout(()=>$('cancelClearDataBtn').focus(),50);
+    }
+    function closeClearDataConfirmation(){
+      clearDataModal.classList.remove('open');clearDataModal.setAttribute('aria-hidden','true');
+      document.body.style.overflow=(settingsModal.classList.contains('open')||modal.classList.contains('open')||reminderModal.classList.contains('open'))?'hidden':'';
+      $('openClearDataBtn').focus({preventScroll:true});
+    }
+    $('openClearDataBtn').addEventListener('click',openClearDataConfirmation);
+    $('cancelClearDataBtn').addEventListener('click',closeClearDataConfirmation);
+    clearDataModal.addEventListener('click',e=>{if(e.target===clearDataModal)closeClearDataConfirmation();});
+    $('confirmClearDataBtn').addEventListener('click',()=>{
+      const previousState=state;
+      state=defaultState();
+      if(!persist()){state=previousState;return;}
+      closeClearDataConfirmation();
+      closeSettings();
+      render();
+      showToast('Усі дані видалено. Можна починати спочатку.');
+    });
     settingsForm.addEventListener('submit',e=>{
       e.preventDefault();const amountRaw=$('startingBalance').value.trim(),amount=Number(amountRaw),date=$('nextIncomeDate').value;
       if(amountRaw===''||!Number.isFinite(amount)||amount<0){showError('settingsError','Вкажи коректну суму, не меншу за 0 грн.');return;}
@@ -245,7 +283,11 @@
     function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';editingTransactionId=null;$('addTransactionBtn').focus({preventScroll:true});}
     $('addTransactionBtn').addEventListener('click',()=>openModal());$('closeDialogBtn').addEventListener('click',closeModal);$('cancelDialogBtn').addEventListener('click',closeModal);
     modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();if(e.key==='Escape'&&settingsModal.classList.contains('open'))closeSettings();});
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape'&&clearDataModal.classList.contains('open')){closeClearDataConfirmation();return;}
+      if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();
+      if(e.key==='Escape'&&settingsModal.classList.contains('open'))closeSettings();
+    });
     $('transactionCategory').addEventListener('change',()=>{const isNew=$('transactionCategory').value==='__new_category__';$('newCategoryField').hidden=!isNew;if(isNew)$('newCategoryName').focus();});
     $('addCategoryBtn').addEventListener('click',()=>{
       const name=$('newCategoryName').value.trim();if(!name){showError('transactionError','Введи назву власної категорії.');$('newCategoryName').focus();return;}
