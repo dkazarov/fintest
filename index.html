@@ -314,6 +314,58 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 
 
 :root[data-theme="dark"] .brand-mark rect{fill:#092b27;stroke:#0e5b4c}
+
+/* v8 refinements */
+.brand-tagline{font-size:clamp(.72rem,2.55vw,.93rem)}
+.topbar-meta #headerBalance{font-size:clamp(.8rem,2.8vw,.92rem);font-weight:750}
+.hero{display:flex;flex-direction:column;justify-content:center;text-align:center;min-height:17rem}
+.hero-label{text-align:center}
+.hero-amount{justify-content:center;text-align:center;font-size:clamp(3rem,11vw,4.65rem);line-height:1.04;margin:.65rem 0}
+.hero-amount .currency,.hero-amount .currency-label{font-size:.16em;font-weight:650;opacity:.5;letter-spacing:0;vertical-align:baseline}
+.hero-meta{justify-content:center}
+.hero .progress-track{width:100%}
+.hero .spent-today{align-self:center}
+.spent-today{display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:.4rem}
+.spent-today .spent-label,.spent-today .spent-value{display:inline-flex;align-items:center;min-height:1.6rem;padding:.25rem .55rem;border-radius:.55rem;background:#ffffffa8;border:1px solid #d7ccf2;color:#57417f;font-weight:800}
+.spent-today .spent-dot{display:inline-block;width:.46rem;height:.46rem;flex:0 0 auto;border-radius:50%;background:#20b486;box-shadow:0 0 0 3px #20b48620;transition:width .15s,height .15s,background .15s,box-shadow .15s}
+.spent-today .spent-dot.high{width:.68rem;height:.68rem;background:#ef4444;box-shadow:0 0 0 4px #ef444426}
+:root[data-theme="dark"] .spent-today .spent-label,:root[data-theme="dark"] .spent-today .spent-value{background:#1a302f;border-color:#345d56;color:#d9fff1}
+:root[data-theme="dark"] .spent-today{border-color:#2c5a50;background:linear-gradient(110deg,#142321,#111923)}
+/* Keep the monthly expenses tooltip above card clipping contexts. */
+.expense-month-panel,.expense-month-head,.stats{overflow:visible!important}
+.hint-tooltip{z-index:40}
+.hint-tooltip:after{z-index:100;max-width:min(18rem,calc(100vw - 2rem));overflow-wrap:break-word}
+@media(min-width:700px){
+ .hint-tooltip:after{right:50%;transform:translate(50%,4px);bottom:calc(100% + .7rem);top:auto}
+ .hint-tooltip:before{right:50%;transform:translateX(50%);bottom:calc(100% + .4rem);top:auto}
+ .hint-tooltip:hover:after,.hint-tooltip:focus-visible:after{transform:translate(50%,0)}
+}
+.category-badge,.account-badge,.badge-category,.badge-account{font-size:.78rem!important;font-weight:750}
+.transaction-icon{width:2.65rem;height:2.65rem;min-width:2.65rem}
+.transaction-icon svg{width:1.55rem;height:1.55rem;stroke-width:2.25}
+.account-card .account-name,.account-item .account-name,.account-row .account-name{font-size:1.16rem;font-weight:850}
+.account-card .stat-value,.account-item .stat-value,.account-row .stat-value{font-size:1.48rem;font-weight:900}
+.account-card .muted,.account-item .muted,.account-row .muted{font-size:.93rem}
+:root[data-theme="dark"]{
+ --bg:#101214;--surface:#171a1d;--surface2:#202629;--border:#30393b;--text:#f2f6f5;--muted:#a6b5b3;--accent:#2ee5b2;--accent-soft:#173b32;--danger:#ff8295;--danger-soft:#402329;--glass:rgba(19,23,24,.93);--glass-border:rgba(73,131,117,.25);--glass-shadow:0 14px 36px rgba(0,0,0,.42),0 2px 9px rgba(0,0,0,.22)
+}
+:root[data-theme="dark"] body{background:radial-gradient(ellipse at 3% 0%,#12382f 0,transparent 26rem),radial-gradient(ellipse at 100% 22%,#18313a 0,transparent 24rem),radial-gradient(ellipse at 65% 100%,#17342e 0,transparent 29rem),#101214;color:var(--text)}
+:root[data-theme="dark"] .panel,:root[data-theme="dark"] .settings-group{background:linear-gradient(145deg,#1b2022 0%,#15181a 65%,#14231f 140%);border-color:#303b3b;box-shadow:0 10px 28px #0003,inset 0 1px 0 #ffffff05}
+:root[data-theme="dark"] .hero{background:linear-gradient(130deg,#1b2a28 0%,#171c20 48%,#102d28 100%);border-color:#2d4841;box-shadow:0 18px 44px #0005,inset 0 1px 0 #ffffff0a}
+:root[data-theme="dark"] .expense-month-panel{background:linear-gradient(135deg,#1d2524 0%,#171b1e 65%,#12332b 140%)!important;border-color:#30433d!important}
+:root[data-theme="dark"] .account-total{background:linear-gradient(125deg,#1d3932 0%,#1b272b 55%,#174b3c 130%);border-color:#356054;box-shadow:0 18px 42px #0005}
+:root[data-theme="dark"] .bottom-nav{background:rgba(18,22,23,.96);border-color:#303b3b}
+:root[data-theme="dark"] .nav-btn.active{background:linear-gradient(135deg,#20332e,#1d292d);color:#6bf0c5}
+:root[data-theme="dark"] .date-pill{background:linear-gradient(135deg,#20332e,#1d292d);border-color:#35544b;color:#c9f9e8}
+@media(max-width:520px){
+ .hero{min-height:15.5rem}
+ .hero-amount{font-size:clamp(2.9rem,10.5vw,3.8rem)}
+ .hero-amount .currency,.hero-amount .currency-label{font-size:.16em}
+ .brand-tagline{font-size:.68rem}
+ .account-card .account-name,.account-item .account-name,.account-row .account-name{font-size:1.1rem}
+ .account-card .stat-value,.account-item .stat-value,.account-row .stat-value{font-size:1.35rem}
+}
+
 </style>
 </head>
 <body>
@@ -322,9 +374,9 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     <div class="brand-lockup">
       <svg class="brand-mark" viewBox="0 0 48 48" role="img" aria-label="Finday">
         <rect x="1" y="1" width="46" height="46" rx="15" fill="#092b27" stroke="#0e5b4c" stroke-width="1.2"/>
-        <circle cx="24" cy="24" r="12.6" fill="none" stroke="#f7fffc" stroke-width="2.5"/>
-        <circle cx="24" cy="24" r="7.7" fill="none" stroke="#f7fffc" stroke-width="2.5"/>
-        <circle cx="24" cy="24" r="2.8" fill="none" stroke="#f7fffc" stroke-width="2.4"/>
+        <circle cx="24" cy="24" r="10.8" fill="none" stroke="#f7fffc" stroke-width="2.3"/>
+        <circle cx="24" cy="24" r="6.4" fill="none" stroke="#f7fffc" stroke-width="2.3"/>
+        <circle cx="24" cy="24" r="2.2" fill="none" stroke="#f7fffc" stroke-width="2.2"/>
       </svg>
       <div class="brand-content">
         <div class="brand"><span class="brand-fin">Fin</span><span class="brand-day">daY</span></div>
@@ -502,6 +554,13 @@ const parseDate=iso=>{if(!iso||!/^\d{4}-\d{2}-\d{2}$/.test(iso))return null;cons
 const dayDiff=(from,to)=>Math.max(1,Math.round((parseDate(to)-parseDate(from))/86400000)+1);
 const money=value=>new Intl.NumberFormat('uk-UA',{maximumFractionDigits:2}).format(Number.isFinite(Number(value))?Number(value):0)+' грн';
 const moneyWords=money;
+function updateSpentTodayBadge(spent,budget){
+ const el=$('spentTodayText');if(!el)return;
+ const ratio=Number(budget)>0?Number(spent)/Number(budget):0;
+ const high=ratio>.7;
+ el.innerHTML=`<span class="spent-label">Сьогодні витрачено</span><span class="spent-dot${high?' high':''}" aria-label="${high?'Понад 70% денного бюджету':'Менше 70% денного бюджету'}"></span><span class="spent-value">${money(spent)}</span>`;
+}
+
 const formatDate=iso=>{const d=parseDate(iso);return d?new Intl.DateTimeFormat('uk-UA',{day:'numeric',month:'short',year:'numeric'}).format(d):'—'};
 const monthKey=iso=>String(iso||'').slice(0,7);
 const uid=()=>crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -558,6 +617,18 @@ if(window.matchMedia){
 function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch(e){console.error(e);showToast('Не вдалося зберегти дані у браузері');return false}}
 function showToast(text){const el=$('toast');el.textContent=text;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)}
 function refreshIcons(){if(window.lucide)window.lucide.createIcons()}
+const spentBadgeObserver=new MutationObserver(()=>{
+ const el=$('spentTodayText');if(!el)return;
+ const txt=el.textContent||'';
+ const found=txt.match(/([\d\s,.]+)\s*грн/i);
+ if(found){
+  const spent=Number(found[1].replace(/\s/g,'').replace(',','.'))||0;
+  const budgetNode=$('dailyBudgetAmount');
+  const budget=Number(budgetNode?.dataset?.value||0);
+  if(!el.querySelector('.spent-label'))updateSpentTodayBadge(spent,budget);
+ }
+});
+window.addEventListener('DOMContentLoaded',()=>{const el=$('spentTodayText');if(el)spentBadgeObserver.observe(el,{childList:true,subtree:true,characterData:true});});
 
 let modalScrollY=0;
 function openModal(id){
@@ -627,7 +698,7 @@ function renderHome(){
  const includedAccounts=state.accounts.filter(a=>a.includeInBudget!==false).length;$('headerBalance').textContent=`${includedAccounts} рах. у бюджеті`;
  $('availableToday').textContent=money(d.available);$('dailyPlanText').textContent=`Денний бюджет: ${money(d.dailyPlan)}`;
  $('nextIncomeText').textContent=`До надходження: ${d.days} ${d.days===1?'день':d.days<5?'дні':'днів'}`;
- $('spentTodayText').textContent=`Сьогодні витрачено ${money(d.spentToday)}`;
+ updateSpentTodayBadge(money(d.spentToday), Number($('dailyBudgetAmount')?.dataset?.value||0));
  const pct=d.dailyPlan>0?Math.min(100,d.spentToday/d.dailyPlan*100):0;$('progressFill').style.width=`${pct}%`;$('progress').setAttribute('aria-valuenow',String(Math.round(pct)));
  $('currentBalance').textContent=money(d.balance);$('totalExpenses').textContent=money(sumTransactions('expense',{from:month,to:today}));
  const tx=[...state.transactions].sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
