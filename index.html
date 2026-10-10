@@ -485,6 +485,27 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
  .transaction-actions button,.transaction-actions .icon-button,.transaction-edit,.transaction-delete{width:2.2rem;min-width:2.2rem;height:2.2rem;min-height:2.2rem}
 }
 
+
+/* v12 refinements */
+.brand{font-size:clamp(2.5em,7.2vw,2.65rem)!important}
+.hero-amount .currency-unit,.hero-amount .currency,.hero-amount .currency-label{font-size:.16em!important;font-weight:650!important;opacity:.5!important;white-space:nowrap}
+#availableToday .currency-unit{font-size:.16em!important;font-weight:650!important;opacity:.5!important}
+.spent-today .spent-dot,.spent-dot{display:none!important}
+.spent-today .spent-label{display:inline!important}
+.spent-today .spent-value{display:inline!important}
+.spent-today:before{content:"";display:inline-block;width:.46rem;height:.46rem;flex:0 0 auto;border-radius:50%;background:#20b486;box-shadow:0 0 0 3px #20b48620;margin-right:.35rem}
+.progress-fill{background:var(--accent)!important;transition:width .25s ease,background-color .2s ease}
+.progress-fill.progress-warning{background:#f59e0b!important}
+.progress-fill.progress-danger{background:#ef4444!important}.hero .progress-fill.progress-warning{background:#f59e0b!important}.hero .progress-fill.progress-danger{background:#ef4444!important}
+.category-heading,.category-title,.analytics-category-title{display:flex;align-items:center;gap:.5rem}
+.category-heading svg,.category-title svg,.analytics-category-title svg{width:1.35rem;height:1.35rem;flex:0 0 1.35rem}
+.stats>.panel:first-child .stat-value{font-size:clamp(1.65rem,5.7vw,2.15rem)!important}
+.expense-month-panel #totalExpenses{font-size:clamp(1.65rem,5.7vw,2.15rem)!important}
+
+
+.category-header,.category-label,.category-name{display:flex;align-items:center;gap:.5rem}
+.category-header svg,.category-label svg,.category-name svg{width:1.35rem;height:1.35rem;flex:0 0 1.35rem}
+
 </style>
 </head>
 <body>
@@ -673,11 +694,17 @@ function heroMoney(value){
  return match?`${match[1]} <span class="currency-unit">грн</span>`:formatted;
 }
 
+function updateProgressColor(spent,budget){
+ const fill=document.querySelector('.progress-fill');
+ if(!fill)return;
+ fill.classList.remove('progress-warning','progress-danger');
+ const ratio=Number(budget)>0?Number(spent)/Number(budget):0;
+ if(ratio>=.75)fill.classList.add('progress-danger');
+ else if(ratio>=.51)fill.classList.add('progress-warning');
+}
 function updateSpentTodayBadge(spent,budget){
  const el=$('spentTodayText');if(!el)return;
- const ratio=Number(budget)>0?Number(spent)/Number(budget):0;
- const high=ratio>.7;
- el.innerHTML=`<span class="spent-label">Сьогодні витрачено</span> <span class="spent-dot${high?' high':''}" aria-label="${high?'Понад 70% денного бюджету':'Менше 70% денного бюджету'}"></span> <span class="spent-value">${money(spent)}</span>`;
+ el.innerHTML=`<span class="spent-label">Сьогодні витрачено</span> <span class="spent-value">${money(spent)}</span>`;
 }
 
 const formatDate=iso=>{const d=parseDate(iso);return d?new Intl.DateTimeFormat('uk-UA',{day:'numeric',month:'short',year:'numeric'}).format(d):'—'};
@@ -760,7 +787,7 @@ const spentBadgeObserver=new MutationObserver(()=>{
   const spent=Number(found[1].replace(/\s/g,'').replace(',','.'))||0;
   const budgetNode=$('dailyBudgetAmount');
   const budget=Number(budgetNode?.dataset?.value||0);
-  if(!el.querySelector('.spent-label'))updateSpentTodayBadge(spent,budget);
+  if(!el.querySelector('.spent-label'))updateSpentTodayBadge(spent,budget); updateProgressColor(spent,budget);
  }
 });
 window.addEventListener('DOMContentLoaded',()=>{const el=$('spentTodayText');if(el)spentBadgeObserver.observe(el,{childList:true,subtree:true,characterData:true});});
@@ -819,7 +846,8 @@ function renderTransaction(t,compact=false){
  const amount=document.createElement('div');amount.className=`transaction-amount ${t.type}`;amount.textContent=`${t.type==='income'?'+':'−'}${moneyWords(t.amount)}`;
  const actions=document.createElement('div');actions.className='transaction-actions';
  const edit=document.createElement('button');edit.type='button';edit.className='icon-btn edit';edit.title='Редагувати';edit.setAttribute('aria-label','Редагувати операцію');edit.innerHTML='<i data-lucide="pencil"></i>';edit.addEventListener('click',()=>openTransactionModal(t.id));
- const del=document.createElement('button');del.type='button';del.className='icon-btn delete';del.title='Видалити';del.setAttribute('aria-label','Видалити операцію');del.innerHTML='<i data-lucide="trash-2"></i>';del.addEventListener('click',()=>askConfirm('Видалити операцію?','Ця операція буде видалена з історії, а баланс рахунку та денний бюджет перерахуються.',()=>{state.transactions=state.transactions.filter(x=>x.id!==t.id);persist();renderAll();showToast('Операцію видалено')},'Видалити'));
+ const del=document.createElement('button');del.type='button';del.className='icon-btn delete';del.title='Видалити';del.setAttribute('aria-label','Видалити операцію');del.innerHTML='<i data-lucide="trash-2"></i>';del.addEventListener('click',()=>askConfirm('Видалити операцію?','Ця операція буде видалена з історії, а баланс рахунку та денний бюджет перерахуються.',()=>{state.transactions=state.transactions.filter(x=>x.id!==t.id);persist();renderAll();
+try{const spentNow=Number(state?.todaySpent||state?.spentToday||0);const budgetNow=Number(state?.dailyBudget||state?.availableToday||0);updateProgressColor(spentNow,budgetNow);}catch(e){}showToast('Операцію видалено')},'Видалити'));
  actions.append(edit,del);right.append(amount,actions);article.append(icon,main,right);return article;
 }
 function renderTransactionList(targetId,transactions,limit=null){
@@ -833,7 +861,7 @@ function renderHome(){
  const includedAccounts=state.accounts.filter(a=>a.includeInBudget!==false).length;$('headerBalance').textContent=`${includedAccounts} рах. у бюджеті`;
  $('availableToday').innerHTML=heroMoney(d.available);$('dailyPlanText').textContent=`Денний бюджет: ${money(d.dailyPlan)}`;
  $('nextIncomeText').textContent=`До надходження: ${d.days} ${d.days===1?'день':d.days<5?'дні':'днів'}`;
- updateSpentTodayBadge(d.spentToday, d.dailyPlan);
+ updateSpentTodayBadge(d.spentToday,d.dailyPlan); updateProgressColor(d.spentToday,d.dailyPlan);
  const pct=d.dailyPlan>0?Math.min(100,d.spentToday/d.dailyPlan*100):0;$('progressFill').style.width=`${pct}%`;$('progress').setAttribute('aria-valuenow',String(Math.round(pct)));
  $('currentBalance').textContent=money(d.balance);$('totalExpenses').textContent=money(sumTransactions('expense',{from:month,to:today}));
  const tx=[...state.transactions].sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
