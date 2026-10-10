@@ -11,7 +11,7 @@
 :root{color-scheme:light;--bg:#f7f5fc;--surface:#fff;--surface2:#f0ecfa;--border:#e7e0f4;--text:#29243a;--muted:#817a96;--accent:#8064d8;--accent-soft:#eee8ff;--danger:#c65370;--danger-soft:#fff0f5;--radius:1.15rem;--safe-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}html{min-width:320px;background:var(--bg);-webkit-text-size-adjust:100%;scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 12% 0%,#e9e0ff 0,transparent 34rem),radial-gradient(ellipse at 95% 30%,#f4e6f8 0,transparent 28rem),var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}button,input,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}[hidden]{display:none!important}
 .app{width:min(100% - 2rem,820px);margin:0 auto;padding:calc(1.1rem + env(safe-area-inset-top,0px)) 0 calc(7.5rem + var(--safe-bottom))}.topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.25rem}.brand{font-size:1.38rem;font-weight:900;letter-spacing:-.045em}.brand span{color:#20b486}.muted{color:var(--muted);font-size:.92rem;font-weight:500}.button{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:.7rem .95rem;border:1px solid var(--border);border-radius:.85rem;background:var(--surface);color:var(--text);font-weight:650;box-shadow:0 2px 7px #17323a08}.button svg{width:1rem;height:1rem}.button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.button.danger{background:var(--danger-soft);color:var(--danger);border-color:#f2d0d0}.button:active{transform:scale(.985)}
-.page{display:none}.page.active{display:block}.hero{padding:clamp(1.2rem,5vw,2rem);margin-bottom:1rem;border:1px solid #ded3fb;border-radius:1.5rem;background:linear-gradient(135deg,#eee7ff 0%,#fff 82%);box-shadow:0 12px 34px #59438c12}.hero-label{color:#655782;font-size:.94rem}.hero-amount{margin:.45rem 0 .8rem;font-size:clamp(2.4rem,9vw,4rem);font-weight:850;letter-spacing:-.065em;line-height:1.12;overflow-wrap:anywhere;color:#38265f}.hero-meta{display:flex;flex-wrap:wrap;gap:.45rem 1rem;color:#71658e;font-size:.86rem}.progress{height:.45rem;margin-top:1.15rem;overflow:hidden;border-radius:999px;background:#e5ddf8}.progress-fill{width:0;height:100%;border-radius:inherit;background:var(--accent);transition:width .2s}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin-bottom:1.25rem}.panel{min-width:0;padding:1rem;border:1px solid var(--border);border-radius:var(--radius);background:#ffffffed;box-shadow:0 5px 18px #243a4407}.stat-value{margin-top:.3rem;font-size:clamp(1.25rem,4.8vw,1.8rem);font-weight:800;letter-spacing:-.035em;overflow-wrap:anywhere}.section-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin:1.4rem 0 .8rem}h2{margin:0;font-size:1.16rem;font-weight:800;letter-spacing:-.02em}h3{margin:0;font-size:1.04rem;font-weight:800}.transactions,.account-list,.analytics-list{display:grid;gap:.7rem}.transaction{display:grid;grid-template-columns:2.8rem minmax(0,1fr) minmax(8rem,auto);align-items:center;gap:.85rem;padding:.95rem 1rem;border:1px solid #e4ebed;border-radius:1.1rem;background:#fff;box-shadow:0 5px 18px #243a4408}.transaction-icon,.account-icon,.category-icon{display:grid;place-items:center;width:2.7rem;height:2.7rem;border-radius:.9rem;background:var(--accent-soft);color:var(--accent);flex-shrink:0}.transaction-icon.expense-icon{background:#fff0ef;color:#c6535c}.transaction-icon svg,.account-icon svg,.category-icon svg{width:1.2rem;height:1.2rem;stroke-width:1.9}.transaction-main{min-width:0}.transaction-title{font-weight:750;line-height:1.3;overflow-wrap:anywhere}.transaction-category{display:inline-flex;align-items:center;gap:.28rem;max-width:100%;margin-top:.32rem;padding:.18rem .5rem;border-radius:999px;background:#f0f5f6;color:#52656d;font-size:.72rem;font-weight:650;overflow-wrap:anywhere}.transaction-category svg{width:.78rem;height:.78rem}.transaction-meta{margin-top:.25rem;color:var(--muted);font-size:.75rem;overflow-wrap:anywhere}.transaction-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:.2rem;min-width:0;text-align:right}.transaction-amount{font-size:1.12rem;font-weight:850;letter-spacing:-.025em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.transaction-amount.income{color:var(--accent)}.transaction-amount.expense{color:#c6535c}.transaction-actions{display:flex;justify-content:flex-end;gap:.2rem}.icon-btn{display:grid;place-items:center;width:2rem;height:2rem;border:0;border-radius:.6rem;background:transparent;color:var(--muted)}.icon-btn svg{width:1rem;height:1rem}.icon-btn.edit:hover{background:#eee8ff;color:var(--accent)}.icon-btn.delete:hover{background:#fff0ef;color:var(--danger)}.empty{padding:1.7rem 1rem;text-align:center;color:var(--muted)}.fab{position:static;z-index:auto;display:grid;place-items:center;justify-self:center;align-self:center;width:3.25rem;height:3.25rem;margin-top:-1.45rem;border:4px solid var(--bg);border-radius:50%;background:#20b486;color:#fff;box-shadow:0 7px 18px #20b48640}.fab svg{width:1.55rem;height:1.55rem;stroke-width:2.6}.bottom-nav{position:fixed;z-index:5;right:0;bottom:0;left:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.15rem;padding:.55rem max(.55rem,env(safe-area-inset-right)) calc(.55rem + var(--safe-bottom)) max(.55rem,env(safe-area-inset-left));border-top:1px solid #dfe8e9;background:#ffffffed;backdrop-filter:blur(16px)}.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;min-height:3.2rem;border:0;border-radius:.8rem;background:transparent;color:#84939a;font-size:.75rem;font-weight:750}.nav-btn svg{width:1.2rem;height:1.2rem}.nav-btn.active{background:#eee8ff;color:var(--accent)}
+.page{display:none}.page.active{display:block}.hero{padding:clamp(1.2rem,5vw,2rem);margin-bottom:1rem;border:1px solid #ded3fb;border-radius:1.5rem;background:linear-gradient(135deg,#eee7ff 0%,#fff 82%);box-shadow:0 12px 34px #59438c12}.hero-label{color:#655782;font-size:.94rem}.hero-amount{margin:.45rem 0 .8rem;font-size:clamp(2.4rem,9vw,4rem);font-weight:850;letter-spacing:-.065em;line-height:1.12;overflow-wrap:anywhere;color:#38265f}.hero-meta{display:flex;flex-wrap:wrap;gap:.45rem 1rem;color:#71658e;font-size:.86rem}.progress{height:.45rem;margin-top:1.15rem;overflow:hidden;border-radius:999px;background:#e5ddf8}.progress-fill{width:0;height:100%;border-radius:inherit;background:var(--accent);transition:width .2s}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin-bottom:1.25rem}.panel{min-width:0;padding:1rem;border:1px solid var(--border);border-radius:var(--radius);background:#ffffffed;box-shadow:0 5px 18px #243a4407}.stat-value{margin-top:.3rem;font-size:clamp(1.25rem,4.8vw,1.8rem);font-weight:800;letter-spacing:-.035em;overflow-wrap:anywhere}.section-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin:1.4rem 0 .8rem}h2{margin:0;font-size:1.3rem;font-weight:850;letter-spacing:-.02em}h3{margin:0;font-size:1.04rem;font-weight:800}.transactions,.account-list,.analytics-list{display:grid;gap:.7rem}.transaction{display:grid;grid-template-columns:2.8rem minmax(0,1fr) minmax(8rem,auto);align-items:center;gap:.85rem;padding:.95rem 1rem;border:1px solid #e4ebed;border-radius:1.1rem;background:#fff;box-shadow:0 5px 18px #243a4408}.transaction-icon,.account-icon,.category-icon{display:grid;place-items:center;width:2.7rem;height:2.7rem;border-radius:.9rem;background:var(--accent-soft);color:var(--accent);flex-shrink:0}.transaction-icon.expense-icon{background:#fff0ef;color:#c6535c}.transaction-icon svg,.account-icon svg,.category-icon svg{width:1.2rem;height:1.2rem;stroke-width:1.9}.transaction-main{min-width:0}.transaction-title{font-weight:750;line-height:1.3;overflow-wrap:anywhere}.transaction-category{display:inline-flex;align-items:center;gap:.28rem;max-width:100%;margin-top:.32rem;padding:.18rem .5rem;border-radius:999px;background:#f0f5f6;color:#52656d;font-size:.72rem;font-weight:650;overflow-wrap:anywhere}.transaction-category svg{width:.78rem;height:.78rem}.transaction-meta{margin-top:.25rem;color:var(--muted);font-size:.75rem;overflow-wrap:anywhere}.transaction-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:.2rem;min-width:0;text-align:right}.transaction-amount{font-size:1.12rem;font-weight:850;letter-spacing:-.025em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.transaction-amount.income{color:var(--accent)}.transaction-amount.expense{color:#c6535c}.transaction-actions{display:flex;justify-content:flex-end;gap:.2rem}.icon-btn{display:grid;place-items:center;width:2rem;height:2rem;border:0;border-radius:.6rem;background:transparent;color:var(--muted)}.icon-btn svg{width:1rem;height:1rem}.icon-btn.edit:hover{background:#eee8ff;color:var(--accent)}.icon-btn.delete:hover{background:#fff0ef;color:var(--danger)}.empty{padding:1.7rem 1rem;text-align:center;color:var(--muted)}.fab{position:static;z-index:auto;display:grid;place-items:center;justify-self:center;align-self:center;width:3.25rem;height:3.25rem;margin-top:-1.45rem;border:4px solid var(--bg);border-radius:50%;background:#20b486;color:#fff;box-shadow:0 7px 18px #20b48640}.fab svg{width:1.55rem;height:1.55rem;stroke-width:2.6}.bottom-nav{position:fixed;z-index:5;right:0;bottom:0;left:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.15rem;padding:.55rem max(.55rem,env(safe-area-inset-right)) calc(.55rem + var(--safe-bottom)) max(.55rem,env(safe-area-inset-left));border-top:1px solid #dfe8e9;background:#ffffffed;backdrop-filter:blur(16px)}.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;min-height:3.2rem;border:0;border-radius:.8rem;background:transparent;color:#84939a;font-size:.75rem;font-weight:750}.nav-btn svg{width:1.2rem;height:1.2rem}.nav-btn.active{background:#eee8ff;color:var(--accent)}
 .field{display:grid;gap:.4rem;min-width:0}.field.full{grid-column:1/-1}label{font-size:.9rem;font-weight:650;color:var(--muted)}input,select{display:block;width:100%;min-width:0;min-height:46px;padding:.72rem .8rem;border:1px solid #dce5e8;border-radius:.8rem;background:#fff;color:var(--text);outline:none}input:focus,select:focus{border-color:var(--accent)}input[type=date]{color-scheme:light}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.form-actions{display:flex;justify-content:flex-end;gap:.6rem;flex-wrap:wrap;margin-top:1rem}#budgetSettingsForm .form-actions .button{width:100%}.account-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:.8rem}.account-icon{background:#f0ebff;color:#8064d8}.account-balance{font-size:1.15rem;font-weight:800;letter-spacing:-.025em;font-variant-numeric:tabular-nums}.account-actions{display:flex;flex-direction:row;gap:.25rem;justify-content:flex-end;align-items:center}.account-sub{color:var(--muted);font-size:.78rem;margin-top:.2rem}.account-total{padding:1.2rem;border-radius:1.2rem;background:linear-gradient(135deg,#eee8ff,#faf8ff);border:1px solid #ded3fb;margin-bottom:1rem}.account-total .stat-value{color:#493681}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.metric{padding:1rem;border:1px solid var(--border);border-radius:1rem;background:#fff}.metric .stat-value{font-size:1.35rem}.bar-row{display:grid;grid-template-columns:minmax(5.5rem,1fr) minmax(4rem,2fr) auto;align-items:center;gap:.65rem;margin:.85rem 0}.bar-label{font-size:.82rem;overflow-wrap:anywhere}.bar-track{height:.55rem;border-radius:999px;background:#edf1f2;overflow:hidden}.bar-fill{height:100%;border-radius:inherit;background:var(--accent)}.bar-value{font-size:.8rem;font-weight:750;font-variant-numeric:tabular-nums}.account-card{grid-template-columns:auto auto minmax(0,1fr) auto}.account-select{display:flex;align-items:center;justify-content:center;gap:0;margin:0;color:var(--accent);font-size:.76rem;font-weight:700;cursor:pointer}.account-select span{display:none}.account-select input{appearance:none;display:block;position:relative;width:2.55rem;min-width:2.55rem;min-height:1.45rem;height:1.45rem;padding:0;margin:0;border:0;border-radius:999px;background:#d8d2e8;cursor:pointer;transition:background .2s}.account-select input:after{content:"";position:absolute;top:.18rem;left:.18rem;width:1.09rem;height:1.09rem;border-radius:50%;background:white;box-shadow:0 1px 4px #0002;transition:transform .2s}.account-select input:checked{background:#20b486}.account-select input:checked:after{transform:translateX(1.1rem)}.account-card.excluded{background:#fbfaff;border-color:#eee9f7}.account-card.excluded .account-icon{opacity:.55}.account-included-note{font-size:.72rem;color:var(--muted);font-weight:500}.chart-panel,.category-chart-panel{margin-top:.85rem}.chart-caption{margin-top:.2rem}.monthly-chart{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;gap:.6rem;height:11rem;margin-top:1.1rem;padding:.2rem 0}.month-column{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:.45rem;height:100%;min-width:0}.month-bars{display:flex;align-items:flex-end;justify-content:center;gap:.2rem;width:100%;height:8.3rem;border-bottom:1px solid var(--border)}.month-bar{width:min(35%,1.1rem);min-height:2px;border-radius:.35rem .35rem .12rem .12rem;transition:height .25s}.month-bar.income-bar{background:linear-gradient(180deg,#b9a5ff,#8064d8)}.month-bar.expense-bar{background:linear-gradient(180deg,#f6b1c6,#d86691)}.month-label{font-size:.68rem;color:var(--muted);white-space:nowrap}.chart-legend{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:.75rem;font-size:.78rem;color:var(--muted)}.chart-legend span{display:inline-flex;align-items:center;gap:.35rem}.legend-dot{display:inline-block;width:.6rem;height:.6rem;border-radius:50%}.income-dot{background:#8064d8}.expense-dot{background:#d86691}.category-donut-wrap{display:flex;justify-content:center;margin:.4rem 0 1rem}.category-donut{display:grid;place-items:center;width:10.5rem;height:10.5rem;border-radius:50%;position:relative}.category-donut:after{content:"";position:absolute;inset:1.45rem;border-radius:50%;background:#fff}.donut-center{position:absolute;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.1rem;text-align:center}.donut-center strong{font-size:1.1rem;letter-spacing:-.04em}.donut-center span{font-size:.72rem;color:var(--muted)}.category-legend-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.55rem;align-items:center;padding:.55rem 0;border-top:1px solid #f0edf7}.category-color{width:.7rem;height:.7rem;border-radius:.25rem}.category-legend-name{font-size:.82rem;overflow-wrap:anywhere}.category-legend-value{font-size:.8rem;font-weight:750;white-space:nowrap}..settings-group{margin-bottom:1rem}.settings-group p{margin:.35rem 0 0}.danger-zone{padding-top:1rem;border-top:1px solid var(--border);margin-top:1.25rem}
 .modal-backdrop{position:fixed;inset:0;z-index:20;display:none;align-items:flex-end;justify-content:center;padding:1rem;background:#10252a66;backdrop-filter:blur(5px)}.modal-backdrop.open{display:flex}.modal{width:min(100%,500px);max-height:min(90dvh,760px);overflow-y:auto;padding:1.2rem;border:1px solid #e0e8e9;border-radius:1.35rem;background:#fff;box-shadow:0 24px 70px #1c343b25}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem}.close-btn{display:grid;place-items:center;width:2.6rem;height:2.6rem;border:0;border-radius:.75rem;background:#f0f4f5;color:var(--text)}.close-btn svg{width:1.2rem;height:1.2rem}.dialog-actions{display:flex;justify-content:flex-end;gap:.6rem;flex-wrap:wrap;margin-top:1rem}.toast{position:fixed;z-index:30;left:50%;bottom:calc(5.5rem + var(--safe-bottom));transform:translate(-50%,1rem);width:max-content;max-width:calc(100% - 2rem);padding:.75rem 1rem;border-radius:.85rem;background:#eee8ff;color:#493681;font-weight:700;box-shadow:0 .6rem 2rem #0002;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}.warning{padding:.75rem .85rem;border:1px solid #f1d0ce;border-radius:.8rem;background:#fff4f3;color:#9c343d;font-size:.84rem;margin-top:.8rem}
 @media(min-width:650px){.app{padding-top:2rem}.modal-backdrop{align-items:center}.panel{padding:1.2rem}.fab{bottom:calc(6.2rem + var(--safe-bottom))}}
@@ -38,13 +38,17 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 .account-total{background:linear-gradient(135deg,#e6dcff 0%,rgba(255,255,255,.9) 70%);border:1px solid #d7c9fa;padding:1.4rem;border-radius:1.4rem}
 .account-total .stat-value{font-size:clamp(1.8rem,6vw,2.4rem);font-weight:900}
 .account-card{padding:1.05rem}
-.account-balance{font-size:1.2rem;font-weight:900;white-space:nowrap}
+.account-balance{font-size:clamp(1.25rem,4.5vw,1.55rem);font-weight:950;white-space:nowrap;letter-spacing:-.035em}
+.account-actions{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:.45rem;margin-top:.3rem}
+.account-actions .icon-btn{width:2.5rem;height:2.5rem}
+.account-actions .icon-btn svg{width:1.35rem;height:1.35rem;stroke-width:2.25}
+.account-card .account-icon svg{width:1.55rem;height:1.55rem}
 .account-balance.positive{color:#15976b}.account-balance.negative{color:#d64d65}.account-balance.neutral{color:var(--text)}
 .account-icon{width:2.8rem;height:2.8rem;border-radius:.9rem}
-.nav-btn svg{width:1.45rem;height:1.45rem;stroke-width:2.15}
-.nav-btn{font-size:.76rem;min-height:3.35rem}
-.fab{width:3.8rem;height:3.8rem;margin-top:-1.65rem;box-shadow:0 9px 24px #20b48655,0 0 0 .28rem rgba(32,180,134,.12)}
-.fab svg{width:1.8rem;height:1.8rem}
+.nav-btn span{display:none}.nav-btn svg{width:1.7rem;height:1.7rem;stroke-width:2.25}
+.nav-btn{font-size:0;min-height:3.35rem}
+.fab{width:4.15rem;height:4.15rem;margin-top:-1.65rem;box-shadow:0 9px 24px #20b48655,0 0 0 .28rem rgba(32,180,134,.12)}
+.fab svg{width:2rem;height:2rem}
 .history-head{align-items:flex-end}
 .history-filter{width:min(48%,12rem)}
 .history-filter select{font-size:.9rem;font-weight:650}
@@ -61,12 +65,48 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
  .account-card{grid-template-columns:auto auto minmax(0,1fr) auto;gap:.45rem;padding:.8rem .65rem}
  .account-balance{font-size:1.02rem}
  .account-icon{width:2.35rem;height:2.35rem}
- .fab{width:3.55rem;height:3.55rem}
- .nav-btn svg{width:1.35rem;height:1.35rem}
+ .fab{width:3.9rem;height:3.9rem}
+ .nav-btn svg{width:1.6rem;height:1.6rem}
  .history-head{align-items:stretch;flex-direction:column}
  .history-filter{width:100%}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+:root[data-theme="dark"]{
+ color-scheme:dark;--bg:#171522;--surface:#211e30;--surface2:#2b2640;--border:#3c3454;--text:#f2effa;--muted:#b3abc9;--accent:#b5a0ff;--accent-soft:#342b4e;--danger:#ff829a;--danger-soft:#3b2635;--glass:rgba(36,31,52,.78);--glass-border:rgba(120,104,157,.25);--glass-shadow:0 12px 32px rgba(0,0,0,.24),0 2px 8px rgba(0,0,0,.15)
+}
+:root[data-theme="dark"] body{background:radial-gradient(ellipse at 12% 0%,#302746 0,transparent 34rem),radial-gradient(ellipse at 95% 30%,#302238 0,transparent 28rem),var(--bg);color:var(--text)}
+:root[data-theme="dark"] .panel,:root[data-theme="dark"] .metric,:root[data-theme="dark"] .transaction,:root[data-theme="dark"] .account-card,:root[data-theme="dark"] .chart-panel,:root[data-theme="dark"] .category-chart-panel,:root[data-theme="dark"] .settings-group{background:var(--glass);border-color:var(--glass-border);box-shadow:var(--glass-shadow)}
+:root[data-theme="dark"] .hero{background:linear-gradient(135deg,#33294d 0%,#211e30 82%);border-color:#4b3b6d;box-shadow:var(--glass-shadow)}
+:root[data-theme="dark"] .hero-label,:root[data-theme="dark"] .hero-meta,:root[data-theme="dark"] .hero-amount{color:#eee7ff}
+:root[data-theme="dark"] .progress{background:#39324d}
+:root[data-theme="dark"] .progress-fill{background:#b5a0ff}
+:root[data-theme="dark"] input,:root[data-theme="dark"] select{background:#262237;color:var(--text);border-color:#4a4163}
+:root[data-theme="dark"] .button{background:#29243a;color:var(--text);border-color:#49405f}
+:root[data-theme="dark"] .button.primary{background:#8064d8;color:white;border-color:#8064d8}
+:root[data-theme="dark"] .button.danger{background:#3b2635;color:#ff9aac;border-color:#634050}
+:root[data-theme="dark"] .bottom-nav{background:rgba(28,25,40,.9);border-color:#3c3454}
+:root[data-theme="dark"] .nav-btn{color:#b4abc9}
+:root[data-theme="dark"] .nav-btn.active{background:#342b4e;color:#c5b6ff}
+:root[data-theme="dark"] .fab{border-color:var(--bg);background:#20b486;color:white}
+:root[data-theme="dark"] .account-total{background:linear-gradient(135deg,#342a4e 0%,#211e30 80%);border-color:#4b3b6d}
+:root[data-theme="dark"] .account-total .stat-value{color:#e7dcff}
+:root[data-theme="dark"] .account-icon{background:#342b4e;color:#c5b6ff}
+:root[data-theme="dark"] .transaction-category{background:#342b4e;color:#d4c8ff}
+:root[data-theme="dark"] .transaction-account-badge{background:#2b263c;border-color:#48405c;color:#d0c8e3}
+:root[data-theme="dark"] .account-select input{background:#514a63}
+:root[data-theme="dark"] .account-select input:checked{background:#20b486}
+:root[data-theme="dark"] .account-card.excluded{background:rgba(35,31,48,.7)}
+:root[data-theme="dark"] .bar-track{background:#3a344d}
+:root[data-theme="dark"] .transaction-amount.expense{color:#ff829a}
+:root[data-theme="dark"] .account-balance.positive{color:#49d6a1}
+:root[data-theme="dark"] .account-balance.negative{color:#ff829a}
+:root[data-theme="dark"] .modal{background:#211e30;color:var(--text);border-color:#403752}
+:root[data-theme="dark"] .modal-backdrop{background:rgba(5,4,10,.72)}
+:root[data-theme="dark"] .toast{background:#342b4e;color:#f2effa}
+:root[data-theme="dark"] .account-total .muted{color:#c0b4dc}
+:root[data-theme="dark"] .warning{background:#39272f;color:#ffb1bd;border-color:#634050}
+:root[data-theme="dark"] .category-color{border-color:#504563}
 </style>
 </head>
 <body>
@@ -86,7 +126,7 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     </section>
     <section class="stats">
       <div class="panel"><div class="muted">Баланс у бюджеті</div><div class="stat-value" id="currentBalance">₴ 0</div></div>
-      <div class="panel"><div class="muted">Витрати за місяць</div><div class="stat-value" id="totalExpenses">₴ 0</div></div>
+      <div class="panel" title="Сума всіх витратних операцій з першого числа поточного місяця до сьогодні, на всіх рахунках."><div class="muted">Витрати цього місяця <span aria-hidden="true" title="Від 1-го числа місяця до сьогодні; враховуються всі рахунки.">ⓘ</span></div><div class="stat-value" id="totalExpenses">₴ 0</div><div class="muted">Від 1-го числа до сьогодні · усі рахунки</div></div>
     </section>
     <div class="section-head"><h2>Останні операції</h2><button class="button" type="button" data-goto="analytics">Уся історія <i data-lucide="arrow-up-right"></i></button></div>
     <section class="transactions" id="transactionsList" aria-live="polite"></section>
@@ -132,6 +172,18 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
       </form>
       <div id="customCategoriesList" style="margin-top:.8rem"></div>
     </section>
+    <section class="panel settings-group theme-settings">
+      <h3>Оформлення</h3>
+      <p class="muted">Обери світлу, темну або автоматичну тему відповідно до налаштувань пристрою.</p>
+      <div class="field" style="margin-top:.8rem">
+        <label for="themeMode">Тема застосунку</label>
+        <select id="themeMode">
+          <option value="light">Світла</option>
+          <option value="dark">Темна</option>
+          <option value="auto">Автоматично за системою</option>
+        </select>
+      </div>
+    </section>
     <section class="panel danger-zone">
       <h3>Небезпечна зона</h3><p class="muted">Видалення очистить усі рахунки, операції, категорії та параметри цього додатка.</p>
       <button class="button danger" id="clearAllBtn" type="button" style="margin-top:.8rem"><i data-lucide="trash-2"></i> Видалити всі дані</button>
@@ -140,11 +192,11 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 </main>
 
 <nav class="bottom-nav" aria-label="Головне меню">
-  <button class="nav-btn active" type="button" data-nav="home"><i data-lucide="house"></i><span>Головна</span></button>
-  <button class="nav-btn" type="button" data-nav="accounts"><i data-lucide="wallet-cards"></i><span>Рахунки</span></button>
+  <button class="nav-btn active" type="button" data-nav="home" aria-label="Головна" title="Головна"><i data-lucide="house"></i><span>Головна</span></button>
+  <button class="nav-btn" type="button" data-nav="accounts" aria-label="Рахунки" title="Рахунки"><i data-lucide="wallet-cards"></i><span>Рахунки</span></button>
   <button class="fab" id="addTransactionBtn" type="button" aria-label="Додати операцію" title="Додати операцію"><i data-lucide="plus"></i></button>
-  <button class="nav-btn" type="button" data-nav="analytics"><i data-lucide="chart-no-axes-combined"></i><span>Аналітика</span></button>
-  <button class="nav-btn" type="button" data-nav="settings"><i data-lucide="settings-2"></i><span>Налаштування</span></button>
+  <button class="nav-btn" type="button" data-nav="analytics" aria-label="Аналітика" title="Аналітика"><i data-lucide="chart-no-axes-combined"></i><span>Аналітика</span></button>
+  <button class="nav-btn" type="button" data-nav="settings" aria-label="Налаштування" title="Налаштування"><i data-lucide="settings-2"></i><span>Налаштування</span></button>
 </nav>
 
 <div class="modal-backdrop" id="transactionModal" role="dialog" aria-modal="true" aria-labelledby="transactionModalTitle">
@@ -172,7 +224,8 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
       <div class="form-grid">
         <div class="field full"><label for="accountName">Назва рахунку</label><input id="accountName" maxlength="45" placeholder="Наприклад, Готівка" required></div>
         <div class="field"><label for="accountType">Тип</label><select id="accountType"><option value="cash">Готівка</option><option value="card">Банківська картка</option><option value="bank">Банківський рахунок</option><option value="savings">Накопичення</option><option value="other">Інше</option></select></div>
-        <div class="field"><label for="accountBalance">Поточна сума, ₴</label><input id="accountBalance" type="number" min="-1000000000" step="0.01" inputmode="decimal" placeholder="0,00" required></div>
+        <div class="field"><label for="accountBalanceSign">Тип балансу</label><select id="accountBalanceSign"><option value="positive">Позитивний баланс</option><option value="negative">Негативний баланс (борг)</option></select></div>
+        <div class="field"><label for="accountBalance">Сума, ₴</label><input id="accountBalance" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" required><div class="muted" id="accountBalanceHint">Введи суму без знака мінус.</div></div>
       </div>
       <div class="warning" id="accountError" hidden></div>
       <div class="dialog-actions"><button class="button" type="button" data-close="accountModal">Скасувати</button><button class="button primary" type="submit"><i data-lucide="check"></i> Зберегти рахунок</button></div>
@@ -258,6 +311,29 @@ function loadState(){
  return defaultState();
 }
 let state=loadState(),editingTransactionId=null,editingAccountId=null,confirmCallback=null,toastTimer=null,midnightTimer=null;
+
+const THEME_KEY='mii-biudzhet-theme';
+function applyTheme(mode){
+ const resolved=mode==='auto'?(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):mode;
+ document.documentElement.dataset.theme=resolved;
+ document.documentElement.style.colorScheme=resolved;
+ const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=resolved==='dark'?'#171522':'#f7f5fc';
+}
+function loadTheme(){
+ let mode='light';try{mode=localStorage.getItem(THEME_KEY)||'light'}catch(e){}
+ if(!['light','dark','auto'].includes(mode))mode='light';
+ const select=$('themeMode');if(select)select.value=mode;applyTheme(mode);
+}
+$('themeMode').addEventListener('change',()=>{
+ const mode=$('themeMode').value;try{localStorage.setItem(THEME_KEY,mode)}catch(e){}
+ applyTheme(mode);showToast(mode==='auto'?'Тему синхронізовано з пристроєм':mode==='dark'?'Увімкнено темну тему':'Увімкнено світлу тему');
+});
+if(window.matchMedia){
+ const scheme=window.matchMedia('(prefers-color-scheme: dark)');
+ const onSchemeChange=()=>{let mode='light';try{mode=localStorage.getItem(THEME_KEY)||'light'}catch(e){}if(mode==='auto')applyTheme('auto')};
+ if(scheme.addEventListener)scheme.addEventListener('change',onSchemeChange);else if(scheme.addListener)scheme.addListener(onSchemeChange);
+}
+
 function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch(e){console.error(e);showToast('Не вдалося зберегти дані у браузері');return false}}
 function showToast(text){const el=$('toast');el.textContent=text;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)}
 function refreshIcons(){if(window.lucide)window.lucide.createIcons()}
@@ -411,14 +487,20 @@ $('addAccountBtn').addEventListener('click',()=>openAccountModal());
 function openAccountModal(id=null){
  editingAccountId=id;setError('accountError','');$('accountForm').reset();const a=id?state.accounts.find(x=>x.id===id):null;
  $('accountModalTitle').textContent=a?'Редагувати рахунок':'Новий рахунок';$('accountName').value=a?.name||'';$('accountType').value=a?.type||'cash';
- $('accountBalance').value=a?accountBalance(a.id):'0';
+ const currentBalance=a?accountBalance(a.id):0;
+ $('accountBalanceSign').value=currentBalance<0?'negative':'positive';
+ $('accountBalance').value=a?Math.abs(currentBalance):'0';
+ $('accountBalanceHint').textContent=$('accountBalanceSign').value==='negative'?'Ця сума буде врахована як борг.':'Введи суму без знака мінус.';
  $('accountBalance').dataset.editing= a?'true':'false';
  openModal('accountModal');refreshIcons();
 }
+$('accountBalanceSign').addEventListener('change',()=>{
+ $('accountBalanceHint').textContent=$('accountBalanceSign').value==='negative'?'Ця сума буде врахована як борг.':'Введи суму без знака мінус.';
+});
 $('accountForm').addEventListener('submit',e=>{
- e.preventDefault();setError('accountError','');const name=$('accountName').value.trim(),type=$('accountType').value,balance=Number($('accountBalance').value);
+ e.preventDefault();setError('accountError','');const name=$('accountName').value.trim(),type=$('accountType').value,enteredBalance=Number($('accountBalance').value),balance=$('accountBalanceSign').value==='negative'?-Math.abs(enteredBalance):Math.abs(enteredBalance);
  if(!name){setError('accountError','Вкажи назву рахунку.');return}
- if(!Number.isFinite(balance)){setError('accountError','Вкажи коректну суму рахунку.');return}
+ if(!Number.isFinite(enteredBalance)||enteredBalance<0){setError('accountError','Вкажи коректну суму без знака мінус.');return}
  const old=JSON.parse(JSON.stringify(state));
  if(editingAccountId){
    const a=state.accounts.find(x=>x.id===editingAccountId);if(!a){setError('accountError','Рахунок не знайдено.');return}
@@ -426,7 +508,7 @@ $('accountForm').addEventListener('submit',e=>{
    const txNet=state.transactions.filter(t=>t.accountId===a.id&&t.date<=todayISO()).reduce((s,t)=>s+(t.type==='income'?t.amount:-t.amount),0);
    a.name=name;a.type=type;a.initialBalance=Number((balance-txNet).toFixed(2));
    /* Від’ємний початковий баланс допустимий: це може бути борг або овердрафт. */
- }else state.accounts.push({id:uid(),name,type,initialBalance:Number(balance.toFixed(2)),createdAt:Date.now()});
+ }else state.accounts.push({id:uid(),name,type,initialBalance:Number(balance.toFixed(2)),includeInBudget:true,createdAt:Date.now()});
  if(!persist()){state=old;return}
  const wasFirstAccount=!editingAccountId&&old.accounts.length===0;
  closeModal('accountModal');renderAll();showToast(editingAccountId?'Рахунок оновлено':'Рахунок додано');editingAccountId=null;
@@ -482,6 +564,7 @@ if(!state.accounts.length&&!state.hasConfiguredBudget){
 }
 $('nextIncomeDate').value=state.nextIncomeDate;
 renderAll();
+loadTheme();
 if(!state.transactions.length&&!state.hasConfiguredBudget&&state.accounts.length===1&&state.accounts[0].initialBalance===0){
  $('welcomeBalance').value='';
  $('welcomeNextDate').value=todayISO();
