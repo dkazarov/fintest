@@ -366,6 +366,56 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
  .account-card .stat-value,.account-item .stat-value,.account-row .stat-value{font-size:1.35rem}
 }
 
+
+/* v9 refinements */
+.hero{text-align:left;align-items:stretch;justify-content:flex-start;min-height:0}
+.hero-label{text-align:left}
+.hero-amount{display:block;text-align:left;justify-content:initial;margin:.65rem 0;line-height:1.05;font-size:clamp(3rem,10vw,4.65rem)}
+.hero-amount .currency,.hero-amount .currency-label{font-size:.053em;font-weight:650;opacity:.48;letter-spacing:0;vertical-align:baseline}
+.hero-meta{justify-content:flex-start}
+.hero .spent-today{align-self:flex-start}
+.stats>.panel:first-child{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.stats>.panel:first-child .muted,.stats>.panel:first-child .stat-value{width:100%;text-align:center}
+.stats>.panel:first-child .stat-value{overflow-wrap:anywhere}
+.brand-mark{width:clamp(3.25rem,12vw,4.1rem);height:clamp(3.25rem,12vw,4.1rem);filter:drop-shadow(0 5px 12px #20e0b225)}
+.transaction-meta,.transaction-badges,.transaction-tags{display:flex;align-items:flex-start;flex-direction:column;flex-wrap:nowrap;gap:.35rem;min-width:0;max-width:100%;overflow:visible}
+.transaction-meta .badge,.transaction-badges .badge,.transaction-tags .badge{flex:0 1 auto;min-width:0;max-width:100%;width:max-content;overflow-wrap:anywhere;text-overflow:clip;white-space:normal;font-size:.76rem}
+.transaction-icon{width:2.9rem;height:2.9rem;min-width:2.9rem}
+.transaction-icon svg{width:1.7rem;height:1.7rem;stroke-width:2.35}
+.page-title,.section-title,h1.page-title,.accounts-title{font-size:clamp(1.6rem,5vw,1.95rem);font-weight:900;letter-spacing:-.035em}
+:root[data-theme="dark"]{
+ --bg:#0d1117;--surface:#151c24;--surface2:#1c2833;--border:#2b3947;--text:#f0f5fa;--muted:#9cabbc;--accent:#56e0c0;--accent-soft:#163d3b;--danger:#ff8399;--danger-soft:#41232d;--glass:rgba(18,25,33,.94);--glass-border:rgba(93,128,159,.23);--glass-shadow:0 14px 36px rgba(0,0,0,.42),0 2px 9px rgba(0,0,0,.22)
+}
+:root[data-theme="dark"] body{background:radial-gradient(ellipse at 0% 0%,#142e3b 0,transparent 28rem),radial-gradient(ellipse at 100% 12%,#1b3440 0,transparent 25rem),radial-gradient(ellipse at 55% 100%,#182b38 0,transparent 30rem),#0d1117;color:var(--text)}
+:root[data-theme="dark"] .panel,:root[data-theme="dark"] .settings-group{background:linear-gradient(145deg,#1b2731 0%,#151c24 60%,#172c2e 145%);border-color:#2e414c;box-shadow:0 10px 28px #0004,inset 0 1px 0 #ffffff07}
+:root[data-theme="dark"] .hero{background:linear-gradient(120deg,#1d3540 0%,#17232d 53%,#153c35 125%);border-color:#34525a;box-shadow:0 18px 44px #0005,inset 0 1px 0 #ffffff0b}
+:root[data-theme="dark"] .expense-month-panel{background:linear-gradient(135deg,#1c2a32 0%,#151c24 65%,#163a33 145%)!important;border-color:#314952!important}
+:root[data-theme="dark"] .account-total{background:linear-gradient(125deg,#1b4650 0%,#1c2c3c 55%,#17624e 135%);border-color:#38636b;box-shadow:0 18px 42px #0005}
+:root[data-theme="dark"] .bottom-nav{background:rgba(15,21,28,.96);border-color:#2b3947}
+:root[data-theme="dark"] .nav-btn.active{background:linear-gradient(135deg,#1e3c42,#1c3831);color:#7cf0d3}
+:root[data-theme="dark"] .date-pill{background:linear-gradient(135deg,#1e3c42,#1c3831);border-color:#355d60;color:#d6fff4}
+@media(max-width:520px){
+ .hero{text-align:left;align-items:stretch;justify-content:flex-start}
+ .hero-label{text-align:left}
+ .hero-amount{font-size:clamp(2.9rem,10.5vw,3.8rem);text-align:left}
+ .hero-amount .currency,.hero-amount .currency-label{font-size:.053em}
+ .hero-meta{justify-content:flex-start}
+ .hero .spent-today{align-self:flex-start}
+ .transaction-meta,.transaction-badges,.transaction-tags{flex-direction:column;align-items:flex-start}
+ .page-title,.section-title,h1.page-title,.accounts-title{font-size:1.65rem}
+}
+
+
+.hint-tooltip{appearance:none;-webkit-appearance:none;border:0;background:transparent;padding:0;cursor:pointer;position:relative;display:grid;place-items:center;z-index:90}
+.hint-tooltip:after,.hint-tooltip:before{display:none!important}
+.hint-tooltip .tooltip-popup{position:absolute;z-index:9999;right:0;top:calc(100% + .6rem);width:min(18rem,calc(100vw - 2.5rem));box-sizing:border-box;padding:.72rem .82rem;border:1px solid #d8ccef;border-radius:.8rem;background:#302747;color:#fff;font-size:.78rem;font-weight:550;line-height:1.45;text-align:left;white-space:normal;overflow-wrap:anywhere;box-shadow:0 14px 35px #0004;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px);transition:opacity .14s,transform .14s,visibility .14s}
+.hint-tooltip[aria-expanded="true"] .tooltip-popup{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+@media(min-width:700px){
+ .hint-tooltip .tooltip-popup{right:50%;top:auto;bottom:calc(100% + .65rem);transform:translate(50%,4px);width:18rem;max-width:calc(100vw - 3rem)}
+ .hint-tooltip[aria-expanded="true"] .tooltip-popup{transform:translate(50%,0)}
+}
+:root[data-theme="dark"] .hint-tooltip .tooltip-popup{background:#20343c;border-color:#45616a;color:#f0f8fa}
+
 </style>
 </head>
 <body>
@@ -373,10 +423,17 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
   <header class="topbar">
     <div class="brand-lockup">
       <svg class="brand-mark" viewBox="0 0 48 48" role="img" aria-label="Finday">
-        <rect x="1" y="1" width="46" height="46" rx="15" fill="#092b27" stroke="#0e5b4c" stroke-width="1.2"/>
-        <circle cx="24" cy="24" r="10.8" fill="none" stroke="#f7fffc" stroke-width="2.3"/>
-        <circle cx="24" cy="24" r="6.4" fill="none" stroke="#f7fffc" stroke-width="2.3"/>
-        <circle cx="24" cy="24" r="2.2" fill="none" stroke="#f7fffc" stroke-width="2.2"/>
+        <defs>
+          <linearGradient id="findayMarkGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#2ee5b2"/>
+            <stop offset="1" stop-color="#4386ff"/>
+          </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="46" height="46" rx="15" fill="url(#findayMarkGradient)"/>
+        <path d="M13 31V17.5C13 15 15 13 17.5 13H34" fill="none" stroke="#071a19" stroke-width="4.2" stroke-linecap="round"/>
+        <path d="M13 23.5H27.5C30 23.5 32 25.5 32 28V34" fill="none" stroke="#071a19" stroke-width="4.2" stroke-linecap="round"/>
+        <circle cx="34" cy="13" r="2.3" fill="#f7fffc"/>
+        <circle cx="32" cy="34" r="2.3" fill="#f7fffc"/>
       </svg>
       <div class="brand-content">
         <div class="brand"><span class="brand-fin">Fin</span><span class="brand-day">daY</span></div>
@@ -397,7 +454,7 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     <section class="stats">
       <div class="panel"><div class="muted">Баланс у бюджеті</div><div class="stat-value" id="currentBalance">0 грн</div></div>
       <div class="panel expense-month-panel">
-        <div class="expense-month-head"><div class="muted">Усі витрати</div><span class="hint-tooltip" tabindex="0" aria-label="Пояснення розрахунку витрат" data-tooltip="Від 1-го числа поточного місяця до сьогодні. Враховуються всі рахунки, навіть виключені з бюджету."><i data-lucide="info"></i></span></div>
+        <div class="expense-month-head"><div class="muted">Усі витрати</div><button class="hint-tooltip" id="expenseHintButton" type="button" aria-label="Пояснення розрахунку витрат" aria-expanded="false" aria-describedby="expenseHintPopup"><i data-lucide="info"></i><span class="tooltip-popup" id="expenseHintPopup" role="tooltip">Від 1-го числа поточного місяця до сьогодні. Враховуються всі рахунки, навіть виключені з бюджету.</span></button></div>
         <div class="stat-value" id="totalExpenses">0 грн</div>
       </div>
     </section>
@@ -616,7 +673,23 @@ if(window.matchMedia){
 
 function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch(e){console.error(e);showToast('Не вдалося зберегти дані у браузері');return false}}
 function showToast(text){const el=$('toast');el.textContent=text;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)}
+
 function refreshIcons(){if(window.lucide)window.lucide.createIcons()}
+const expenseHintButton=$('expenseHintButton');
+if(expenseHintButton){
+ expenseHintButton.addEventListener('click',event=>{
+  event.stopPropagation();
+  const open=expenseHintButton.getAttribute('aria-expanded')==='true';
+  expenseHintButton.setAttribute('aria-expanded',String(!open));
+ });
+ document.addEventListener('click',event=>{
+  if(!expenseHintButton.contains(event.target))expenseHintButton.setAttribute('aria-expanded','false');
+ });
+ document.addEventListener('keydown',event=>{
+  if(event.key==='Escape')expenseHintButton.setAttribute('aria-expanded','false');
+ });
+}
+
 const spentBadgeObserver=new MutationObserver(()=>{
  const el=$('spentTodayText');if(!el)return;
  const txt=el.textContent||'';
