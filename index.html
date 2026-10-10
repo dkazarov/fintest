@@ -12,6 +12,48 @@
     .inline-field{display:flex;gap:.5rem;align-items:center}.inline-field input{flex:1;min-width:0}.inline-field .button{flex-shrink:0}.transaction-actions{display:flex;justify-content:flex-end;gap:.8rem;flex-wrap:wrap}.edit-btn,.delete-btn{border:0;background:transparent;color:var(--muted);padding:.35rem 0 .1rem .5rem;font-size:.78rem;min-height:30px}.edit-btn:hover{color:var(--accent)}[hidden]{display:none!important}
     @media(min-width:600px){.modal-backdrop{align-items:center}.app{padding-top:2rem}.panel{padding:1.2rem}}
     @media(max-width:480px){.app{width:calc(100% - 1rem);padding-top:calc(.8rem + env(safe-area-inset-top,0px))}.topbar{align-items:flex-start}.topbar .button{font-size:.82rem;padding:.6rem .7rem;min-height:42px}.stats{gap:.55rem}.panel{padding:.85rem}.settings-grid,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.settings-actions{align-items:stretch}.settings-actions .button{width:100%}.settings-actions .muted{width:100%}.section-head{margin-top:1.2rem}.section-head .button{padding:.65rem .8rem}.transaction{grid-template-columns:auto minmax(0,1fr);gap:.7rem;padding:.85rem}.transaction-icon{width:2.55rem;height:2.55rem;border-radius:.85rem}.transaction-right{grid-column:2;display:flex;align-items:center;justify-content:space-between;gap:.5rem;text-align:left;width:100%}.transaction-amount{font-size:.98rem}.transaction-actions{margin-top:0;gap:.2rem}.edit-btn,.delete-btn{padding:.3rem .4rem}.fab{right:max(.9rem,env(safe-area-inset-right));bottom:calc(.9rem + var(--safe-bottom));width:3.55rem;height:3.55rem}.hero{border-radius:1.25rem}.dialog-actions>*{flex:1}.modal{padding:1rem;border-radius:1.25rem}}
+
+    /* Refined light interface and compact transaction rows */
+    :root{color-scheme:light;--bg:#f4f7f8;--surface:#ffffff;--surface2:#eef3f4;--border:#e1e8eb;--text:#15252c;--muted:#72838b;--accent:#087f68;--danger:#c84b56;--radius:1.2rem}
+    body{background:radial-gradient(ellipse at 12% 0%,#d8f5ed 0,transparent 34rem),var(--bg);color:var(--text)}
+    .brand span{color:var(--accent)}
+    .button{background:#fff;border-color:var(--border);color:var(--text);box-shadow:0 2px 5px #15252c08}
+    .button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+    .hero{background:linear-gradient(135deg,#e0f8ef 0%,#fff 82%);border-color:#c5e9dd;box-shadow:0 12px 34px #174f4110}
+    .hero-label,.hero-meta{color:#48655f}.hero-amount{color:#123d34}.progress{background:#dcebe6}.progress-fill{background:var(--accent)}
+    .panel{background:rgba(255,255,255,.94);border-color:var(--border);box-shadow:0 5px 18px #243a4407}
+    input,select{background:#fff;color:var(--text);border-color:#dce5e8}input[type=date]{color-scheme:light}
+    .transaction{grid-template-columns:2.9rem minmax(0,1fr) minmax(8.3rem,auto);gap:.9rem;background:#fff;border-color:#e4ebed;box-shadow:0 5px 18px #243a4408;padding:1rem 1.1rem}
+    .transaction:hover{border-color:#b8d8ce;transform:translateY(-1px);box-shadow:0 10px 24px #243a4410}
+    .transaction-icon{width:2.8rem;height:2.8rem;border-radius:1rem;background:#e2f5ee;color:#087f68;display:grid;place-items:center}
+    .transaction-icon.expense-icon{background:#fff0ef;color:#c6535c}
+    .transaction-icon svg{width:1.25rem;height:1.25rem;stroke-width:1.9}
+    .transaction-category{background:#f0f5f6;color:#52656d;font-weight:650;padding:.18rem .55rem}
+    .transaction-meta{color:#819099}
+    .transaction-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;text-align:right;gap:.2rem;min-width:8.3rem}
+    .transaction-amount{font-size:1.02rem;font-variant-numeric:tabular-nums;color:var(--text)}
+    .transaction-amount.income{color:#087f68}.transaction-amount.expense{color:#c6535c}
+    .transaction-actions{display:flex;justify-content:flex-end;gap:.35rem;margin-top:.2rem}
+    .edit-btn,.delete-btn{width:2rem;height:2rem;min-height:2rem;padding:0;border:1px solid transparent;border-radius:.65rem;display:grid;place-items:center;color:#71838b;background:transparent}
+    .edit-btn svg,.delete-btn svg{width:1rem;height:1rem;stroke-width:1.9}
+    .edit-btn:hover{background:#e7f6f0;color:#087f68}.delete-btn:hover{background:#fff0ef;color:#c6535c}
+    .fab{background:var(--accent);color:#fff;box-shadow:0 8px 22px #087f6840,0 0 0 .35rem #087f6812}
+    .fab svg{width:1.7rem;height:1.7rem;stroke-width:2.2}.fab-label{background:#173c34;color:#fff}
+    .modal{background:#fff;border-color:#e2e9eb;color:var(--text);box-shadow:0 24px 70px #1c343b25}
+    .close-btn{background:#f0f4f5;color:var(--text)}.notice{background:#fff2f1;color:#9f303a;border-color:#f0cecb}
+    .toast{background:#d9f8ec;color:#145747}.reminder-icon{background:#e2f5ee;color:var(--accent)}.reminder-icon svg{width:1.5rem;height:1.5rem}
+    @media(max-width:480px){
+      .transaction{grid-template-columns:2.45rem minmax(0,1fr) minmax(6.5rem,auto);gap:.55rem;padding:.8rem .7rem;align-items:center}
+      .transaction-icon{width:2.4rem;height:2.4rem;border-radius:.8rem}
+      .transaction-icon svg{width:1.1rem;height:1.1rem}
+      .transaction-main{min-width:0}.transaction-title{font-size:.91rem}.transaction-category{font-size:.68rem;max-width:100%}.transaction-meta{font-size:.7rem}
+      .transaction-right{grid-column:auto;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;text-align:right;width:auto;min-width:0;gap:.15rem}
+      .transaction-amount{font-size:.82rem;white-space:normal;line-height:1.25;overflow-wrap:anywhere}
+      .transaction-actions{margin-top:.15rem;gap:.1rem}.edit-btn,.delete-btn{width:1.75rem;height:1.75rem;min-height:1.75rem}
+      .edit-btn svg,.delete-btn svg{width:.9rem;height:.9rem}
+    }
+    @media(max-width:360px){.transaction{grid-template-columns:2.1rem minmax(0,1fr) minmax(5.6rem,auto);gap:.4rem;padding:.7rem .55rem}.transaction-icon{width:2.05rem;height:2.05rem}.transaction-title{font-size:.86rem}.transaction-amount{font-size:.76rem}}
+
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
@@ -19,7 +61,7 @@
   <main class="app">
     <header class="topbar">
       <div><div class="brand">мій<span>бюджет</span></div><div class="muted" id="todayLabel"></div></div>
-      <button class="button" id="openSettingsBtn" type="button"><span aria-hidden="true">⚙</span> Налаштування</button>
+      <button class="button" id="openSettingsBtn" type="button"><i data-lucide="settings" aria-hidden="true"></i> Налаштування</button>
     </header>
     <section class="hero" aria-labelledby="dailyTitle">
       <div class="hero-label" id="dailyTitle">Можна витратити сьогодні</div>
@@ -36,7 +78,7 @@
     <section class="transactions" id="transactionsList" aria-live="polite"></section>
   </main>
 
-  <button class="fab" id="addTransactionBtn" type="button" aria-label="Додати операцію" title="Додати операцію"><span aria-hidden="true">＋</span><span class="fab-label">Додати операцію</span></button>
+  <button class="fab" id="addTransactionBtn" type="button" aria-label="Додати операцію" title="Додати операцію"><i data-lucide="plus" aria-hidden="true"></i><span class="fab-label">Додати операцію</span></button>
 
   <div class="modal-backdrop" id="settingsModal" aria-hidden="true">
     <section class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
@@ -71,7 +113,7 @@
   </div>
   <div class="modal-backdrop" id="reminderModal" aria-hidden="true">
     <section class="modal" role="dialog" aria-modal="true" aria-labelledby="reminderTitle">
-      <div class="reminder-icon" aria-hidden="true">↻</div>
+      <div class="reminder-icon" aria-hidden="true"><i data-lucide="calendar-clock"></i></div>
       <h2 id="reminderTitle">Час спланувати новий бюджет</h2>
       <p class="reminder-copy" id="reminderCopy">Сьогодні останній день поточного фінансового періоду. Онови дату наступного надходження, щоб розрахувати бюджет на наступний період.</p>
       <div class="field reminder-date"><label for="reminderNextDate">Дата наступного надходження</label><input id="reminderNextDate" type="date"></div>
@@ -81,6 +123,7 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="https://unpkg.com/lucide@latest"></script>
   <script>
   (() => {
     'use strict';
@@ -118,9 +161,20 @@
     function currentBalance() { return Number(state.startingBalance)+totalBy('income',null,true)-totalBy('expense',null,true); }
     function effectiveNextIncomeDate() { const today=todayISO(); return state.nextIncomeDate>=today?state.nextIncomeDate:today; }
     function categoryIcon(category,type) {
-      if(type==='income') return '↙';
-      const icons={'Продукти':'🛒','Транспорт':'🚗','Житло та комунальні':'🏠','Здоров’я':'＋','Кафе та ресторани':'☕','Покупки':'🛍','Розваги':'🎬','Підписки':'▤','Зарплата':'₴','Перекази':'↔','Інше':'•'};
-      return icons[category]||'•';
+      const icons = {
+        'Продукти':'shopping-basket',
+        'Транспорт':'car-front',
+        'Житло та комунальні':'house',
+        'Здоров’я':'heart-pulse',
+        'Кафе та ресторани':'utensils',
+        'Покупки':'shopping-bag',
+        'Розваги':'clapperboard',
+        'Підписки':'repeat',
+        'Зарплата':'wallet-cards',
+        'Перекази':'arrow-left-right',
+        'Інше':'circle-ellipsis'
+      };
+      return icons[category] || (type === 'income' ? 'trending-up' : 'tags');
     }
     function render() {
       checkPeriodReminder();
@@ -138,10 +192,10 @@
       const list=$('transactionsList'); list.replaceChildren();
       const sorted=[...state.transactions].sort((a,b)=>b.date.localeCompare(a.date)||(b.createdAt-a.createdAt));
       $('transactionCount').textContent=`${sorted.length} ${sorted.length===1?'операція':sorted.length<5?'операції':'операцій'}`;
-      if(!sorted.length){const empty=document.createElement('div');empty.className='panel empty';empty.textContent='Операцій поки немає. Натисни +, щоб додати першу.';list.append(empty);return;}
+      if(!sorted.length){const empty=document.createElement('div');empty.className='panel empty';empty.textContent='Операцій поки немає. Натисни +, щоб додати першу.';list.append(empty);if(window.lucide)window.lucide.createIcons();return;}
       for(const t of sorted){
         const item=document.createElement('article');item.className='panel transaction';
-        const icon=document.createElement('div');icon.className=`transaction-icon ${t.type==='expense'?'expense-icon':''}`;icon.setAttribute('aria-hidden','true');icon.textContent=categoryIcon(t.category,t.type);
+        const icon=document.createElement('div');icon.className=`transaction-icon ${t.type==='expense'?'expense-icon':''}`;icon.setAttribute('aria-hidden','true');icon.innerHTML=`<i data-lucide="${categoryIcon(t.category,t.type)}"></i>`;
         const main=document.createElement('div');main.className='transaction-main';
         const title=document.createElement('div');title.className='transaction-title';title.textContent=t.title?.trim()||t.category||'Без опису';
         const category=document.createElement('div');category.className='transaction-category';category.textContent=t.category||'Інше';
@@ -151,10 +205,11 @@
         const right=document.createElement('div');right.className='transaction-right';
         const amount=document.createElement('div');amount.className=`transaction-amount ${t.type==='income'?'income':'expense'}`;amount.textContent=`${t.type==='income'?'+':'−'}${money(t.amount)}`;
         const actions=document.createElement('div');actions.className='transaction-actions';
-        const edit=document.createElement('button');edit.type='button';edit.className='edit-btn';edit.textContent='Редагувати';edit.setAttribute('aria-label',`Редагувати операцію ${t.title||t.category||'Без опису'}`);edit.addEventListener('click',()=>openModal(t.id));
-        const del=document.createElement('button');del.type='button';del.className='delete-btn';del.textContent='Видалити';del.setAttribute('aria-label',`Видалити операцію ${t.title||t.category||'Без опису'}`);del.addEventListener('click',()=>{if(!confirm(`Видалити операцію «${t.title||t.category||'Без опису'}»?`))return;const old=state.transactions;state.transactions=state.transactions.filter(x=>x.id!==t.id);if(!persist()){state.transactions=old;return;}render();showToast('Операцію видалено');});
+        const edit=document.createElement('button');edit.type='button';edit.className='edit-btn';edit.innerHTML='<i data-lucide="pencil" aria-hidden="true"></i>';edit.title='Редагувати';edit.setAttribute('aria-label',`Редагувати операцію ${t.title||t.category||'Без опису'}`);edit.addEventListener('click',()=>openModal(t.id));
+        const del=document.createElement('button');del.type='button';del.className='delete-btn';del.innerHTML='<i data-lucide="trash-2" aria-hidden="true"></i>';del.title='Видалити';del.setAttribute('aria-label',`Видалити операцію ${t.title||t.category||'Без опису'}`);del.addEventListener('click',()=>{if(!confirm(`Видалити операцію «${t.title||t.category||'Без опису'}»?`))return;const old=state.transactions;state.transactions=state.transactions.filter(x=>x.id!==t.id);if(!persist()){state.transactions=old;return;}render();showToast('Операцію видалено');});
         actions.append(edit,del);right.append(amount,actions);item.append(icon,main,right);list.append(item);
       }
+      if (window.lucide) window.lucide.createIcons();
     }
     const settingsModal=$('settingsModal'),settingsForm=$('settingsForm');
     function openSettings(){ $('startingBalance').value=Number(currentBalance().toFixed(2)); $('nextIncomeDate').value=state.nextIncomeDate; showError('settingsError',''); settingsModal.classList.add('open');settingsModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(()=>$('startingBalance').focus(),50); }
