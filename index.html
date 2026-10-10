@@ -522,6 +522,44 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 .transaction-title{font-size:clamp(1.08rem,3.3vw,1.18rem)!important;font-weight:800!important}
 @media(max-width:520px){.transaction-icon{min-height:2.8rem;padding:.35rem!important}.transaction-icon svg{max-width:1.9rem;max-height:1.9rem}.spent-today{padding:.72rem .85rem!important}}
 
+
+/* Finday v14 refinements */
+.hero{
+  background:
+    radial-gradient(ellipse at 88% 8%, rgba(255,255,255,.92) 0%, rgba(255,255,255,0) 34%),
+    linear-gradient(132deg,#d8d0ff 0%,#bdb1f4 22%,#e7e1ff 47%,#c9f2e6 78%,#a9e2d5 100%)!important;
+  border-color:#b8a9ed!important;
+  box-shadow:0 18px 42px rgba(91,65,155,.2),inset 0 2px 0 rgba(255,255,255,.85),inset 0 -2px 0 rgba(104,83,159,.12)!important;
+}
+.hero:after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(112deg,rgba(255,255,255,.36) 0%,transparent 26%,transparent 72%,rgba(255,255,255,.18) 100%);
+  z-index:-1;
+}
+:root[data-theme="dark"] .hero{
+  background:radial-gradient(ellipse at 88% 8%,rgba(255,255,255,.1) 0%,transparent 34%),linear-gradient(132deg,#3b315a 0%,#292443 38%,#1b4941 100%)!important;
+  border-color:#594a7c!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.1)!important;
+}
+.transaction{grid-template-columns:3.05rem minmax(0,1fr) minmax(8rem,auto)!important}
+.transaction-icon{min-width:3.05rem!important}
+.transaction-title{font-size:clamp(1.13rem,3.5vw,1.24rem)!important;font-weight:820!important}
+.transaction-amount{font-size:clamp(1.32rem,4.2vw,1.48rem)!important;font-weight:900!important}
+.spent-today{margin:.1rem 0 .55rem!important}
+@media(max-width:520px){
+ .transaction{grid-template-columns:2.65rem minmax(0,1fr) minmax(5.8rem,auto)!important;gap:.5rem!important}
+ .transaction-icon{min-width:2.65rem!important}
+ .transaction-title{font-size:1.04rem!important}
+ .transaction-amount{font-size:1.08rem!important}
+ .spent-today{margin:.08rem 0 .4rem!important}
+}
+@media(max-width:360px){
+ .transaction{grid-template-columns:2.4rem minmax(0,1fr) minmax(5.2rem,auto)!important}
+ .transaction-icon{min-width:2.4rem!important}
+ .transaction-title{font-size:.96rem!important}
+ .transaction-amount{font-size:1rem!important}
+}
+
 </style>
 </head>
 <body>
