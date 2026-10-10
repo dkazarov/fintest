@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f7f5fc">
+<meta name="theme-color" content="#f3efff">
 <meta name="description" content="Особистий бюджет з рахунками, денним лімітом та аналітикою.">
 <title>Мій бюджет</title>
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -107,13 +107,85 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 :root[data-theme="dark"] .account-total .muted{color:#c0b4dc}
 :root[data-theme="dark"] .warning{background:#39272f;color:#ffb1bd;border-color:#634050}
 :root[data-theme="dark"] .category-color{border-color:#504563}
+
+/* v5 visual polish */
+.topbar{align-items:center}
+.topbar-meta{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:.12rem;text-align:right;min-width:0}
+#todayLabel{text-transform:capitalize}
+.hero{padding:clamp(1rem,4vw,1.55rem);background:linear-gradient(130deg,#e5dcff 0%,#f7f3ff 58%,#e8fbf4 100%);border-color:#d8ccfb}
+.hero-label{font-weight:750;color:#5b438a;letter-spacing:.01em}
+.hero-amount{font-size:clamp(2.8rem,10vw,4.35rem);margin:.25rem 0 .55rem;color:#342052;text-shadow:0 2px 0 #ffffff70}
+.hero-meta{align-items:center}
+#dailyPlanText{display:inline-flex;align-items:center;padding:.32rem .65rem;border:1px solid #c9b7ff;border-radius:999px;background:#fff9;color:#4e347f;font-size:.9rem;font-weight:850;box-shadow:0 3px 10px #6e55a41a}
+#nextIncomeText{font-weight:650}
+.stats .panel:first-child{padding:.68rem .85rem;align-self:start}
+.stats .panel:first-child .stat-value{font-size:clamp(1.15rem,4.3vw,1.55rem);margin-top:.12rem}
+.expense-month-panel{position:relative;overflow:hidden;background:linear-gradient(145deg,#fff 0%,#f3efff 100%)!important;border-color:#ded4fb!important}
+.expense-month-panel:before{content:"";position:absolute;right:-1.4rem;top:-1.8rem;width:5.8rem;height:5.8rem;border-radius:50%;background:#d9ceff55;pointer-events:none}
+.expense-month-head{position:relative;display:flex;align-items:center;justify-content:space-between;gap:.3rem}
+.expense-month-panel #totalExpenses{position:relative;font-size:clamp(1.65rem,6.2vw,2.25rem);line-height:1.12;margin-top:.48rem;letter-spacing:-.055em;color:#3e2a6b}
+.hint-button{display:grid;place-items:center;width:2.25rem;height:2.25rem;flex:0 0 auto;border:1px solid #d8ccfb;border-radius:.75rem;background:#eee8ff;color:#7455c8}
+.hint-button svg{width:1.35rem;height:1.35rem;stroke-width:2.4}
+.expense-hint{position:relative;margin-top:.6rem;padding:.55rem .65rem;border-radius:.7rem;background:#e9e2ff;color:#5b4a7c;font-size:.78rem;line-height:1.4}
+.transaction-amount.income{color:#15976b}
+.transaction-icon.income-icon{background:#dcf8ec;color:#119766}
+.transaction-icon svg,.account-icon svg,.category-icon svg{width:1.4rem;height:1.4rem;stroke-width:2.15}
+.bottom-nav{padding-top:.6rem;padding-bottom:calc(.6rem + var(--safe-bottom));background:color-mix(in srgb,var(--surface) 90%,transparent);border-color:var(--border)}
+.nav-btn svg{width:1.95rem;height:1.95rem;stroke-width:2.4}
+.nav-btn.active{background:linear-gradient(135deg,#eee8ff,#e5f8f2);color:#6849bc}
+.fab{width:4.25rem;height:4.25rem;box-shadow:0 10px 26px #20b48655,0 0 0 .32rem #20b48618}
+.fab svg{width:2.15rem;height:2.15rem}
+.account-total{position:relative;overflow:hidden;padding:1.45rem 1.35rem;background:linear-gradient(125deg,#5d42a3 0%,#8565d8 55%,#23b58b 135%);border:1px solid #8d76d5;box-shadow:0 15px 35px #6044a333;color:#fff}
+.account-total:after{content:"";position:absolute;right:-2rem;top:-3.5rem;width:10rem;height:10rem;border:1px solid #ffffff30;border-radius:50%;box-shadow:0 0 0 1.2rem #ffffff0a,0 0 0 2.4rem #ffffff08;pointer-events:none}
+.account-total .muted,.account-total .stat-value{position:relative;z-index:1;color:#fff}
+.account-total .muted{opacity:.88}
+.account-total .stat-value{font-size:clamp(2rem,7vw,2.7rem);font-weight:900;letter-spacing:-.055em;text-shadow:0 2px 8px #21143a20}
+.account-total #accountsCount{font-weight:700}
+:root[data-theme="dark"]{
+ --bg:#11101d;--surface:#1d1b30;--surface2:#292542;--border:#3a355a;--text:#f7f3ff;--muted:#b9b1d7;--accent:#b7a1ff;--accent-soft:#393052;--danger:#ff8ca5;--danger-soft:#422638;
+}
+:root[data-theme="dark"] body{background:radial-gradient(ellipse at 0% 0%,#39265b 0,transparent 29rem),radial-gradient(ellipse at 100% 15%,#123c3a 0,transparent 27rem),radial-gradient(ellipse at 45% 100%,#282044 0,transparent 32rem),var(--bg)}
+:root[data-theme="dark"] .hero{background:linear-gradient(125deg,#34254f 0%,#24203d 56%,#183b39 130%);border-color:#514275;box-shadow:0 16px 38px #0005,inset 0 1px 0 #ffffff10}
+:root[data-theme="dark"] .hero-label{color:#d9caff}
+:root[data-theme="dark"] .hero-amount{color:#fff8ff;text-shadow:0 2px 18px #b6a0ff25}
+:root[data-theme="dark"] #dailyPlanText{background:#2c2547;color:#e4d9ff;border-color:#65528e;box-shadow:0 4px 16px #0002}
+:root[data-theme="dark"] .expense-month-panel{background:linear-gradient(145deg,#28223f,#1d1b30 70%,#183b38 150%)!important;border-color:#4a3e69!important}
+:root[data-theme="dark"] .expense-month-panel:before{background:#9b80ff18}
+:root[data-theme="dark"] .expense-month-panel #totalExpenses{color:#e5d9ff}
+:root[data-theme="dark"] .hint-button{background:#393052;border-color:#574878;color:#cdbaff}
+:root[data-theme="dark"] .expense-hint{background:#302744;color:#d6cbee}
+:root[data-theme="dark"] .stats .panel:first-child{background:linear-gradient(135deg,#27233d,#1d1b30)!important}
+:root[data-theme="dark"] .account-total{background:linear-gradient(125deg,#44316f 0%,#684bb0 55%,#146c5a 135%);border-color:#7460ac;box-shadow:0 16px 38px #0005}
+:root[data-theme="dark"] .nav-btn.active{background:linear-gradient(135deg,#393052,#17433e);color:#d8caff}
+:root[data-theme="dark"] .transaction-icon.income-icon{background:#153c35;color:#5ee0ad}
+:root[data-theme="dark"] .transaction-amount.income{color:#5ee0ad}
+:root[data-theme="dark"] .bottom-nav{background:rgba(25,23,42,.94);border-color:#3a355a}
+.modal-backdrop{overscroll-behavior:contain;touch-action:pan-y}
+.modal{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;will-change:auto}
+@media(max-width:520px){
+ .topbar{align-items:center}
+ .brand{font-size:1.25rem}
+ .topbar-meta{max-width:55%}
+ #todayLabel{font-size:.78rem}
+ #headerBalance{font-size:.72rem}
+ .hero{padding:1rem}
+ .hero-amount{font-size:clamp(2.65rem,10vw,3.6rem)}
+ .stats .panel:first-child{padding:.62rem .65rem}
+ .expense-month-panel #totalExpenses{font-size:clamp(1.55rem,6vw,1.95rem)}
+ .nav-btn svg{width:1.85rem;height:1.85rem}
+ .account-total{padding:1.25rem 1rem}
+ .modal-backdrop{align-items:flex-end;padding:0;overscroll-behavior:none}
+ .modal{width:100%;max-height:82dvh;border-radius:1.3rem 1.3rem 0 0;padding:1rem 1rem calc(1rem + var(--safe-bottom));margin:0;transform:none!important;transition:none!important;touch-action:pan-y}
+}
+@media(max-width:360px){.brand{font-size:1.1rem}.topbar-meta{max-width:58%}.nav-btn svg{width:1.7rem;height:1.7rem}}
+
 </style>
 </head>
 <body>
 <main class="app">
   <header class="topbar">
-    <div><div class="brand">мій<span>бюджет</span></div><div class="muted" id="todayLabel"></div></div>
-    <div class="muted" id="headerBalance"></div>
+    <div class="brand">мій<span>бюджет</span></div>
+    <div class="topbar-meta"><div class="muted" id="todayLabel"></div><div class="muted" id="headerBalance"></div></div>
   </header>
 
   <section class="page active" id="page-home" data-page="home">
@@ -126,7 +198,11 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     </section>
     <section class="stats">
       <div class="panel"><div class="muted">Баланс у бюджеті</div><div class="stat-value" id="currentBalance">₴ 0</div></div>
-      <div class="panel" title="Сума всіх витратних операцій з першого числа поточного місяця до сьогодні, на всіх рахунках."><div class="muted">Витрати цього місяця <span aria-hidden="true" title="Від 1-го числа місяця до сьогодні; враховуються всі рахунки.">ⓘ</span></div><div class="stat-value" id="totalExpenses">₴ 0</div><div class="muted">Від 1-го числа до сьогодні · усі рахунки</div></div>
+      <div class="panel expense-month-panel">
+        <div class="expense-month-head"><div class="muted">Витрати цього місяця</div><button class="hint-button" id="expenseHintButton" type="button" aria-label="Пояснення розрахунку витрат" aria-expanded="false" aria-controls="expenseHint"><i data-lucide="info"></i></button></div>
+        <div class="stat-value" id="totalExpenses">₴ 0</div>
+        <div class="expense-hint muted" id="expenseHint" hidden>Від 1-го числа поточного місяця до сьогодні. Враховуються всі рахунки, навіть виключені з бюджету.</div>
+      </div>
     </section>
     <div class="section-head"><h2>Останні операції</h2><button class="button" type="button" data-goto="analytics">Уся історія <i data-lucide="arrow-up-right"></i></button></div>
     <section class="transactions" id="transactionsList" aria-live="polite"></section>
@@ -193,10 +269,10 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 
 <nav class="bottom-nav" aria-label="Головне меню">
   <button class="nav-btn active" type="button" data-nav="home" aria-label="Головна" title="Головна"><i data-lucide="house"></i><span>Головна</span></button>
-  <button class="nav-btn" type="button" data-nav="accounts" aria-label="Рахунки" title="Рахунки"><i data-lucide="wallet-cards"></i><span>Рахунки</span></button>
+  <button class="nav-btn" type="button" data-nav="accounts" aria-label="Рахунки" title="Рахунки"><i data-lucide="credit-card"></i><span>Рахунки</span></button>
   <button class="fab" id="addTransactionBtn" type="button" aria-label="Додати операцію" title="Додати операцію"><i data-lucide="plus"></i></button>
   <button class="nav-btn" type="button" data-nav="analytics" aria-label="Аналітика" title="Аналітика"><i data-lucide="chart-no-axes-combined"></i><span>Аналітика</span></button>
-  <button class="nav-btn" type="button" data-nav="settings" aria-label="Налаштування" title="Налаштування"><i data-lucide="settings-2"></i><span>Налаштування</span></button>
+  <button class="nav-btn" type="button" data-nav="settings" aria-label="Налаштування" title="Налаштування"><i data-lucide="sliders-horizontal"></i><span>Налаштування</span></button>
 </nav>
 
 <div class="modal-backdrop" id="transactionModal" role="dialog" aria-modal="true" aria-labelledby="transactionModalTitle">
@@ -337,8 +413,37 @@ if(window.matchMedia){
 function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch(e){console.error(e);showToast('Не вдалося зберегти дані у браузері');return false}}
 function showToast(text){const el=$('toast');el.textContent=text;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)}
 function refreshIcons(){if(window.lucide)window.lucide.createIcons()}
-function openModal(id){$(id).classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>$(id).querySelector('input,select,button')?.focus(),30)}
-function closeModal(id){$(id).classList.remove('open');if(!document.querySelector('.modal-backdrop.open'))document.body.style.overflow=''}
+
+const expenseHintButton=$('expenseHintButton');
+if(expenseHintButton){
+ expenseHintButton.addEventListener('click',()=>{
+  const hint=$('expenseHint'),isOpen=!hint.hidden;
+  hint.hidden=isOpen;
+  expenseHintButton.setAttribute('aria-expanded',String(!isOpen));
+  expenseHintButton.innerHTML=`<i data-lucide="${isOpen?'info':'x'}"></i>`;
+  refreshIcons();
+ });
+}
+
+let modalScrollY=0;
+function openModal(id){
+ const body=document.body;
+ if(!document.querySelector('.modal-backdrop.open')){
+  modalScrollY=window.scrollY||window.pageYOffset||0;
+  body.dataset.modalScrollY=String(modalScrollY);
+  body.style.position='fixed';body.style.top=`-${modalScrollY}px`;body.style.left='0';body.style.right='0';body.style.width='100%';body.style.overflow='hidden';
+ }
+ $(id).classList.add('open');
+}
+function closeModal(id){
+ $(id).classList.remove('open');
+ if(!document.querySelector('.modal-backdrop.open')){
+  const body=document.body,scrollY=Number(body.dataset.modalScrollY||modalScrollY||0);
+  body.style.position='';body.style.top='';body.style.left='';body.style.right='';body.style.width='';body.style.overflow='';
+  delete body.dataset.modalScrollY;
+  window.scrollTo(0,scrollY);
+ }
+}
 document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>closeModal(btn.dataset.close)));
 document.querySelectorAll('.modal-backdrop').forEach(back=>back.addEventListener('click',e=>{if(e.target===back)closeModal(back.id)}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const opened=document.querySelector('.modal-backdrop.open');if(opened)closeModal(opened.id)}});
@@ -359,7 +464,7 @@ function accountName(id){return state.accounts.find(a=>a.id===id)?.name||'Рах
 function categoryIcon(category){return (baseCategories.expense.concat(baseCategories.income).find(x=>x[0]===category)||[])[1]||iconMap[category]||'tag'}
 function renderTransaction(t,compact=false){
  const article=document.createElement('article');article.className='transaction';
- const icon=document.createElement('div');icon.className=`transaction-icon ${t.type==='expense'?'expense-icon':''}`;
+ const icon=document.createElement('div');icon.className=`transaction-icon ${t.type==='expense'?'expense-icon':'income-icon'}`;
  const ico=document.createElement('i');ico.setAttribute('data-lucide',categoryIcon(t.category));icon.append(ico);
  const main=document.createElement('div');main.className='transaction-main';
  const title=document.createElement('div');title.className='transaction-title';title.textContent=t.title.trim()||t.category;
