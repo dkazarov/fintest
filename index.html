@@ -667,7 +667,7 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 
   <section class="page active" id="page-home" data-page="home">
     <section class="hero">
-      <div class="hero-label">Можна витратити сьогодні</div>
+      <div class="hero-topline"><div class="hero-label">Можна витратити сьогодні</div><button class="hero-settings-btn" id="openSettingsBtn" type="button" aria-label="Налаштування" title="Налаштування"><i data-lucide="settings"></i></button></div>
       <div class="hero-amount" id="availableToday">0 грн</div>
       <div class="hero-meta"><span id="dailyPlanText">Денний бюджет: 0 грн</span><span id="nextIncomeText">До наступного надходження: —</span></div>
       <div class="progress" id="progress" role="progressbar" aria-label="Використано денного бюджету" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
@@ -680,8 +680,25 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
         <div class="stat-value" id="totalExpenses">0 грн</div>
       </div>
     </section>
-    <div class="section-head"><h2>Останні операції</h2><button class="button" type="button" data-goto="analytics">Уся історія <i data-lucide="arrow-up-right"></i></button></div>
+    <div class="section-head"><h2>Останні операції</h2><button class="button" type="button" data-goto="transactions">Усі транзакції <i data-lucide="arrow-up-right"></i></button></div>
     <section class="transactions" id="transactionsList" aria-live="polite"></section>
+  </section>
+
+  <section class="page" id="page-transactions" data-page="transactions">
+    <div class="section-head" style="margin-top:0"><div><h2>Усі транзакції</h2><div class="muted" id="transactionsCount">Усі операції</div></div></div>
+    <section class="panel transaction-filters">
+      <div class="transaction-filter-grid">
+        <div class="field full search-field"><label for="transactionSearch">Пошук</label><input id="transactionSearch" type="search" placeholder="Назва або категорія"></div>
+        <div class="field"><label for="transactionsTypeFilter">Тип</label><select id="transactionsTypeFilter"><option value="all">Усі типи</option><option value="expense">Витрати</option><option value="income">Доходи</option><option value="transfer">Перекази</option></select></div>
+        <div class="field"><label for="transactionsAccountFilter">Рахунок</label><select id="transactionsAccountFilter"><option value="all">Усі рахунки</option></select></div>
+        <div class="field"><label for="transactionsCategoryFilter">Категорія</label><select id="transactionsCategoryFilter"><option value="all">Усі категорії</option></select></div>
+        <div class="field"><label for="transactionsDateFrom">Дата від</label><input id="transactionsDateFrom" type="date"></div>
+        <div class="field"><label for="transactionsDateTo">Дата до</label><input id="transactionsDateTo" type="date"></div>
+        <div class="field full"><label for="transactionsSort">Сортування</label><select id="transactionsSort"><option value="newest">Спочатку нові</option><option value="oldest">Спочатку старі</option><option value="amountDesc">Сума: від більшої</option><option value="amountAsc">Сума: від меншої</option></select></div>
+      </div>
+      <div class="transaction-filter-actions"><button class="button" id="resetTransactionFilters" type="button"><i data-lucide="x-circle"></i> Скинути фільтри</button></div>
+    </section>
+    <section class="transactions" id="allTransactionsList" aria-live="polite"></section>
   </section>
 
   <section class="page" id="page-accounts" data-page="accounts">
@@ -701,8 +718,6 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     <div class="section-head"><h2>Витрати за категоріями</h2></div>
     <section class="panel chart-panel"><h3>Доходи та витрати за місяцями</h3><div class="muted chart-caption">Останні 6 місяців</div><div id="monthlyChart" class="monthly-chart"></div><div class="chart-legend"><span><i class="legend-dot income-dot"></i> Доходи</span><span><i class="legend-dot expense-dot"></i> Витрати</span></div></section>
     <div class="section-head"><h2>Структура витрат</h2></div><section class="panel category-chart-panel"><div id="categoryDonut" class="category-donut-wrap"></div><div id="categoryAnalytics"></div></section>
-    <div class="section-head history-head"><div><h2>Історія операцій</h2><span class="muted" id="allTransactionCount"></span></div><div class="field history-filter"><label for="historyCategoryFilter">Категорія</label><select id="historyCategoryFilter"><option value="all">Усі категорії</option></select></div></div>
-    <section class="transactions" id="allTransactionsList"></section>
   </section>
 
   <section class="page" id="page-settings" data-page="settings">
@@ -733,10 +748,10 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 
 <nav class="bottom-nav" aria-label="Головне меню">
   <button class="nav-btn active" type="button" data-nav="home" aria-label="Головна" title="Головна"><i data-lucide="house"></i><span>Головна</span></button>
-  <button class="nav-btn" type="button" data-nav="accounts" aria-label="Рахунки" title="Рахунки"><i data-lucide="credit-card"></i><span>Рахунки</span></button>
+  <button class="nav-btn" type="button" data-nav="transactions" aria-label="Транзакції" title="Транзакції"><i data-lucide="list-filter"></i><span>Транзакції</span></button>
   <button class="fab" id="addTransactionBtn" type="button" aria-label="Додати операцію" title="Додати операцію"><i data-lucide="plus"></i></button>
+  <button class="nav-btn" type="button" data-nav="accounts" aria-label="Рахунки" title="Рахунки"><i data-lucide="credit-card"></i><span>Рахунки</span></button>
   <button class="nav-btn" type="button" data-nav="analytics" aria-label="Аналітика" title="Аналітика"><i data-lucide="chart-no-axes-combined"></i><span>Аналітика</span></button>
-  <button class="nav-btn" type="button" data-nav="settings" aria-label="Налаштування" title="Налаштування"><i data-lucide="sliders-horizontal"></i><span>Налаштування</span></button>
 </nav>
 
 <div class="modal-backdrop" id="transactionModal" role="dialog" aria-modal="true" aria-labelledby="transactionModalTitle">
@@ -1034,28 +1049,53 @@ function renderAnalytics(){
  const donutHost=$('categoryDonut');donutHost.replaceChildren();const palette=['#8064d8','#d86691','#64b5a6','#e7ae62','#7397df','#ad82cc','#7a9b78','#e48d73','#8b8ba9','#b3a2ed'];const totalCat=sorted.reduce((sum,item)=>sum+item[1],0);if(totalCat>0){let offset=0;const stops=sorted.map(([name,value],i)=>{const start=offset;offset+=value/totalCat*100;return `${palette[i%palette.length]} ${start}% ${offset}%`}).join(',');const donut=document.createElement('div');donut.className='category-donut';donut.style.background=`conic-gradient(${stops})`;const center=document.createElement('div');center.className='donut-center';const centerValue=document.createElement('strong');centerValue.textContent=money(totalCat);const centerLabel=document.createElement('span');centerLabel.textContent='усі витрати';center.append(centerValue,centerLabel);donut.append(center);donutHost.append(donut)}else{const no=document.createElement('div');no.className='empty';no.textContent='Немає витрат для діаграми.';donutHost.append(no)}
  if(!sorted.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='За цей період витрат немає.';target.append(empty)}
  else sorted.forEach(([name,value],i)=>{const row=document.createElement('div');row.className='category-legend-row';const swatch=document.createElement('div');swatch.className='category-color';swatch.style.background=palette[i%palette.length];const label=document.createElement('div');label.className='category-legend-name';label.textContent=name;const amount=document.createElement('div');amount.className='category-legend-value';amount.textContent=`${money(value)} · ${Math.round(value/totalCat*100)}%`;row.append(swatch,label,amount);target.append(row)});
- const historyFilter=$('historyCategoryFilter');const selectedCategory=historyFilter.value||'all';
- const categoryNames=[...new Set([...baseCategories.expense,...baseCategories.income].map(c=>c[0]).concat(state.customCategories.map(c=>c.name),state.transactions.map(t=>t.category)))].sort((a,b)=>a.localeCompare(b,'uk'));
- historyFilter.replaceChildren();const allOption=document.createElement('option');allOption.value='all';allOption.textContent='Усі категорії';historyFilter.append(allOption);
- categoryNames.forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;historyFilter.append(option)});historyFilter.value=categoryNames.includes(selectedCategory)?selectedCategory:'all';
- const all=[...state.transactions].sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
- const visibleHistory=historyFilter.value==='all'?all:all.filter(t=>t.category===historyFilter.value);
- $('allTransactionCount').textContent=`${visibleHistory.length} з ${all.length} операцій`;renderTransactionList('allTransactionsList',visibleHistory);
 }
+
+function renderTransactionsPage(){
+ const categorySelect=$('transactionsCategoryFilter'), accountSelect=$('transactionsAccountFilter');
+ const selectedCategory=categorySelect.value||'all', selectedAccount=accountSelect.value||'all';
+ const categoryNames=[...new Set([...baseCategories.expense,...baseCategories.income].map(c=>c[0]).concat(state.customCategories.map(c=>c.name),state.transactions.map(t=>t.category).filter(Boolean)))].sort((a,b)=>a.localeCompare(b,'uk'));
+ categorySelect.replaceChildren(new Option('Усі категорії','all'));
+ categoryNames.forEach(name=>categorySelect.add(new Option(name,name)));
+ categorySelect.value=categoryNames.includes(selectedCategory)?selectedCategory:'all';
+ accountSelect.replaceChildren(new Option('Усі рахунки','all'));
+ state.accounts.slice().sort((a,b)=>a.name.localeCompare(b.name,'uk')).forEach(a=>accountSelect.add(new Option(a.name,a.id)));
+ accountSelect.value=state.accounts.some(a=>a.id===selectedAccount)?selectedAccount:'all';
+ const query=$('transactionSearch').value.trim().toLocaleLowerCase('uk-UA');
+ const type=$('transactionsTypeFilter').value,category=categorySelect.value,account=accountSelect.value;
+ const from=$('transactionsDateFrom').value,to=$('transactionsDateTo').value,sort=$('transactionsSort').value;
+ let items=state.transactions.filter(t=>{
+  const title=(t.title||'').toLocaleLowerCase('uk-UA'),cat=(t.category||'').toLocaleLowerCase('uk-UA');
+  const matchesSearch=!query||title.includes(query)||cat.includes(query)||accountName(t.accountId).toLocaleLowerCase('uk-UA').includes(query);
+  return matchesSearch&&(type==='all'||t.type===type)&&(category==='all'||t.category===category)&&(account==='all'||t.accountId===account||t.type==='transfer'&&t.transferToAccountId===account)&&(!from||t.date>=from)&&(!to||t.date<=to);
+ });
+ items.sort((a,b)=>{
+  if(sort==='oldest')return a.date.localeCompare(b.date)||(a.createdAt||0)-(b.createdAt||0);
+  if(sort==='amountDesc')return b.amount-a.amount||b.date.localeCompare(a.date);
+  if(sort==='amountAsc')return a.amount-b.amount||b.date.localeCompare(a.date);
+  return b.date.localeCompare(a.date)||(b.createdAt||0)-(a.createdAt||0);
+ });
+ $('transactionsCount').textContent=`Показано ${items.length} з ${state.transactions.length} операцій`;
+ renderTransactionList('allTransactionsList',items);
+}
+
 function renderCustomCategories(){
  const target=$('customCategoriesList');target.replaceChildren();
  if(!state.customCategories.length){const note=document.createElement('div');note.className='muted';note.textContent='Власних категорій ще немає.';target.append(note);return}
  state.customCategories.forEach(c=>{const row=document.createElement('div');row.style.cssText='display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.55rem 0;border-top:1px solid var(--border)';const label=document.createElement('div');label.textContent=`${c.name} · ${c.type==='income'?'дохід':'витрата'}`;const del=document.createElement('button');del.type='button';del.className='icon-btn delete';del.innerHTML='<i data-lucide="trash-2"></i>';del.setAttribute('aria-label',`Видалити категорію ${c.name}`);del.addEventListener('click',()=>askConfirm('Видалити категорію?',`Категорію «${c.name}» буде прибрано зі списку. Старі операції залишаться в історії.`,()=>{state.customCategories=state.customCategories.filter(x=>x.id!==c.id);persist();renderCustomCategories();showToast('Категорію видалено')},'Видалити'));row.append(label,del);target.append(row)});refreshIcons();
 }
-function renderAll(){renderHome();renderAccounts();renderAnalytics();renderCustomCategories();refreshIcons();checkReminder()}
+function renderAll(){renderHome();renderAccounts();renderAnalytics();renderTransactionsPage();renderCustomCategories();refreshIcons();checkReminder()}
 function navigate(page){
  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.dataset.page===page));
  document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===page));
  $('addTransactionBtn').hidden=false;
- if(page==='accounts')renderAccounts();if(page==='analytics')renderAnalytics();if(page==='settings')renderCustomCategories();
+ if(page==='transactions')renderTransactionsPage();if(page==='accounts')renderAccounts();if(page==='analytics')renderAnalytics();if(page==='settings')renderCustomCategories();
  window.scrollTo({top:0,behavior:'smooth'});
 }
 document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));
+$('openSettingsBtn').addEventListener('click',()=>navigate('settings'));
+['transactionSearch','transactionsTypeFilter','transactionsCategoryFilter','transactionsAccountFilter','transactionsDateFrom','transactionsDateTo','transactionsSort'].forEach(id=>$(id).addEventListener('input',renderTransactionsPage));
+$('resetTransactionFilters').addEventListener('click',()=>{['transactionSearch','transactionsDateFrom','transactionsDateTo'].forEach(id=>$(id).value='');$('transactionsTypeFilter').value='all';$('transactionsCategoryFilter').value='all';$('transactionsAccountFilter').value='all';$('transactionsSort').value='newest';renderTransactionsPage()});
 document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.goto)));
 function setError(id,text){const el=$(id);el.textContent=text;el.hidden=!text}
 function updateTransactionTypeFields(){
@@ -1148,7 +1188,7 @@ $('accountForm').addEventListener('submit',e=>{
  if(wasFirstAccount&&!state.hasConfiguredBudget){$('welcomeNextDate').value=state.nextIncomeDate||todayISO();openModal('welcomeDateModal')}
 });
 $('analyticsPeriod').addEventListener('change',renderAnalytics);
-$('historyCategoryFilter').addEventListener('change',renderAnalytics);
+
 $('welcomeBalanceForm').addEventListener('submit',e=>{
  e.preventDefault();const amount=Number($('welcomeBalance').value);
  if(!Number.isFinite(amount)||amount<0){showToast('Вкажи коректну суму');return}
@@ -1242,6 +1282,79 @@ if(!state.transactions.length&&!state.hasConfiguredBudget&&state.accounts.length
 @media(max-width:360px){
   .transaction-main{min-height:3rem}
   .transaction-icon svg{width:calc(1.18rem * 1.10)!important;height:calc(1.18rem * 1.10)!important}
+}
+</style>
+
+
+<style>
+/* v26 navigation, settings shortcut, and searchable transaction history */
+.hero-topline{display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+.hero-settings-btn{display:grid;place-items:center;flex:0 0 auto;width:2.25rem;height:2.25rem;border:1px solid #ded3fb;border-radius:.8rem;background:#ffffffb8;color:#655782}
+.hero-settings-btn svg{width:1.15rem;height:1.15rem}
+.hero-settings-btn:active{transform:scale(.96)}
+.transaction-filter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+.transaction-filter-actions{display:flex;justify-content:flex-end;margin-top:.8rem}
+.transaction-filter-actions .button{width:auto}
+.transaction-right{align-items:flex-end!important;justify-content:space-between!important;text-align:right!important}
+.transaction-amount{font-size:clamp(1.15rem,3.8vw,1.28rem)!important;text-align:right!important;white-space:nowrap}
+.transaction-actions{display:flex!important;flex-direction:row!important;justify-content:flex-end!important;gap:.16rem!important;margin-top:auto!important}
+.transaction-right{align-self:stretch!important}
+.transaction-actions .icon-btn{width:1.85rem;height:1.85rem}
+.bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+@media(max-width:360px){
+ .transaction-filter-grid{gap:.55rem}
+ .transaction-filter-grid input,.transaction-filter-grid select{padding:.62rem .55rem;font-size:.88rem}
+ .nav-btn{font-size:.68rem}
+ .transaction-amount{font-size:1.1rem!important}
+}
+@media(min-width:560px){.transaction-filter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.transaction-filter-grid .field.full{grid-column:span 1}}
+</style>
+
+
+<style>
+/* v27 transaction filters and amount alignment */
+.transaction-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.transaction-filter-grid .field.full{grid-column:1/-1}
+.transaction-filter-grid .search-field{order:-1}
+.transaction-filter-grid .field{min-width:0}
+.transaction-filter-grid .field input,.transaction-filter-grid .field select{width:100%;min-width:0}
+.transaction-right{display:flex!important;flex-direction:column!important;align-items:flex-end!important;justify-content:space-between!important;text-align:right!important;min-width:5.25rem}
+.transaction-amount{display:block!important;width:100%!important;text-align:right!important;margin-left:auto!important;align-self:flex-end!important;font-size:clamp(1.16rem,3.9vw,1.3rem)!important;white-space:nowrap!important}
+@media(max-width:520px){
+ .transaction-filter-grid{grid-template-columns:minmax(0,1fr)}
+ .transaction-filter-grid .field,.transaction-filter-grid .field.full{grid-column:1/-1;width:100%}
+ .transaction-filter-grid .search-field{order:-1}
+ .transaction-right{min-width:4.7rem}
+}
+</style>
+
+
+<style>
+/* v28 transaction filter layout */
+.transaction-filter-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:.8rem!important;
+}
+.transaction-filter-grid .field{min-width:0!important}
+.transaction-filter-grid .field.full,
+.transaction-filter-grid .search-field{grid-column:1/-1!important}
+.transaction-filter-grid .search-field{order:-1}
+.transaction-filter-grid .field input,
+.transaction-filter-grid .field select{width:100%!important;min-width:0!important;box-sizing:border-box}
+.transaction-filter-grid #transactionsTypeFilter{grid-column:1}
+.transaction-filter-grid #transactionsAccountFilter{grid-column:2}
+.transaction-filter-grid #transactionsCategoryFilter{grid-column:1}
+.transaction-filter-grid #transactionsSort{grid-column:2}
+.transaction-filter-grid #transactionsDateFrom{grid-column:1}
+.transaction-filter-grid #transactionsDateTo{grid-column:2}
+.transaction-filters{margin-bottom:1.35rem!important}
+#allTransactionsList{margin-top:0!important}
+@media(max-width:520px){
+  .transaction-filter-grid{grid-template-columns:minmax(0,1fr)!important}
+  .transaction-filter-grid .field,
+  .transaction-filter-grid .field.full,
+  .transaction-filter-grid .search-field{grid-column:1/-1!important;width:100%!important}
 }
 </style>
 
