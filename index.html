@@ -628,6 +628,29 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
  .transaction-icon{width:2.4rem!important;height:2.4rem!important;min-width:2.4rem!important;max-width:2.4rem!important}
  .transaction-title,.transaction-amount{font-size:.82rem!important}
 }
+
+/* v20 refinements */
+.field[hidden]{display:none!important}
+.hero{margin-bottom:.55rem}
+.stats{margin-top:0;gap:.65rem}
+.stat-value{font-size:clamp(1.12rem,4.2vw,1.65rem);letter-spacing:-.04em;line-height:1.18;font-variant-numeric:tabular-nums}
+.stat-value.long-value{font-size:clamp(.92rem,3.45vw,1.35rem);letter-spacing:-.045em}
+.transaction{grid-template-columns:3.05rem minmax(0,1fr) minmax(6.6rem,auto)}
+.transaction-icon{width:2.9rem;height:2.9rem;align-self:center;justify-self:center}
+.transaction-icon svg{width:1.3rem;height:1.3rem}
+.transaction-title{font-size:clamp(1rem,3.4vw,1.13rem)!important;line-height:1.28;font-weight:800!important}
+.transaction-amount{font-size:clamp(1rem,3.5vw,1.16rem)!important;line-height:1.2}
+.account-name{font-size:1.12rem;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.account-balance{font-size:clamp(1.12rem,3.8vw,1.4rem)}
+.account-total .stat-value{font-size:clamp(1.45rem,5vw,1.85rem)}
+.transaction-transfer{color:#6750a4;background:#f0ebff}
+.transfer-destination{color:#6750a4}
+@media(max-width:520px){.transaction{grid-template-columns:2.65rem minmax(0,1fr) minmax(5.6rem,auto);gap:.48rem}.transaction-icon{width:2.55rem;height:2.55rem}.transaction-icon svg{width:1.15rem;height:1.15rem}.transaction-title{font-size:1rem!important}.transaction-amount{font-size:1rem!important}.account-name{font-size:1.02rem}.account-balance{font-size:1.08rem}.account-total .stat-value{font-size:clamp(1.3rem,4.8vw,1.6rem)}}
+@media(max-width:360px){.transaction{grid-template-columns:2.35rem minmax(0,1fr) minmax(5.1rem,auto);gap:.35rem}.transaction-icon{width:2.25rem;height:2.25rem}.transaction-title,.transaction-amount{font-size:.94rem!important}}
+
+/* v22: force the category icon tile to the vertical center of the full transaction card */
+.transaction{align-items:center!important}
+.transaction-icon{align-self:center!important;justify-self:center!important;place-self:center!important;margin-block:auto!important;position:relative;top:0!important;transform:none!important}
 </style>
 </head>
 <body>
@@ -721,9 +744,9 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     <div class="dialog-head"><h2 id="transactionModalTitle">Нова операція</h2><button class="close-btn" type="button" data-close="transactionModal" aria-label="Закрити"><i data-lucide="x"></i></button></div>
     <form id="transactionForm">
       <div class="form-grid">
-        <div class="field"><label for="transactionType">Тип операції</label><select id="transactionType"><option value="expense">Витрата</option><option value="income">Дохід</option></select></div>
+        <div class="field"><label for="transactionType">Тип операції</label><select id="transactionType"><option value="expense">Витрата</option><option value="income">Дохід</option><option value="transfer">Переказ між рахунками</option></select></div>
         <div class="field"><label for="transactionAmount">Сума, грн</label><input id="transactionAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required></div>
-        <div class="field full"><label for="transactionAccount">Рахунок</label><select id="transactionAccount" required></select></div>
+        <div class="field full" id="sourceAccountField"><label for="transactionAccount">Рахунок списання</label><select id="transactionAccount" required></select></div><div class="field full" id="destinationAccountField" hidden><label for="transactionDestinationAccount">Рахунок отримання</label><select id="transactionDestinationAccount"></select></div>
         <div class="field"><label for="transactionCategory">Категорія</label><select id="transactionCategory" required></select></div>
         <div class="field"><label for="transactionDate">Дата</label><input id="transactionDate" type="date" required></div>
         <div class="field full"><label for="transactionTitle">Опис (необов'язково)</label><input id="transactionTitle" type="text" maxlength="100" placeholder="Наприклад, покупки в магазині"></div>
@@ -826,7 +849,7 @@ const defaultState=()=>({accounts:[],transactions:[],nextIncomeDate:todayISO(),c
 function normalizeState(raw){
  const s={...defaultState(),...(raw||{})};
  s.accounts=Array.isArray(s.accounts)?s.accounts.filter(a=>a&&typeof a.name==='string').map(a=>({id:String(a.id||uid()),name:a.name.trim()||'Рахунок',type:['cash','card','bank','savings','other'].includes(a.type)?a.type:'other',initialBalance:Number.isFinite(Number(a.initialBalance))?Number(a.initialBalance):0,includeInBudget:a.includeInBudget!==false,createdAt:Number(a.createdAt)||Date.now()})):[];
- s.transactions=Array.isArray(s.transactions)?s.transactions.filter(t=>t&&(t.type==='income'||t.type==='expense')&&Number.isFinite(Number(t.amount))&&Number(t.amount)>0&&parseDate(t.date)).map(t=>({...t,id:String(t.id||uid()),type:t.type,amount:Number(t.amount),title:typeof t.title==='string'?t.title:'',date:t.date,category:typeof t.category==='string'&&t.category.trim()?t.category:'Інше',accountId:String(t.accountId||''),createdAt:Number(t.createdAt)||Date.now()})):[];
+ s.transactions=Array.isArray(s.transactions)?s.transactions.filter(t=>t&&(['income','expense','transfer'].includes(t.type))&&Number.isFinite(Number(t.amount))&&Number(t.amount)>0&&parseDate(t.date)).map(t=>({...t,id:String(t.id||uid()),type:t.type,amount:Number(t.amount),title:typeof t.title==='string'?t.title:'',date:t.date,category:typeof t.category==='string'&&t.category.trim()?t.category:(t.type==='transfer'?'Переказ':'Інше'),accountId:String(t.accountId||''),transferToAccountId:String(t.transferToAccountId||''),createdAt:Number(t.createdAt)||Date.now()})):[];
  s.customCategories=Array.isArray(s.customCategories)?s.customCategories.filter(c=>c&&typeof c.name==='string').map(c=>({id:String(c.id||uid()),name:c.name.trim(),type:c.type==='income'?'income':'expense'})).filter(c=>c.name):[];
  s.nextIncomeDate=parseDate(s.nextIncomeDate)?s.nextIncomeDate:todayISO();
  return s;
@@ -931,7 +954,7 @@ document.querySelectorAll('.modal-backdrop').forEach(back=>back.addEventListener
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const opened=document.querySelector('.modal-backdrop.open');if(opened)closeModal(opened.id)}});
 function askConfirm(title,message,action,label='Підтвердити',danger=true){$('confirmTitle').textContent=title;$('confirmMessage').textContent=message;$('confirmActionBtn').textContent=label;$('confirmActionBtn').className=`button ${danger?'danger':'primary'}`;confirmCallback=action;openModal('confirmModal')}
 $('confirmActionBtn').addEventListener('click',()=>{const action=confirmCallback;confirmCallback=null;closeModal('confirmModal');if(action)action()});
-function accountBalance(accountId,throughToday=true){const a=state.accounts.find(x=>x.id===accountId);if(!a)return 0;return a.initialBalance+state.transactions.filter(t=>t.accountId===accountId&&(!throughToday||t.date<=todayISO())).reduce((sum,t)=>sum+(t.type==='income'?t.amount:-t.amount),0)}
+function accountBalance(accountId,throughToday=true){const a=state.accounts.find(x=>x.id===accountId);if(!a)return 0;return a.initialBalance+state.transactions.filter(t=>(t.accountId===accountId||t.type==='transfer'&&t.transferToAccountId===accountId)&&(!throughToday||t.date<=todayISO())).reduce((sum,t)=>{if(t.type==='transfer')return sum+(t.transferToAccountId===accountId?t.amount:t.accountId===accountId?-t.amount:0);return sum+(t.type==='income'?t.amount:-t.amount)},0)}
 function totalBalance(throughToday=true,includedOnly=true){return state.accounts.reduce((sum,a)=>sum+((!includedOnly||a.includeInBudget!==false)?accountBalance(a.id,throughToday):0),0)}
 function sumTransactions(type,{from=null,to=null,accountId=null}={}){return state.transactions.filter(t=>t.type===type&&(!from||t.date>=from)&&(!to||t.date<=to)&&(!accountId||t.accountId===accountId)).reduce((sum,t)=>sum+t.amount,0)}
 function monthStart(){return `${todayISO().slice(0,7)}-01`}
@@ -946,19 +969,19 @@ function accountName(id){return state.accounts.find(a=>a.id===id)?.name||'Рах
 function categoryIcon(category){return (baseCategories.expense.concat(baseCategories.income).find(x=>x[0]===category)||[])[1]||iconMap[category]||'tag'}
 function renderTransaction(t,compact=false){
  const article=document.createElement('article');article.className='transaction';
- const icon=document.createElement('div');icon.className=`transaction-icon ${t.type==='expense'?'expense-icon':'income-icon'}`;
- const ico=document.createElement('i');ico.setAttribute('data-lucide',categoryIcon(t.category));icon.append(ico);
+ const icon=document.createElement('div');icon.className=`transaction-icon ${t.type==='expense'?'expense-icon':t.type==='transfer'?'transaction-transfer':'income-icon'}`;
+ const ico=document.createElement('i');ico.setAttribute('data-lucide',t.type==='transfer'?'arrow-left-right':categoryIcon(t.category));icon.append(ico);
  const main=document.createElement('div');main.className='transaction-main';
  const title=document.createElement('div');title.className='transaction-title';title.textContent=t.title.trim()||t.category;
  const badges=document.createElement('div');badges.className='transaction-badges';
- const cat=document.createElement('span');cat.className='transaction-category category-badge';cat.innerHTML=`<i data-lucide="${categoryIcon(t.category)}"></i><span></span>`;
- cat.children[1].textContent=t.category;
+ const cat=document.createElement('span');cat.className='transaction-category category-badge';cat.innerHTML=`<i data-lucide="${t.type==='transfer'?'arrow-left-right':categoryIcon(t.category)}"></i><span></span>`;
+ cat.children[1].textContent=t.type==='transfer'?'Переказ':t.category;
  const accountBadge=document.createElement('span');accountBadge.className='transaction-account-badge';accountBadge.innerHTML=`<i data-lucide="${iconMap[state.accounts.find(a=>a.id===t.accountId)?.type]||'wallet'}"></i><span></span>`;
- accountBadge.children[1].textContent=accountName(t.accountId);badges.append(cat,accountBadge);
+ accountBadge.children[1].textContent=t.type==='transfer'?`${accountName(t.accountId)} → ${accountName(t.transferToAccountId)}`:accountName(t.accountId);if(t.type==='transfer')accountBadge.classList.add('transfer-destination');badges.append(cat,accountBadge);
  const meta=document.createElement('div');meta.className='transaction-meta';meta.textContent=formatDate(t.date)+(t.date>todayISO()?' · Заплановано':'');
  main.append(title,badges,meta);
  const right=document.createElement('div');right.className='transaction-right';
- const amount=document.createElement('div');amount.className=`transaction-amount ${t.type}`;amount.textContent=`${t.type==='income'?'+':'−'}${moneyWords(t.amount)}`;
+ const amount=document.createElement('div');amount.className=`transaction-amount ${t.type}`;amount.textContent=`${t.type==='income'?'+':t.type==='transfer'?'↔':'−'}${moneyWords(t.amount)}`;
  const actions=document.createElement('div');actions.className='transaction-actions';
  const edit=document.createElement('button');edit.type='button';edit.className='icon-btn edit';edit.title='Редагувати';edit.setAttribute('aria-label','Редагувати операцію');edit.innerHTML='<i data-lucide="pencil"></i>';edit.addEventListener('click',()=>openTransactionModal(t.id));
  const del=document.createElement('button');del.type='button';del.className='icon-btn delete';del.title='Видалити';del.setAttribute('aria-label','Видалити операцію');del.innerHTML='<i data-lucide="trash-2"></i>';del.addEventListener('click',()=>askConfirm('Видалити операцію?','Ця операція буде видалена з історії, а баланс рахунку та денний бюджет перерахуються.',()=>{state.transactions=state.transactions.filter(x=>x.id!==t.id);persist();renderAll();
@@ -978,21 +1001,21 @@ function renderHome(){
  $('nextIncomeText').textContent=`До надходження: ${d.days} ${d.days===1?'день':d.days<5?'дні':'днів'}`;
  updateSpentTodayBadge(d.spentToday,d.dailyPlan); updateProgressColor(d.spentToday,d.dailyPlan);
  const pct=d.dailyPlan>0?Math.min(100,d.spentToday/d.dailyPlan*100):0;$('progressFill').style.width=`${pct}%`;$('progress').setAttribute('aria-valuenow',String(Math.round(pct)));
- $('currentBalance').textContent=money(d.balance);$('currentBalance').classList.toggle('negative-balance',Number(d.balance)<0);$('totalExpenses').textContent=money(sumTransactions('expense',{from:month,to:today}));
+ $('currentBalance').textContent=money(d.balance);$('currentBalance').classList.toggle('negative-balance',Number(d.balance)<0);const expensesTotal=sumTransactions('expense',{from:month,to:today});$('totalExpenses').textContent=money(expensesTotal);adaptMoneyFont($('currentBalance'),d.balance);adaptMoneyFont($('totalExpenses'),expensesTotal);
  const tx=[...state.transactions].sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
  renderTransactionList('transactionsList',tx,5);
 }
 function renderAccounts(){
  const included=state.accounts.filter(a=>a.includeInBudget!==false);
- $('accountsTotal').textContent=money(totalBalance(true));$('accountsCount').textContent=`${included.length} з ${state.accounts.length} ${state.accounts.length===1?'рахунку':state.accounts.length>1&&state.accounts.length<5?'рахунків':'рахунків'} враховано`;
+ const budgetAccountsTotal=totalBalance(true);$('accountsTotal').textContent=money(budgetAccountsTotal);adaptMoneyFont($('accountsTotal'),budgetAccountsTotal);$('accountsCount').textContent=`${included.length} з ${state.accounts.length} ${state.accounts.length===1?'рахунку':state.accounts.length>1&&state.accounts.length<5?'рахунків':'рахунків'} враховано`;
  const list=$('accountsList');list.replaceChildren();
  if(!state.accounts.length){const empty=document.createElement('div');empty.className='panel empty';empty.textContent='Поки немає рахунків. Додай готівку, картку або інший рахунок.';list.append(empty);return}
  state.accounts.forEach(a=>{
    const card=document.createElement('article');card.className='panel account-card'+(a.includeInBudget===false?' excluded':'');
    const icon=document.createElement('div');icon.className='account-icon';icon.innerHTML=`<i data-lucide="${iconMap[a.type]||'wallet'}"></i>`;
-   const info=document.createElement('div');info.style.minWidth='0';const name=document.createElement('div');name.className='transaction-title';name.textContent=a.name;const sub=document.createElement('div');sub.className='account-sub';sub.textContent=({cash:'Готівка',card:'Банківська картка',bank:'Банківський рахунок',savings:'Накопичення',other:'Інший рахунок'})[a.type]||'Рахунок';
+   const info=document.createElement('div');info.style.minWidth='0';const name=document.createElement('div');name.className='account-name';name.textContent=a.name;const sub=document.createElement('div');sub.className='account-sub';sub.textContent=({cash:'Готівка',card:'Банківська картка',bank:'Банківський рахунок',savings:'Накопичення',other:'Інший рахунок'})[a.type]||'Рахунок';
    const toggleLabel=document.createElement('label');toggleLabel.className='account-select';const toggle=document.createElement('input');toggle.type='checkbox';toggle.checked=a.includeInBudget!==false;toggle.setAttribute('aria-label',`Враховувати рахунок ${a.name} у бюджеті`);toggle.addEventListener('change',()=>{a.includeInBudget=toggle.checked;persist();renderAll();showToast(toggle.checked?'Рахунок враховується в бюджеті':'Рахунок виключено з бюджету')});const toggleText=document.createElement('span');toggleText.textContent='Враховувати в бюджеті';toggleLabel.append(toggle,toggleText);info.append(name,sub);
-   const right=document.createElement('div');right.style.textAlign='right';const balance=document.createElement('div');const currentAccountBalance=accountBalance(a.id);balance.className='account-balance '+(currentAccountBalance<0?'negative':currentAccountBalance>0?'positive':'neutral');balance.textContent=money(currentAccountBalance);const actions=document.createElement('div');actions.className='account-actions';
+   const right=document.createElement('div');right.style.textAlign='right';const balance=document.createElement('div');const currentAccountBalance=accountBalance(a.id);balance.className='account-balance '+(currentAccountBalance<0?'negative':currentAccountBalance>0?'positive':'neutral');balance.textContent=money(currentAccountBalance);adaptMoneyFont(balance,currentAccountBalance);const actions=document.createElement('div');actions.className='account-actions';
    const edit=document.createElement('button');edit.className='icon-btn edit';edit.type='button';edit.title='Редагувати рахунок';edit.setAttribute('aria-label','Редагувати рахунок');edit.innerHTML='<i data-lucide="pencil"></i>';edit.addEventListener('click',()=>openAccountModal(a.id));
    const del=document.createElement('button');del.className='icon-btn delete';del.type='button';del.title='Видалити рахунок';del.setAttribute('aria-label','Видалити рахунок');del.innerHTML='<i data-lucide="trash-2"></i>';del.addEventListener('click',()=>askConfirm('Видалити рахунок?',`Рахунок «${a.name}» та всі пов’язані з ним операції буде видалено. Загальний баланс і денний бюджет перерахуються.`,()=>{state.accounts=state.accounts.filter(x=>x.id!==a.id);state.transactions=state.transactions.filter(t=>t.accountId!==a.id);persist();renderAll();showToast('Рахунок видалено')},'Видалити'));
    actions.append(edit,del);right.append(balance,actions);card.append(toggleLabel,icon,info,right);list.append(card);
@@ -1006,7 +1029,7 @@ function renderAnalytics(){
  const grouped={};items.filter(t=>t.type==='expense').forEach(t=>grouped[t.category]=(grouped[t.category]||0)+t.amount);
  const sorted=Object.entries(grouped).sort((a,b)=>b[1]-a[1]);const max=sorted[0]?.[1]||0;const target=$('categoryAnalytics');target.replaceChildren();
  // Графік доходів і витрат за останні шість місяців
- const monthly=$('monthlyChart');monthly.replaceChildren();const months=[];const now=new Date();for(let i=5;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;months.push({key,label:new Intl.DateTimeFormat('uk-UA',{month:'short'}).format(d).replace('.',''),income:0,expense:0})}state.transactions.filter(t=>t.date<=todayISO()).forEach(t=>{const m=months.find(x=>x.key===t.date.slice(0,7));if(m)m[t.type]+=t.amount});const monthMax=Math.max(1,...months.flatMap(m=>[m.income,m.expense]));months.forEach(m=>{const col=document.createElement('div');col.className='month-column';const bars=document.createElement('div');bars.className='month-bars';[['income',m.income],['expense',m.expense]].forEach(([type,val])=>{const bar=document.createElement('div');bar.className=`month-bar ${type==='income'?'income-bar':'expense-bar'}`;bar.style.height=`${Math.max(2,Number(val)/monthMax*100)}%`;bar.title=`${type==='income'?'Доходи':'Витрати'}: ${money(Number(val))}`;bars.append(bar)});const label=document.createElement('div');label.className='month-label';label.textContent=m.label;col.append(bars,label);monthly.append(col)});
+ const monthly=$('monthlyChart');monthly.replaceChildren();const months=[];const now=new Date();for(let i=5;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;months.push({key,label:new Intl.DateTimeFormat('uk-UA',{month:'short'}).format(d).replace('.',''),income:0,expense:0})}state.transactions.filter(t=>(t.type==='income'||t.type==='expense')&&t.date<=todayISO()).forEach(t=>{const m=months.find(x=>x.key===t.date.slice(0,7));if(m)m[t.type]+=t.amount});const monthMax=Math.max(1,...months.flatMap(m=>[m.income,m.expense]));months.forEach(m=>{const col=document.createElement('div');col.className='month-column';const bars=document.createElement('div');bars.className='month-bars';[['income',m.income],['expense',m.expense]].forEach(([type,val])=>{const bar=document.createElement('div');bar.className=`month-bar ${type==='income'?'income-bar':'expense-bar'}`;bar.style.height=`${Math.max(2,Number(val)/monthMax*100)}%`;bar.title=`${type==='income'?'Доходи':'Витрати'}: ${money(Number(val))}`;bars.append(bar)});const label=document.createElement('div');label.className='month-label';label.textContent=m.label;col.append(bars,label);monthly.append(col)});
  // Кільцева діаграма структури витрат
  const donutHost=$('categoryDonut');donutHost.replaceChildren();const palette=['#8064d8','#d86691','#64b5a6','#e7ae62','#7397df','#ad82cc','#7a9b78','#e48d73','#8b8ba9','#b3a2ed'];const totalCat=sorted.reduce((sum,item)=>sum+item[1],0);if(totalCat>0){let offset=0;const stops=sorted.map(([name,value],i)=>{const start=offset;offset+=value/totalCat*100;return `${palette[i%palette.length]} ${start}% ${offset}%`}).join(',');const donut=document.createElement('div');donut.className='category-donut';donut.style.background=`conic-gradient(${stops})`;const center=document.createElement('div');center.className='donut-center';const centerValue=document.createElement('strong');centerValue.textContent=money(totalCat);const centerLabel=document.createElement('span');centerLabel.textContent='усі витрати';center.append(centerValue,centerLabel);donut.append(center);donutHost.append(donut)}else{const no=document.createElement('div');no.className='empty';no.textContent='Немає витрат для діаграми.';donutHost.append(no)}
  if(!sorted.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='За цей період витрат немає.';target.append(empty)}
@@ -1035,6 +1058,22 @@ function navigate(page){
 document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));
 document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.goto)));
 function setError(id,text){const el=$(id);el.textContent=text;el.hidden=!text}
+function updateTransactionTypeFields(){
+ const type=$('transactionType').value,isTransfer=type==='transfer';
+ $('destinationAccountField').hidden=!isTransfer;
+ $('transactionDestinationAccount').required=isTransfer;
+ $('transactionCategory').closest('.field').hidden=isTransfer;
+ $('transactionTitle').closest('.field').querySelector('label').textContent=isTransfer?'Опис переказу (необов’язково)':"Опис (необов'язково)";
+ $('transactionCategory').required=!isTransfer;
+ if(isTransfer)fillTransferAccounts();
+}
+function fillTransferAccounts(selected=''){
+ const select=$('transactionDestinationAccount'),source=$('transactionAccount').value;select.replaceChildren();
+ state.accounts.filter(a=>a.id!==source).forEach(a=>{const option=document.createElement('option');option.value=a.id;option.textContent=`${a.name} · ${money(accountBalance(a.id))}`;select.append(option)});
+ if(selected&&[...select.options].some(o=>o.value===selected))select.value=selected;
+ if(!select.options.length){const option=document.createElement('option');option.value='';option.textContent='Додай ще один рахунок';select.append(option)}
+}
+function adaptMoneyFont(el,value){if(!el)return;el.classList.toggle('long-value',String(value).replace(/[^0-9]/g,'').length>=6)}
 function fillCategories(type,selected=''){
  const select=$('transactionCategory');select.replaceChildren();
  const opts=[...baseCategories[type].map(x=>({name:x[0]})),...state.customCategories.filter(c=>c.type===type).map(c=>({name:c.name}))];
@@ -1046,30 +1085,36 @@ function fillAccounts(selected=''){
  if(!state.accounts.length){const o=document.createElement('option');o.value='';o.textContent='Спочатку додай рахунок';select.append(o);return}
  state.accounts.forEach(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=`${a.name} · ${money(accountBalance(a.id))}`;select.append(o)});
  if(selected&&state.accounts.some(a=>a.id===selected))select.value=selected;
+ if($('transactionType').value==='transfer')fillTransferAccounts();
 }
 function openTransactionModal(id=null){
- editingTransactionId=id;setError('transactionError','');$('transactionForm').reset();$('transactionType').value='expense';
+ editingTransactionId=id;setError('transactionError','');$('transactionForm').reset();$('transactionType').value='expense';updateTransactionTypeFields();
  if(!state.accounts.length){navigate('accounts');showToast('Спочатку додай хоча б один рахунок');return}
  const t=id?state.transactions.find(x=>x.id===id):null;
  $('transactionModalTitle').textContent=t?'Редагувати операцію':'Нова операція';
  fillAccounts(t?.accountId||state.accounts[0].id);fillCategories(t?.type||'expense',t?.category||'');
  $('transactionDate').value=t?.date||todayISO();$('transactionAmount').value=t?.amount??'';$('transactionTitle').value=t?.title||'';
- if(t){$('transactionType').value=t.type;fillCategories(t.type,t.category);fillAccounts(t.accountId)}
+ if(t){$('transactionType').value=t.type;fillCategories(t.type==='transfer'?'expense':t.type,t.category);fillAccounts(t.accountId);if(t.type==='transfer')fillTransferAccounts(t.transferToAccountId)}
+ updateTransactionTypeFields();if(t&&t.type==='transfer')fillTransferAccounts(t.transferToAccountId);
  openModal('transactionModal');refreshIcons();
 }
-$('transactionType').addEventListener('change',()=>fillCategories($('transactionType').value));
+$('transactionType').addEventListener('change',()=>{const type=$('transactionType').value;if(type!=='transfer')fillCategories(type);updateTransactionTypeFields()});
+$('transactionAccount').addEventListener('change',()=>{if($('transactionType').value==='transfer')fillTransferAccounts()});
 $('addTransactionBtn').addEventListener('click',()=>openTransactionModal());
 $('transactionForm').addEventListener('submit',e=>{
  e.preventDefault();setError('transactionError','');
- const type=$('transactionType').value,amount=Number($('transactionAmount').value),accountId=$('transactionAccount').value,category=$('transactionCategory').value,date=$('transactionDate').value,title=$('transactionTitle').value.trim();
+ const type=$('transactionType').value,amount=Number($('transactionAmount').value),accountId=$('transactionAccount').value,transferToAccountId=type==='transfer'?$('transactionDestinationAccount').value:'',category=type==='transfer'?'Переказ':$('transactionCategory').value,date=$('transactionDate').value,title=$('transactionTitle').value.trim();
  if(!Number.isFinite(amount)||amount<=0){setError('transactionError','Вкажи суму більшу за нуль.');return}
- if(!state.accounts.some(a=>a.id===accountId)){setError('transactionError','Обери рахунок.');return}
- if(!parseDate(date)||!category){setError('transactionError','Перевір дату та категорію.');return}
+ if(!state.accounts.some(a=>a.id===accountId)){setError('transactionError','Обери рахунок списання.');return}
+ if(type==='transfer'&&(!state.accounts.some(a=>a.id===transferToAccountId)||transferToAccountId===accountId)){setError('transactionError','Обери інший рахунок для отримання коштів.');return}
+ if(!parseDate(date)||(type!=='transfer'&&!category)){setError('transactionError','Перевір дату та категорію.');return}
  const old=state.transactions.map(t=>({...t}));
- if(editingTransactionId){const idx=state.transactions.findIndex(t=>t.id===editingTransactionId);if(idx<0){setError('transactionError','Операцію не знайдено.');return}state.transactions[idx]={...state.transactions[idx],type,amount:Number(amount.toFixed(2)),accountId,category,date,title}}
- else state.transactions.push({id:uid(),type,amount:Number(amount.toFixed(2)),accountId,category,date,title,createdAt:Date.now()});
+ const operation={type,amount:Number(amount.toFixed(2)),accountId,category,date,title};
+ if(type==='transfer')operation.transferToAccountId=transferToAccountId;
+ if(editingTransactionId){const idx=state.transactions.findIndex(t=>t.id===editingTransactionId);if(idx<0){setError('transactionError','Операцію не знайдено.');return}state.transactions[idx]={...state.transactions[idx],...operation};if(type!=='transfer')delete state.transactions[idx].transferToAccountId}
+ else state.transactions.push({id:uid(),...operation,createdAt:Date.now()});
  if(!persist()){state.transactions=old;return}
- closeModal('transactionModal');renderAll();showToast(editingTransactionId?'Операцію оновлено':'Операцію додано');editingTransactionId=null;
+ closeModal('transactionModal');renderAll();showToast(editingTransactionId?'Операцію оновлено':type==='transfer'?'Переказ виконано':'Операцію додано');editingTransactionId=null;
 });
 $('addAccountBtn').addEventListener('click',()=>openAccountModal());
 function openAccountModal(id=null){
@@ -1093,7 +1138,7 @@ $('accountForm').addEventListener('submit',e=>{
  if(editingAccountId){
    const a=state.accounts.find(x=>x.id===editingAccountId);if(!a){setError('accountError','Рахунок не знайдено.');return}
    // Set the opening balance so that the entered current balance remains correct after existing transactions.
-   const txNet=state.transactions.filter(t=>t.accountId===a.id&&t.date<=todayISO()).reduce((s,t)=>s+(t.type==='income'?t.amount:-t.amount),0);
+   const txNet=state.transactions.filter(t=>(t.accountId===a.id||t.type==='transfer'&&t.transferToAccountId===a.id)&&t.date<=todayISO()).reduce((s,t)=>s+(t.type==='transfer'?(t.transferToAccountId===a.id?t.amount:-t.amount):(t.type==='income'?t.amount:-t.amount)),0);
    a.name=name;a.type=type;a.initialBalance=Number((balance-txNet).toFixed(2));
    /* Від’ємний початковий баланс допустимий: це може бути борг або овердрафт. */
  }else state.accounts.push({id:uid(),name,type,initialBalance:Number(balance.toFixed(2)),includeInBudget:true,createdAt:Date.now()});
