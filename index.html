@@ -560,39 +560,6 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
  .transaction-amount{font-size:1rem!important}
 }
 
-
-/* Finday v15 refinements */
-/* Give the two summary amounts the same bold, polished numeric treatment as the daily limit. */
-#currentBalance,#totalExpenses{
-  font-size:clamp(2rem,6.5vw,2.35rem)!important;
-  font-weight:900!important;
-  letter-spacing:-.065em!important;
-  line-height:1.12!important;
-  font-variant-numeric:tabular-nums;
-  text-shadow:0 1px 0 rgba(255,255,255,.35),0 3px 12px rgba(40,35,70,.08);
-  overflow-wrap:anywhere;
-}
-:root[data-theme="dark"] #currentBalance,:root[data-theme="dark"] #totalExpenses{
-  text-shadow:0 2px 12px rgba(0,0,0,.22);
-}
-/* Larger transaction name and amount, with 2rem as the minimum requested size. */
-.transaction-title{font-size:clamp(2rem,4.5vw,2.2rem)!important;font-weight:850!important;line-height:1.12!important;letter-spacing:-.045em!important}
-.transaction-amount{font-size:clamp(2rem,4.5vw,2.2rem)!important;font-weight:900!important;line-height:1.12!important;letter-spacing:-.045em!important}
-/* Keep the icon tile square at every breakpoint. */
-.transaction{grid-template-columns:minmax(2rem,3.05rem) minmax(0,1fr) minmax(0,auto)!important}
-.transaction-icon{align-self:center!important;aspect-ratio:1 / 1!important;width:100%!important;height:auto!important;min-width:0!important;min-height:0!important;padding:.35rem!important;overflow:hidden!important;border-radius:.85rem!important}
-.transaction-icon svg{width:100%!important;height:100%!important;max-width:2rem!important;max-height:2rem!important;aspect-ratio:1 / 1}
-@media(max-width:520px){
- .transaction{grid-template-columns:2.65rem minmax(0,1fr) minmax(0,auto)!important;gap:.45rem!important;padding:.85rem .6rem!important}
- .transaction-title,.transaction-amount{font-size:2rem!important}
- .transaction-icon{width:2.65rem!important;min-width:2.65rem!important;max-width:2.65rem!important}
-}
-@media(max-width:360px){
- .transaction{grid-template-columns:2.4rem minmax(0,1fr) minmax(0,auto)!important;gap:.35rem!important;padding:.7rem .45rem!important}
- .transaction-title,.transaction-amount{font-size:2rem!important}
- .transaction-icon{width:2.4rem!important;min-width:2.4rem!important;max-width:2.4rem!important}
-}
-
 </style>
 </head>
 <body>
