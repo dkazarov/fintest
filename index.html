@@ -179,29 +179,117 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 }
 @media(max-width:360px){.brand{font-size:1.1rem}.topbar-meta{max-width:58%}.nav-btn svg{width:1.7rem;height:1.7rem}}
 
+
+/* v6 — Finday identity and layout refinement */
+.topbar{gap:.7rem;align-items:center}
+.brand-lockup{display:flex;align-items:center;gap:.7rem;min-width:0}
+.brand-mark{display:block;width:clamp(2.7rem,11vw,3.45rem);height:clamp(2.7rem,11vw,3.45rem);flex:0 0 auto;filter:drop-shadow(0 4px 8px #20e0b225)}
+.brand-content{min-width:0}
+.brand{font-size:clamp(1.8rem,7vw,2.25rem);font-weight:950;letter-spacing:-.075em;line-height:.95;white-space:nowrap}
+.brand .brand-fin{color:#14131a}
+.brand .brand-day{color:#20b486}
+.brand-tagline{font-size:clamp(.58rem,2.2vw,.7rem);line-height:1.2;color:var(--muted);margin-top:.28rem;white-space:nowrap;letter-spacing:.005em}
+.topbar-meta{gap:.35rem;max-width:48%}
+.date-pill{display:inline-flex;align-items:center;justify-content:center;max-width:100%;padding:.4rem .65rem;border-radius:.75rem;background:linear-gradient(135deg,#e8e0ff,#e2f8ef);border:1px solid #d8cdf5;color:#483572;font-size:clamp(.7rem,2.7vw,.83rem);font-weight:850;line-height:1.15;text-align:right;text-transform:capitalize;box-shadow:0 4px 12px #624a9a12}
+#headerBalance{font-size:.75rem;text-align:right;line-height:1.25}
+:root[data-theme="dark"] .brand .brand-fin{color:#f7f4ff}
+:root[data-theme="dark"] .brand .brand-day{color:#35e5b2}
+:root[data-theme="dark"] .date-pill{background:linear-gradient(135deg,#30234e,#123d35);border-color:#514273;color:#e8ddff;box-shadow:0 5px 16px #0005}
+.stats{align-items:stretch}
+.stats>.panel{min-width:0;min-height:100%;box-sizing:border-box}
+.stats>.panel:first-child{background:linear-gradient(145deg,#f1ecff 0%,#fff 62%,#e9faf3 120%)!important;border:1px solid #ded3fb;box-shadow:0 10px 28px #5e479a12}
+.stats>.panel:first-child .muted{font-size:.86rem;font-weight:750;color:#6c5b8d}
+.stats>.panel:first-child .stat-value{font-size:clamp(1.65rem,5.7vw,2.15rem);font-weight:900;letter-spacing:-.055em;line-height:1.12;color:#352151;overflow-wrap:anywhere}
+:root[data-theme="dark"] .stats>.panel:first-child{background:linear-gradient(145deg,#1d1730,#171625 60%,#10342f 140%)!important;border-color:#3f315f;box-shadow:0 10px 30px #0005}
+:root[data-theme="dark"] .stats>.panel:first-child .muted{color:#bfb1e5}
+:root[data-theme="dark"] .stats>.panel:first-child .stat-value{color:#e8deff}
+.hint-tooltip{position:relative;display:grid;place-items:center;width:1.45rem;height:1.45rem;flex:0 0 auto;border-radius:50%;color:#8b78bc;cursor:help;outline-offset:3px}
+.hint-tooltip svg{width:1.05rem;height:1.05rem;stroke-width:2}
+.hint-tooltip:after{content:attr(data-tooltip);position:absolute;z-index:15;right:-.3rem;top:calc(100% + .55rem);width:min(15rem,calc(100vw - 4rem));padding:.7rem .8rem;border-radius:.75rem;background:#2e2545;color:#fff;font-size:.76rem;font-weight:550;line-height:1.45;box-shadow:0 10px 28px #0003;white-space:normal;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s;pointer-events:none}
+.hint-tooltip:before{content:"";position:absolute;z-index:16;right:.22rem;top:calc(100% + .25rem);border:5px solid transparent;border-bottom-color:#2e2545;opacity:0;visibility:hidden;pointer-events:none}
+.hint-tooltip:hover:after,.hint-tooltip:focus-visible:after,.hint-tooltip:hover:before,.hint-tooltip:focus-visible:before{opacity:1;visibility:visible;transform:translateY(0)}
+:root[data-theme="dark"] .hint-tooltip{color:#c7b5ff}
+:root[data-theme="dark"] .hint-tooltip:after{background:#382a57;border:1px solid #69548c}
+:root[data-theme="dark"] .hint-tooltip:before{border-bottom-color:#382a57}
+.spent-today{display:inline-flex;align-items:center;gap:.3rem;margin-top:.75rem;padding:.4rem .7rem;border:1px solid #d4c7fa;border-radius:.75rem;background:linear-gradient(110deg,#f0eaff,#e8faf3);color:#57417f;font-size:.88rem;font-weight:800;box-shadow:0 4px 14px #57417f12}
+.spent-today::before{content:"";width:.42rem;height:.42rem;flex:0 0 auto;border-radius:50%;background:#20b486;box-shadow:0 0 0 3px #20b48620}
+:root[data-theme="dark"] .spent-today{background:linear-gradient(110deg,#302349,#123a34);border-color:#4a3a69;color:#e5d9ff;box-shadow:0 4px 14px #0003}
+.transaction-amount{font-size:clamp(1.18rem,4vw,1.35rem);font-weight:850}
+.transaction-title{font-size:1rem;font-weight:750}
+.settings-group{margin-bottom:1rem!important;padding:1rem;gap:.5rem}
+.settings-group h3,.danger-zone h3{font-size:1.08rem;font-weight:850;letter-spacing:-.02em;margin:0}
+.settings-group p{margin:.15rem 0 .25rem;line-height:1.45}
+.settings-group form{min-width:0}
+.next-income-field{min-width:0;width:100%}
+.next-income-field input[type="date"]{display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:3.25rem;padding:.75rem .8rem;border:1px solid #cfc1f4;border-radius:1rem;background:linear-gradient(135deg,#f5f0ff,#effbf6);color:#39275e;font-size:1rem;font-weight:750;box-shadow:0 5px 16px #6449a015;appearance:none;-webkit-appearance:none}
+#budgetSettingsForm .form-actions{margin-top:.85rem}
+#budgetSettingsForm .form-actions .button{min-height:3rem;font-size:.96rem;font-weight:850;box-shadow:0 8px 18px #7052bd22}
+:root[data-theme="dark"] .next-income-field input[type="date"]{background:linear-gradient(125deg,#2a2043,#123c35);color:#f0eaff;border-color:#59447c;box-shadow:0 6px 18px #0004;color-scheme:dark}
+:root[data-theme="dark"] #budgetSettingsForm .form-actions .button.primary{background:linear-gradient(110deg,#7955d8,#168b70);border-color:#8e75d3;box-shadow:0 8px 20px #0004}
+:root[data-theme="dark"] .settings-group h3,:root[data-theme="dark"] .danger-zone h3{color:#f0eaff}
+:root[data-theme="dark"]{
+ color-scheme:dark;--bg:#080910;--surface:#11111d;--surface2:#1b1930;--border:#30294a;--text:#f6f2ff;--muted:#b9b0d4;--accent:#2ee5b2;--accent-soft:#172f30;--danger:#ff7896;--danger-soft:#3b1e31;--glass:rgba(18,16,31,.9);--glass-border:rgba(139,111,204,.24);--glass-shadow:0 14px 36px rgba(0,0,0,.48),0 2px 9px rgba(0,0,0,.28)
+}
+:root[data-theme="dark"] body{background:radial-gradient(ellipse at 4% -3%,#251344 0,transparent 26rem),radial-gradient(ellipse at 100% 20%,#073b32 0,transparent 25rem),radial-gradient(ellipse at 60% 105%,#1a1235 0,transparent 30rem),#080910;color:var(--text)}
+:root[data-theme="dark"] .hero{background:linear-gradient(125deg,#211638 0%,#11111d 60%,#0d302b 135%);border-color:#3b2b5c;box-shadow:0 18px 45px #0007,inset 0 1px 0 #ffffff0d}
+:root[data-theme="dark"] .expense-month-panel{background:linear-gradient(145deg,#1d1730,#11111d 68%,#0b302a 150%)!important;border-color:#382a57!important}
+:root[data-theme="dark"] .account-total{background:linear-gradient(125deg,#342054 0%,#18213a 52%,#075343 135%);border-color:#4b3b72;box-shadow:0 18px 42px #0007}
+@media(max-width:520px){
+ .brand-lockup{gap:.48rem}
+ .brand-mark{width:2.55rem;height:2.55rem}
+ .brand{font-size:clamp(1.65rem,7vw,2rem)}
+ .brand-tagline{font-size:.56rem;letter-spacing:-.015em}
+ .topbar-meta{max-width:47%;gap:.3rem}
+ .date-pill{padding:.35rem .48rem;font-size:.7rem;border-radius:.65rem}
+ #headerBalance{font-size:.68rem}
+ .stats{gap:.7rem}
+ .stats>.panel{padding:.75rem .8rem}
+ .stats>.panel:first-child .stat-value{font-size:clamp(1.25rem,4.5vw,1.7rem)}
+ .next-income-field input[type="date"]{font-size:.94rem;padding-inline:.55rem;letter-spacing:-.02em}
+ .settings-group{padding:.85rem}
+}
+@media(max-width:360px){
+ .brand-mark{width:2.25rem;height:2.25rem}
+ .brand-lockup{gap:.38rem}
+ .brand{font-size:1.5rem}
+ .brand-tagline{font-size:.51rem}
+ .date-pill{font-size:.64rem;padding:.32rem .38rem}
+}
+
 </style>
 </head>
 <body>
 <main class="app">
   <header class="topbar">
-    <div class="brand">мій<span>бюджет</span></div>
-    <div class="topbar-meta"><div class="muted" id="todayLabel"></div><div class="muted" id="headerBalance"></div></div>
+    <div class="brand-lockup">
+      <svg class="brand-mark" viewBox="0 0 48 48" role="img" aria-label="Finday">
+        <rect x="1" y="1" width="46" height="46" rx="15" fill="#0c2825"/>
+        <circle cx="24" cy="24" r="15.5" fill="none" stroke="#20e0b2" stroke-width="2.8"/>
+        <circle cx="24" cy="24" r="9.5" fill="none" stroke="#20e0b2" stroke-width="2.8" opacity=".82"/>
+        <circle cx="24" cy="24" r="3.4" fill="#20e0b2"/>
+        <path d="M24 5.8v5.5M42.2 24h-5.5M24 42.2v-5.5M5.8 24h5.5" stroke="#a3ffe8" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-content">
+        <div class="brand"><span class="brand-fin">Fin</span><span class="brand-day">daY</span></div>
+        <div class="brand-tagline">Твій день. Твої фінанси.</div>
+      </div>
+    </div>
+    <div class="topbar-meta"><div class="date-pill" id="todayLabel"></div><div class="muted" id="headerBalance"></div></div>
   </header>
 
   <section class="page active" id="page-home" data-page="home">
     <section class="hero">
       <div class="hero-label">Можна витратити сьогодні</div>
-      <div class="hero-amount" id="availableToday">₴ 0</div>
-      <div class="hero-meta"><span id="dailyPlanText">Денний бюджет: ₴ 0</span><span id="nextIncomeText">До надходження: —</span></div>
+      <div class="hero-amount" id="availableToday">0 грн</div>
+      <div class="hero-meta"><span id="dailyPlanText">Денний бюджет: 0 грн</span><span id="nextIncomeText">До надходження: —</span></div>
       <div class="progress" id="progress" role="progressbar" aria-label="Використано денного бюджету" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="muted" id="spentTodayText" style="margin-top:.55rem">Сьогодні витрачено ₴ 0</div>
+      <div class="spent-today" id="spentTodayText">Сьогодні витрачено 0 грн</div>
     </section>
     <section class="stats">
-      <div class="panel"><div class="muted">Баланс у бюджеті</div><div class="stat-value" id="currentBalance">₴ 0</div></div>
+      <div class="panel"><div class="muted">Баланс у бюджеті</div><div class="stat-value" id="currentBalance">0 грн</div></div>
       <div class="panel expense-month-panel">
-        <div class="expense-month-head"><div class="muted">Витрати цього місяця</div><button class="hint-button" id="expenseHintButton" type="button" aria-label="Пояснення розрахунку витрат" aria-expanded="false" aria-controls="expenseHint"><i data-lucide="info"></i></button></div>
-        <div class="stat-value" id="totalExpenses">₴ 0</div>
-        <div class="expense-hint muted" id="expenseHint" hidden>Від 1-го числа поточного місяця до сьогодні. Враховуються всі рахунки, навіть виключені з бюджету.</div>
+        <div class="expense-month-head"><div class="muted">Витрати цього місяця</div><span class="hint-tooltip" tabindex="0" aria-label="Пояснення розрахунку витрат" data-tooltip="Від 1-го числа поточного місяця до сьогодні. Враховуються всі рахунки, навіть виключені з бюджету."><i data-lucide="info"></i></span></div>
+        <div class="stat-value" id="totalExpenses">0 грн</div>
       </div>
     </section>
     <div class="section-head"><h2>Останні операції</h2><button class="button" type="button" data-goto="analytics">Уся історія <i data-lucide="arrow-up-right"></i></button></div>
@@ -210,16 +298,16 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 
   <section class="page" id="page-accounts" data-page="accounts">
     <div class="section-head" style="margin-top:0"><div><h2>Мої рахунки</h2><div class="muted">Готівка, картки та інші кошти</div></div><button class="button primary" id="addAccountBtn"><i data-lucide="plus"></i> Додати</button></div>
-    <div class="account-total"><div class="muted">Баланс рахунків для бюджету</div><div class="stat-value" id="accountsTotal">₴ 0</div><div class="muted" id="accountsCount">0 рахунків</div></div>
+    <div class="account-total"><div class="muted">Баланс рахунків для бюджету</div><div class="stat-value" id="accountsTotal">0 грн</div><div class="muted" id="accountsCount">0 рахунків</div></div>
     <section class="account-list" id="accountsList"></section>
   </section>
 
   <section class="page" id="page-analytics" data-page="analytics">
     <div class="section-head" style="margin-top:0"><div><h2>Аналітика</h2><div class="muted" id="analyticsMonth"></div></div><div class="field" style="width:150px"><label for="analyticsPeriod">Період</label><select id="analyticsPeriod"><option value="month">Цей місяць</option><option value="all">За весь час</option></select></div></div>
     <section class="metric-grid">
-      <div class="metric"><div class="muted">Доходи</div><div class="stat-value" id="analyticsIncome">₴ 0</div></div>
-      <div class="metric"><div class="muted">Витрати</div><div class="stat-value" id="analyticsExpenses">₴ 0</div></div>
-      <div class="metric"><div class="muted">Різниця</div><div class="stat-value" id="analyticsDifference">₴ 0</div></div>
+      <div class="metric"><div class="muted">Доходи</div><div class="stat-value" id="analyticsIncome">0 грн</div></div>
+      <div class="metric"><div class="muted">Витрати</div><div class="stat-value" id="analyticsExpenses">0 грн</div></div>
+      <div class="metric"><div class="muted">Різниця</div><div class="stat-value" id="analyticsDifference">0 грн</div></div>
       <div class="metric"><div class="muted">Операції</div><div class="stat-value" id="analyticsCount">0</div></div>
     </section>
     <div class="section-head"><h2>Витрати за категоріями</h2></div>
@@ -235,7 +323,7 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
       <h3>Планування бюджету</h3><p class="muted">Денний ліміт розраховується з балансу всіх рахунків.</p>
       <form id="budgetSettingsForm">
         <div class="form-grid" style="margin-top:.9rem">
-          <div class="field full"><label for="nextIncomeDate">Дата наступного надходження</label><input id="nextIncomeDate" type="date" required></div>
+          <div class="field full next-income-field"><label for="nextIncomeDate">Дата наступного надходження</label><input id="nextIncomeDate" type="date" required></div>
         </div>
         <div class="form-actions"><button class="button primary" type="submit"><i data-lucide="save"></i> Зберегти дату</button></div>
       </form>
@@ -281,7 +369,7 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     <form id="transactionForm">
       <div class="form-grid">
         <div class="field"><label for="transactionType">Тип операції</label><select id="transactionType"><option value="expense">Витрата</option><option value="income">Дохід</option></select></div>
-        <div class="field"><label for="transactionAmount">Сума, ₴</label><input id="transactionAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required></div>
+        <div class="field"><label for="transactionAmount">Сума, грн</label><input id="transactionAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required></div>
         <div class="field full"><label for="transactionAccount">Рахунок</label><select id="transactionAccount" required></select></div>
         <div class="field"><label for="transactionCategory">Категорія</label><select id="transactionCategory" required></select></div>
         <div class="field"><label for="transactionDate">Дата</label><input id="transactionDate" type="date" required></div>
@@ -301,7 +389,7 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
         <div class="field full"><label for="accountName">Назва рахунку</label><input id="accountName" maxlength="45" placeholder="Наприклад, Готівка" required></div>
         <div class="field"><label for="accountType">Тип</label><select id="accountType"><option value="cash">Готівка</option><option value="card">Банківська картка</option><option value="bank">Банківський рахунок</option><option value="savings">Накопичення</option><option value="other">Інше</option></select></div>
         <div class="field"><label for="accountBalanceSign">Тип балансу</label><select id="accountBalanceSign"><option value="positive">Позитивний баланс</option><option value="negative">Негативний баланс (борг)</option></select></div>
-        <div class="field"><label for="accountBalance">Сума, ₴</label><input id="accountBalance" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" required><div class="muted" id="accountBalanceHint">Введи суму без знака мінус.</div></div>
+        <div class="field"><label for="accountBalance">Сума, грн</label><input id="accountBalance" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" required><div class="muted" id="accountBalanceHint">Введи суму без знака мінус.</div></div>
       </div>
       <div class="warning" id="accountError" hidden></div>
       <div class="dialog-actions"><button class="button" type="button" data-close="accountModal">Скасувати</button><button class="button primary" type="submit"><i data-lucide="check"></i> Зберегти рахунок</button></div>
@@ -329,7 +417,7 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
     <div class="dialog-head"><h2 id="welcomeBalanceTitle">Почнемо з балансу</h2></div>
     <p class="muted">Вкажи, скільки грошей зараз є на основному рахунку. Потім налаштуємо дату наступного надходження.</p>
     <form id="welcomeBalanceForm" style="margin-top:1rem">
-      <div class="field"><label for="welcomeBalance">Поточна сума, ₴</label><input id="welcomeBalance" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Наприклад, 12500" required></div>
+      <div class="field"><label for="welcomeBalance">Поточна сума, грн</label><input id="welcomeBalance" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Наприклад, 12500" required></div>
       <div class="dialog-actions"><button class="button primary" type="submit"><i data-lucide="arrow-right"></i> Продовжити</button></div>
     </form>
   </div>
@@ -355,8 +443,8 @@ const $=id=>document.getElementById(id);
 const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 const parseDate=iso=>{if(!iso||!/^\d{4}-\d{2}-\d{2}$/.test(iso))return null;const [y,m,d]=iso.split('-').map(Number);const date=new Date(y,m-1,d);return date.getFullYear()===y&&date.getMonth()===m-1&&date.getDate()===d?date:null};
 const dayDiff=(from,to)=>Math.max(1,Math.round((parseDate(to)-parseDate(from))/86400000)+1);
-const money=value=>new Intl.NumberFormat('uk-UA',{style:'currency',currency:'UAH',maximumFractionDigits:2}).format(Number.isFinite(Number(value))?Number(value):0);
-const moneyWords=value=>new Intl.NumberFormat('uk-UA',{maximumFractionDigits:2}).format(Number.isFinite(Number(value))?Number(value):0)+' грн';
+const money=value=>new Intl.NumberFormat('uk-UA',{maximumFractionDigits:2}).format(Number.isFinite(Number(value))?Number(value):0)+' грн';
+const moneyWords=money;
 const formatDate=iso=>{const d=parseDate(iso);return d?new Intl.DateTimeFormat('uk-UA',{day:'numeric',month:'short',year:'numeric'}).format(d):'—'};
 const monthKey=iso=>String(iso||'').slice(0,7);
 const uid=()=>crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -413,17 +501,6 @@ if(window.matchMedia){
 function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch(e){console.error(e);showToast('Не вдалося зберегти дані у браузері');return false}}
 function showToast(text){const el=$('toast');el.textContent=text;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)}
 function refreshIcons(){if(window.lucide)window.lucide.createIcons()}
-
-const expenseHintButton=$('expenseHintButton');
-if(expenseHintButton){
- expenseHintButton.addEventListener('click',()=>{
-  const hint=$('expenseHint'),isOpen=!hint.hidden;
-  hint.hidden=isOpen;
-  expenseHintButton.setAttribute('aria-expanded',String(!isOpen));
-  expenseHintButton.innerHTML=`<i data-lucide="${isOpen?'info':'x'}"></i>`;
-  refreshIcons();
- });
-}
 
 let modalScrollY=0;
 function openModal(id){
