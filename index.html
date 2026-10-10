@@ -546,53 +546,38 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 .transaction-title{font-size:clamp(1.13rem,3.5vw,1.24rem)!important;font-weight:820!important}
 .transaction-amount{font-size:clamp(1.32rem,4.2vw,1.48rem)!important;font-weight:900!important}
 .spent-today{margin:.1rem 0 .55rem!important}
+/* Transaction sizing: readable but balanced on mobile */
+.transaction{grid-template-columns:3rem minmax(0,1fr) minmax(6.5rem,auto)!important}
+.transaction-icon{width:2.9rem!important;height:2.9rem!important;min-width:2.9rem!important;max-width:2.9rem!important;border-radius:.8rem!important;aspect-ratio:1/1;padding:.45rem}
+.transaction-icon svg{width:1.3rem!important;height:1.3rem!important}
+.transaction-title{font-size:1.12rem!important;font-weight:780;line-height:1.3}
+.transaction-amount{font-size:1.12rem!important;line-height:1.25}
+.account-total .stat-value{font-size:clamp(1.35rem,4.8vw,1.8rem)!important}
 @media(max-width:520px){
- .transaction{grid-template-columns:2.65rem minmax(0,1fr) minmax(5.8rem,auto)!important;gap:.5rem!important}
- .transaction-icon{min-width:2.65rem!important}
- .transaction-title{font-size:1.04rem!important}
- .transaction-amount{font-size:1.08rem!important}
- .spent-today{margin:.08rem 0 .4rem!important}
+ .transaction{grid-template-columns:2.7rem minmax(0,1fr) minmax(5.6rem,auto)!important;gap:.5rem!important;padding:.75rem .6rem!important}
+ .transaction-icon{width:2.65rem!important;height:2.65rem!important;min-width:2.65rem!important;max-width:2.65rem!important;padding:.4rem}
+ .transaction-icon svg{width:1.18rem!important;height:1.18rem!important}
+ .transaction-title,.transaction-amount{font-size:1rem!important}
+ .account-total .stat-value{font-size:1.4rem!important}
 }
 @media(max-width:360px){
- .transaction{grid-template-columns:2.4rem minmax(0,1fr) minmax(5.2rem,auto)!important}
- .transaction-icon{min-width:2.4rem!important}
- .transaction-title{font-size:.96rem!important}
- .transaction-amount{font-size:1rem!important}
+ .transaction{grid-template-columns:2.4rem minmax(0,1fr) minmax(5rem,auto)!important;gap:.35rem!important;padding:.65rem .45rem!important}
+ .transaction-icon{width:2.35rem!important;height:2.35rem!important;min-width:2.35rem!important;max-width:2.35rem!important}
+ .transaction-title,.transaction-amount{font-size:.94rem!important}
 }
 
 
-/* Finday v15 refinements */
-/* Give the two summary amounts the same bold, polished numeric treatment as the daily limit. */
-#currentBalance,#totalExpenses{
-  font-size:clamp(2rem,6.5vw,2.35rem)!important;
-  font-weight:900!important;
-  letter-spacing:-.065em!important;
-  line-height:1.12!important;
-  font-variant-numeric:tabular-nums;
-  text-shadow:0 1px 0 rgba(255,255,255,.35),0 3px 12px rgba(40,35,70,.08);
-  overflow-wrap:anywhere;
-}
-:root[data-theme="dark"] #currentBalance,:root[data-theme="dark"] #totalExpenses{
-  text-shadow:0 2px 12px rgba(0,0,0,.22);
-}
-/* Larger transaction name and amount, with 2rem as the minimum requested size. */
-.transaction-title{font-size:clamp(2rem,4.5vw,2.2rem)!important;font-weight:850!important;line-height:1.12!important;letter-spacing:-.045em!important}
-.transaction-amount{font-size:clamp(2rem,4.5vw,2.2rem)!important;font-weight:900!important;line-height:1.12!important;letter-spacing:-.045em!important}
-/* Keep the icon tile square at every breakpoint. */
-.transaction{grid-template-columns:minmax(2rem,3.05rem) minmax(0,1fr) minmax(0,auto)!important}
-.transaction-icon{align-self:center!important;aspect-ratio:1 / 1!important;width:100%!important;height:auto!important;min-width:0!important;min-height:0!important;padding:.35rem!important;overflow:hidden!important;border-radius:.85rem!important}
-.transaction-icon svg{width:100%!important;height:100%!important;max-width:2rem!important;max-height:2rem!important;aspect-ratio:1 / 1}
-@media(max-width:520px){
- .transaction{grid-template-columns:2.65rem minmax(0,1fr) minmax(0,auto)!important;gap:.45rem!important;padding:.85rem .6rem!important}
- .transaction-title,.transaction-amount{font-size:2rem!important}
- .transaction-icon{width:2.65rem!important;min-width:2.65rem!important;max-width:2.65rem!important}
-}
-@media(max-width:360px){
- .transaction{grid-template-columns:2.4rem minmax(0,1fr) minmax(0,auto)!important;gap:.35rem!important;padding:.7rem .45rem!important}
- .transaction-title,.transaction-amount{font-size:2rem!important}
- .transaction-icon{width:2.4rem!important;min-width:2.4rem!important;max-width:2.4rem!important}
-}
 
+/* Theme picker uses direct icon buttons instead of a dropdown */
+.theme-swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.55rem;margin-top:.9rem}
+.theme-choice{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;min-width:0;min-height:4.7rem;padding:.55rem .25rem;border:1px solid var(--border);border-radius:1rem;background:var(--surface);color:var(--text);font-size:.68rem;font-weight:700;line-height:1.15}
+.theme-choice i{display:grid;place-items:center;width:2rem;height:2rem;border-radius:.7rem;background:var(--swatch);color:#fff}
+.theme-choice i svg{width:1.1rem;height:1.1rem;stroke-width:2}
+.theme-choice.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft);background:var(--accent-soft);color:var(--accent)}
+.theme-choice.active i{box-shadow:0 2px 7px #0002}
+@media(max-width:380px){.theme-swatches{grid-template-columns:repeat(5,minmax(0,1fr));gap:.35rem}.theme-choice{font-size:.6rem;min-height:4.3rem}}
+:root[data-theme="dark"] .theme-choice{background:#171717;border-color:#333;color:#eee}
+:root[data-theme="dark"] .theme-choice.active{background:#292929;border-color:#aaa;color:#fff}
 
 /* Ten selectable color themes */
 .theme-swatches{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.8rem}.theme-swatches span{width:1.35rem;height:1.35rem;border-radius:50%;background:var(--swatch);border:2px solid #ffffff;box-shadow:0 0 0 1px #0002}
@@ -626,6 +611,23 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 :root[data-theme="lilac"] .nav-btn.active,:root[data-theme="mint"] .nav-btn.active,:root[data-theme="material"] .nav-btn.active,:root[data-theme="cupertino"] .nav-btn.active,:root[data-theme="restrained"] .nav-btn.active,:root[data-theme="light"] .nav-btn.active,:root[data-theme="orange"] .nav-btn.active,:root[data-theme="amber"] .nav-btn.active,:root[data-theme="blue"] .nav-btn.active{background:var(--accent-soft);color:var(--accent)}
 :root[data-theme="mint"] .transaction-amount.income,:root[data-theme="mint"] .account-balance.positive{color:#12805f}:root[data-theme="material"] .transaction-amount.income,:root[data-theme="cupertino"] .transaction-amount.income,:root[data-theme="blue"] .transaction-amount.income{color:var(--accent)}
 
+/* Transaction typography and icon tile refinements */
+.transaction-icon{width:3rem!important;height:3rem!important;min-width:3rem!important;max-width:3rem!important;aspect-ratio:1/1;padding:.42rem;border-radius:.82rem!important}
+.transaction-icon svg{width:1.28rem!important;height:1.28rem!important}
+.transaction-title{font-size:.96rem!important;line-height:1.3}
+.transaction-amount{font-size:1rem!important;line-height:1.25}
+@media(max-width:520px){
+ .transaction{grid-template-columns:2.75rem minmax(0,1fr) minmax(5.3rem,auto)!important;gap:.5rem!important}
+ .transaction-icon{width:2.7rem!important;height:2.7rem!important;min-width:2.7rem!important;max-width:2.7rem!important;padding:.38rem}
+ .transaction-icon svg{width:1.15rem!important;height:1.15rem!important}
+ .transaction-title{font-size:.88rem!important}
+ .transaction-amount{font-size:.88rem!important;white-space:normal}
+}
+@media(max-width:360px){
+ .transaction{grid-template-columns:2.45rem minmax(0,1fr) minmax(4.8rem,auto)!important}
+ .transaction-icon{width:2.4rem!important;height:2.4rem!important;min-width:2.4rem!important;max-width:2.4rem!important}
+ .transaction-title,.transaction-amount{font-size:.82rem!important}
+}
 </style>
 </head>
 <body>
@@ -698,28 +700,6 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
         <div class="form-actions"><button class="button primary" type="submit"><i data-lucide="plus"></i> Додати категорію</button></div>
       </form>
       <div id="customCategoriesList" style="margin-top:.8rem"></div>
-    </section>
-    <section class="panel settings-group theme-settings">
-      <h3>Оформлення</h3>
-      <p class="muted">Обери одну з 10 кольорових тем. Вибір автоматично зберігається на цьому пристрої.</p>
-      <div class="field" style="margin-top:.8rem">
-        <label for="themeMode">Тема застосунку</label>
-        <select id="themeMode">
-          <option value="lilac">Бузкова</option>
-          <option value="mint">М’ятна</option>
-          <option value="material">Material UI</option>
-          <option value="cupertino">Cupertino</option>
-          <option value="restrained">Стримана</option>
-          <option value="dark">Темна чорна</option>
-          <option value="light">Світла</option>
-          <option value="orange">Помаранчева</option>
-          <option value="amber">Amber</option>
-          <option value="blue">Синя</option>
-        </select>
-      </div>
-      <div class="theme-swatches" aria-label="Палітра доступних тем">
-        <span style="--swatch:#8064d8" title="Бузкова"></span><span style="--swatch:#20b486" title="М’ятна"></span><span style="--swatch:#6750a4" title="Material UI"></span><span style="--swatch:#007aff" title="Cupertino"></span><span style="--swatch:#64748b" title="Стримана"></span><span style="--swatch:#111111" title="Темна чорна"></span><span style="--swatch:#a1a1aa" title="Світла"></span><span style="--swatch:#ea580c" title="Помаранчева"></span><span style="--swatch:#f59e0b" title="Amber"></span><span style="--swatch:#2563eb" title="Синя"></span>
-      </div>
     </section>
     <section class="panel danger-zone">
       <h3>Небезпечна зона</h3><p class="muted">Видалення очистить усі рахунки, операції, категорії та параметри цього додатка.</p>
@@ -878,15 +858,22 @@ function applyTheme(mode){
  const colors={lilac:'#f3efff',mint:'#eafaf4',material:'#f7f2fa',cupertino:'#f2f2f7',restrained:'#f1f3f5',dark:'#090909',light:'#ffffff',orange:'#fff4eb',amber:'#fff8e1',blue:'#eff6ff'};
  if(meta)meta.content=colors[valid]||colors.lilac;
 }
-function loadTheme(){
- let mode='lilac';try{mode=localStorage.getItem(THEME_KEY)||'lilac'}catch(e){}
- if(!Object.keys(THEME_NAMES).includes(mode))mode='lilac';
- const select=$('themeMode');if(select)select.value=mode;applyTheme(mode);
+function syncThemeChoices(mode){
+ document.querySelectorAll('[data-theme-choice]').forEach(button=>{
+  const active=button.dataset.themeChoice===mode;
+  button.classList.toggle('active',active);
+  button.setAttribute('aria-pressed',active?'true':'false');
+ });
 }
-$('themeMode').addEventListener('change',()=>{
- const mode=$('themeMode').value;try{localStorage.setItem(THEME_KEY,mode)}catch(e){}
- applyTheme(mode);showToast('Увімкнено: '+(THEME_NAMES[mode]||'тему'));
-});
+function loadTheme(){
+ try{localStorage.removeItem(THEME_KEY)}catch(e){}
+ applyTheme('lilac');
+}
+document.querySelectorAll('[data-theme-choice]').forEach(button=>button.addEventListener('click',()=>{
+ const mode=button.dataset.themeChoice;if(!Object.keys(THEME_NAMES).includes(mode))return;
+ try{localStorage.setItem(THEME_KEY,mode)}catch(e){}
+ applyTheme(mode);syncThemeChoices(mode);showToast('Увімкнено: '+(THEME_NAMES[mode]||'тему'));
+}));
 
 function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch(e){console.error(e);showToast('Не вдалося зберегти дані у браузері');return false}}
 function showToast(text){const el=$('toast');el.textContent=text;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)}
