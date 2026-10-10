@@ -416,25 +416,54 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 }
 :root[data-theme="dark"] .hint-tooltip .tooltip-popup{background:#20343c;border-color:#45616a;color:#f0f8fa}
 
+
+/* v10 refinements */
+.brand-lockup{gap:0}
+.brand-mark{display:none!important}
+.brand-tagline{font-size:.75rem!important;line-height:1.25;margin-top:.35rem;white-space:normal}
+.brand{font-size:clamp(2rem,7.2vw,2.65rem)}
+/* Currency is independently styleable in the hero amount. */
+.hero-amount{display:block;text-align:left;justify-content:initial}
+.hero-amount .currency,.hero-amount .currency-label,.hero-amount .currency-unit{font-size:.16em;font-weight:650;opacity:.48;letter-spacing:0;vertical-align:baseline;white-space:nowrap}
+/* Spent-today returns to one continuous line, left aligned. */
+.hero .spent-today{align-self:flex-start;justify-content:flex-start;text-align:left}
+.spent-today{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:.35rem;padding:.4rem .65rem}
+.spent-today .spent-label,.spent-today .spent-value{display:inline;background:transparent;border:0;min-height:0;padding:0;border-radius:0;color:inherit;font-weight:800}
+.spent-today .spent-dot{width:.46rem;height:.46rem}
+.spent-today .spent-dot.high{width:.68rem;height:.68rem}
+/* Budget card: label at upper left, amount centered. */
+.stats>.panel:first-child{display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;text-align:left}
+.stats>.panel:first-child .muted{width:100%;text-align:left;align-self:flex-start}
+.stats>.panel:first-child .stat-value{width:100%;text-align:center;align-self:center;margin-top:auto;margin-bottom:auto}
+/* Neutral information icon; no purple chip/background. */
+.hint-tooltip{background:transparent!important;background-color:transparent!important;border:0!important;box-shadow:none!important;color:var(--muted)!important;border-radius:0!important}
+.hint-tooltip:hover,.hint-tooltip:focus-visible{background:transparent!important;color:var(--text)!important;outline:2px solid var(--border);outline-offset:3px}
+.hint-tooltip .tooltip-popup{background:#263b42;border-color:#45616a}
+:root:not([data-theme="dark"]) .hint-tooltip .tooltip-popup{background:#302747;border-color:#d8ccef;color:#fff}
+/* Transaction metadata badges stay in a row while they fit, and wrap only on overflow. */
+.transaction-meta,.transaction-badges,.transaction-tags{display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:.35rem;min-width:0;max-width:100%;overflow:visible}
+.transaction-meta .badge,.transaction-badges .badge,.transaction-tags .badge{flex:0 1 auto;min-width:0;max-width:100%;width:auto;overflow-wrap:anywhere;text-overflow:clip;white-space:normal}
+.transaction-icon{margin-right:.45rem}
+.transaction-row,.transaction-item,.transaction-card{column-gap:.75rem}
+.transaction-main,.transaction-content{min-width:0}
+@media(max-width:520px){
+ .brand-tagline{font-size:.75rem!important}
+ .transaction-meta,.transaction-badges,.transaction-tags{flex-direction:row;flex-wrap:wrap;align-items:center}
+}
+
+
+/* v10 follow-up fixes */
+#availableToday .currency-unit{font-size:.053em!important;font-weight:650!important;opacity:.48!important;letter-spacing:0!important}
+.stats>.panel:first-child{position:relative}
+.stats>.panel:first-child>.muted{align-self:flex-start;text-align:left}
+.stats>.panel:first-child>.stat-value{align-self:center;text-align:center}
+
 </style>
 </head>
 <body>
 <main class="app">
   <header class="topbar">
     <div class="brand-lockup">
-      <svg class="brand-mark" viewBox="0 0 48 48" role="img" aria-label="Finday">
-        <defs>
-          <linearGradient id="findayMarkGradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#2ee5b2"/>
-            <stop offset="1" stop-color="#4386ff"/>
-          </linearGradient>
-        </defs>
-        <rect x="1" y="1" width="46" height="46" rx="15" fill="url(#findayMarkGradient)"/>
-        <path d="M13 31V17.5C13 15 15 13 17.5 13H34" fill="none" stroke="#071a19" stroke-width="4.2" stroke-linecap="round"/>
-        <path d="M13 23.5H27.5C30 23.5 32 25.5 32 28V34" fill="none" stroke="#071a19" stroke-width="4.2" stroke-linecap="round"/>
-        <circle cx="34" cy="13" r="2.3" fill="#f7fffc"/>
-        <circle cx="32" cy="34" r="2.3" fill="#f7fffc"/>
-      </svg>
       <div class="brand-content">
         <div class="brand"><span class="brand-fin">Fin</span><span class="brand-day">daY</span></div>
         <div class="brand-tagline">Твій день. Твої фінанси.</div>
@@ -611,11 +640,17 @@ const parseDate=iso=>{if(!iso||!/^\d{4}-\d{2}-\d{2}$/.test(iso))return null;cons
 const dayDiff=(from,to)=>Math.max(1,Math.round((parseDate(to)-parseDate(from))/86400000)+1);
 const money=value=>new Intl.NumberFormat('uk-UA',{maximumFractionDigits:2}).format(Number.isFinite(Number(value))?Number(value):0)+' грн';
 const moneyWords=money;
+function heroMoney(value){
+ const formatted=money(value);
+ const match=formatted.match(/^(.+?)\s+грн$/);
+ return match?`${match[1]} <span class="currency-unit">грн</span>`:formatted;
+}
+
 function updateSpentTodayBadge(spent,budget){
  const el=$('spentTodayText');if(!el)return;
  const ratio=Number(budget)>0?Number(spent)/Number(budget):0;
  const high=ratio>.7;
- el.innerHTML=`<span class="spent-label">Сьогодні витрачено</span><span class="spent-dot${high?' high':''}" aria-label="${high?'Понад 70% денного бюджету':'Менше 70% денного бюджету'}"></span><span class="spent-value">${money(spent)}</span>`;
+ el.innerHTML=`<span class="spent-label">Сьогодні витрачено</span> <span class="spent-dot${high?' high':''}" aria-label="${high?'Понад 70% денного бюджету':'Менше 70% денного бюджету'}"></span> <span class="spent-value">${money(spent)}</span>`;
 }
 
 const formatDate=iso=>{const d=parseDate(iso);return d?new Intl.DateTimeFormat('uk-UA',{day:'numeric',month:'short',year:'numeric'}).format(d):'—'};
@@ -769,9 +804,9 @@ function renderHome(){
  const d=calcDaily(),today=todayISO(),month=monthStart();
  $('todayLabel').textContent=new Intl.DateTimeFormat('uk-UA',{weekday:'long',day:'numeric',month:'long'}).format(new Date());
  const includedAccounts=state.accounts.filter(a=>a.includeInBudget!==false).length;$('headerBalance').textContent=`${includedAccounts} рах. у бюджеті`;
- $('availableToday').textContent=money(d.available);$('dailyPlanText').textContent=`Денний бюджет: ${money(d.dailyPlan)}`;
+ $('availableToday').innerHTML=heroMoney(d.available);$('dailyPlanText').textContent=`Денний бюджет: ${money(d.dailyPlan)}`;
  $('nextIncomeText').textContent=`До надходження: ${d.days} ${d.days===1?'день':d.days<5?'дні':'днів'}`;
- updateSpentTodayBadge(money(d.spentToday), Number($('dailyBudgetAmount')?.dataset?.value||0));
+ updateSpentTodayBadge(d.spentToday, d.dailyPlan);
  const pct=d.dailyPlan>0?Math.min(100,d.spentToday/d.dailyPlan*100):0;$('progressFill').style.width=`${pct}%`;$('progress').setAttribute('aria-valuenow',String(Math.round(pct)));
  $('currentBalance').textContent=money(d.balance);$('totalExpenses').textContent=money(sumTransactions('expense',{from:month,to:today}));
  const tx=[...state.transactions].sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
