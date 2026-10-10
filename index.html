@@ -506,6 +506,22 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
 .category-header,.category-label,.category-name{display:flex;align-items:center;gap:.5rem}
 .category-header svg,.category-label svg,.category-name svg{width:1.35rem;height:1.35rem;flex:0 0 1.35rem}
 
+
+/* Finday v13 refinements */
+#availableToday .currency-unit{font-size:.48em!important;opacity:.72!important;vertical-align:.12em;letter-spacing:-.02em}
+.brand-tagline{color:#62577b!important;font-weight:650!important}
+:root[data-theme="dark"] .brand-tagline{color:#c8bfdc!important}
+.spent-today{display:flex!important;width:100%;box-sizing:border-box;justify-content:flex-start;margin:.15rem 0 1rem!important;padding:.8rem 1rem!important;border-radius:1rem!important;font-size:.95rem!important}
+#currentBalance{color:#15976b!important}
+#currentBalance.negative-balance{color:#c6535c!important}
+#totalExpenses{color:#c6535c!important}
+:root[data-theme="dark"] #currentBalance{color:#5ee0ad!important}
+:root[data-theme="dark"] #currentBalance.negative-balance,:root[data-theme="dark"] #totalExpenses{color:#ff829a!important}
+.transaction-icon{align-self:stretch!important;width:100%!important;height:auto!important;min-height:3.1rem;padding:.45rem!important;box-sizing:border-box;border-radius:.9rem!important}
+.transaction-icon svg{width:100%!important;height:100%!important;max-width:2.2rem;max-height:2.2rem;stroke-width:2!important}
+.transaction-title{font-size:clamp(1.08rem,3.3vw,1.18rem)!important;font-weight:800!important}
+@media(max-width:520px){.transaction-icon{min-height:2.8rem;padding:.35rem!important}.transaction-icon svg{max-width:1.9rem;max-height:1.9rem}.spent-today{padding:.72rem .85rem!important}}
+
 </style>
 </head>
 <body>
@@ -526,8 +542,8 @@ button,.panel,.metric,.transaction,.account-card,.hero,.account-total,.modal{tra
       <div class="hero-amount" id="availableToday">0 грн</div>
       <div class="hero-meta"><span id="dailyPlanText">Денний бюджет: 0 грн</span><span id="nextIncomeText">До надходження: —</span></div>
       <div class="progress" id="progress" role="progressbar" aria-label="Використано денного бюджету" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="spent-today" id="spentTodayText">Сьогодні витрачено 0 грн</div>
     </section>
+    <div class="spent-today" id="spentTodayText">Сьогодні витрачено 0 грн</div>
     <section class="stats">
       <div class="panel"><div class="muted">Баланс у бюджеті</div><div class="stat-value" id="currentBalance">0 грн</div></div>
       <div class="panel expense-month-panel">
@@ -863,7 +879,7 @@ function renderHome(){
  $('nextIncomeText').textContent=`До надходження: ${d.days} ${d.days===1?'день':d.days<5?'дні':'днів'}`;
  updateSpentTodayBadge(d.spentToday,d.dailyPlan); updateProgressColor(d.spentToday,d.dailyPlan);
  const pct=d.dailyPlan>0?Math.min(100,d.spentToday/d.dailyPlan*100):0;$('progressFill').style.width=`${pct}%`;$('progress').setAttribute('aria-valuenow',String(Math.round(pct)));
- $('currentBalance').textContent=money(d.balance);$('totalExpenses').textContent=money(sumTransactions('expense',{from:month,to:today}));
+ $('currentBalance').textContent=money(d.balance);$('currentBalance').classList.toggle('negative-balance',Number(d.balance)<0);$('totalExpenses').textContent=money(sumTransactions('expense',{from:month,to:today}));
  const tx=[...state.transactions].sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
  renderTransactionList('transactionsList',tx,5);
 }
